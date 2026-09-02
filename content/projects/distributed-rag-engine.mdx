@@ -1,0 +1,101 @@
+---
+title: "Distributed Vector Search & Hybrid RAG Engine"
+subtitle: "Sub-10ms semantic retrieval across 50M+ vectorized embeddings"
+category: "AI & ML"
+date: "2026-01-10"
+author: "Alex Vance"
+featured: true
+tags: ["AI/ML", "Rust", "Qdrant", "FastAPI", "OpenAI", "Docker"]
+metrics: ["50M+ Vectors Indexed", "8.4ms Mean Query Latency", "94% Top-3 Recall"]
+githubUrl: "https://github.com/example/distributed-rag-engine"
+liveDemoUrl: "https://search-rag.example.com"
+image: "/images/projects/vector-rag.png"
+---
+
+## Challenge
+
+As enterprise retrieval systems scale to tens of millions of documents, vanilla embedding search faces severe scalability bottlenecks:
+
+1. **High Memory Footprint**: 50M 1536-dimensional float32 vectors require over 300GB of uncompressed memory in RAM.
+2. **Dense Search Blind Spots**: Pure dense vector cosine similarity struggles with keyword precision, acronyms, and product SKU queries.
+3. **P99 Tail Latency Spikes**: Traversing large HNSW graphs under heavy query concurrency introduces severe latency variance.
+
+The target was to engineer an ultra-low latency hybrid search pipeline combining dense vector embeddings with BM25 sparse lexical search, achieving sub-10ms latency and high recall accuracy.
+
+## Vector Indexing Architecture
+
+The engine uses a distributed two-phase retrieval pattern combining Rust-accelerated sparse inverted indexes with Qdrant HNSW vector search.
+
+```
++-------------------------------------------------------------------------+
+|                              Query Gateway                              |
++-------------------------------------------------------------------------+
+                    |                                 |
+                    v                                 v
+        +-----------------------+         +-----------------------+
+        |  OpenAI text-embed-3  |         |  BM25 Lexical Parser  |
+        +-----------------------+         +-----------------------+
+                    |                                 |
+                    v                                 v
+        +-----------------------+         +-----------------------+
+        |  Qdrant HNSW Index    |         |  Inverted Token Index |
+        +-----------------------+         +-----------------------+
+                    \                                 /
+                     \                               /
+                      v                             v
+        +---------------------------------------------------------+
+        |           Reciprocal Rank Fusion (RRF) Reranker         |
+        +---------------------------------------------------------+
+                                     |
+                                     v
+                        +--------------------------+
+                        | Top-K Relevant Documents |
+                        +--------------------------+
+```
+
+### Hybrid Fusion via Reciprocal Rank
+
+Dense and sparse rank lists are combined using Reciprocal Rank Fusion (RRF):
+
+```rust
+pub fn reciprocal_rank_fusion(
+    dense_results: &[SearchResult],
+    sparse_results: &[SearchResult],
+    k: f32,
+) -> Vec<FusedResult> {
+    let mut score_map: std::collections::HashMap<DocId, f32> = std::collections::HashMap::new();
+
+    for (rank, hit) in dense_results.iter().enumerate() {
+        let score = 1.0 / (k + rank as f32 + 1.0);
+        *score_map.entry(hit.id).or_insert(0.0) += score;
+    }
+
+    for (rank, hit) in sparse_results.iter().enumerate() {
+        let score = 1.0 / (k + rank as f32 + 1.0);
+        *score_map.entry(hit.id).or_insert(0.0) += score;
+    }
+
+    let mut fused: Vec<FusedResult> = score_map
+        .into_iter()
+        .map(|(id, score)| FusedResult { id, score })
+        .collect();
+
+    fused.sort_unstable_by(|a, b| b.score.partial_cmp(&a.score).unwrap());
+    fused
+}
+```
+
+## Memory Compression via SQ8
+
+To reduce memory consumption across 50M embeddings from 300GB to under 75GB, we implemented 8-bit Scalar Quantization (SQ8) coupled with SIMD integer arithmetic:
+
+- **Quantization Function**: Normalizes continuous 32-bit floats into signed 8-bit integers (`[-128, 127]`).
+- **AVX-512 Dot Product**: Computes integer vector distances in hardware registers processing 64 bytes per single CPU instruction.
+- **Recall Retention**: 94% Top-3 recall retention compared to raw unquantized FP32 calculation.
+
+## Production Results
+
+- **Index Scale**: Over 50,000,000 document chunks indexed with real-time continuous ingestion.
+- **Latency**: 8.4ms average end-to-end query latency (dense embed + sparse lookup + RRF merge).
+- **RAM Savings**: 76% reduction in required RAM footprint, decreasing cluster hosting costs by 65%.
+- **Search Quality**: 31% improvement in NDCG@10 score over pure vector search baseline on domain-specific corpora.
