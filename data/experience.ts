@@ -5,7 +5,7 @@ export interface ExperienceItem {
   companyUrl?: string;
   location: string;
   period: string;
-  type: "Full-time" | "Contract" | "Leadership" | "Advisory";
+  type: "Full-time" | "Contract" | "Leadership" | "Advisory" | "Freelance";
   current?: boolean;
   description: string;
   achievements: string[];
@@ -14,75 +14,73 @@ export interface ExperienceItem {
 
 export const EXPERIENCES: ExperienceItem[] = [
   {
-    id: "lead-ai-systems-architect",
-    role: "Lead AI & Systems Architect",
-    company: "Autonomous Scale Labs",
+    id: "lead-fullstack-engineer",
+    role: "Lead Full-Stack Web Developer",
+    company: "Digital Inovasi Studio",
     companyUrl: "https://example.com",
-    location: "San Francisco, CA (Remote)",
-    period: "2023 — Present",
+    location: "Indonesia (Remote / Hybrid)",
+    period: "2023 — Sekarang",
     type: "Full-time",
     current: true,
     description:
-      "Directing core architecture for multi-agent reasoning systems, high-throughput model serving pipelines, and edge inference runtimes serving 10M+ monthly users.",
+      "Memimpin arsitektur aplikasi web full-stack, perancangan RESTful API terintegrasi, dan pengembangan dashboard interaktif berbasis Vue.js & React/Next.js.",
     achievements: [
-      "Engineered an autonomous agent orchestration graph handling 100k+ concurrent user sessions with 99.9% state execution reliability.",
-      "Spearheaded hybrid vector search engine in Rust and Qdrant, dropping P99 retrieval latency from 180ms to 8.4ms across 50M document embeddings.",
-      "Designed real-time telemetry pipeline consuming 50k events/sec into ClickHouse with automated anomaly detection.",
-      "Mentored a team of 8 senior full-stack and machine learning engineers across async code reviews and architectural RFDs.",
+      "Mengembangkan platform ERP & CRM berbasis Laravel dan Inertia Vue 3 yang mempercepat alur operasional klien hingga 40%.",
+      "Mengoptimalkan query database PostgreSQL/MySQL dan Redis caching sehingga memangkas waktu load endpoint API dari 850ms ke <90ms.",
+      "Membangun reusable UI component system dengan Tailwind CSS dan TypeScript untuk meningkatkan konsistensi dan kecepatan sprint tim developer.",
+      "Mengimplementasikan pipeline CI/CD otomatis via GitHub Actions dan containerized deployment dengan Docker.",
     ],
-    techStack: ["LangGraph", "Python", "Rust", "Next.js 15", "Go", "Qdrant", "Redis", "Kafka", "Kubernetes"],
+    techStack: ["Laravel", "Vue.js", "Inertia.js", "React", "Next.js", "TypeScript", "Tailwind CSS", "MySQL", "PostgreSQL", "Docker", "Redis"],
   },
   {
-    id: "senior-backend-engineer",
-    role: "Senior Distributed Systems Engineer",
-    company: "Nexus Financial Technologies",
+    id: "senior-frontend-developer",
+    role: "Senior Frontend & Web Developer",
+    company: "Nusantara Tech Solusindo",
     companyUrl: "https://example.com",
-    location: "New York, NY",
+    location: "Jakarta, Indonesia",
     period: "2021 — 2023",
     type: "Full-time",
     description:
-      "Architected fault-tolerant transactional settlement gateways and high-velocity market event streaming pipelines with strict sub-millisecond SLAs.",
+      "Bertanggung jawab atas arsitektur frontend frontend-heavy client applications, migrasi ke Next.js & Vue 3, serta integrasi REST API real-time.",
     achievements: [
-      "Built Go event ingestion service processing $200M+ in daily transaction volume with zero message loss and exactly-once semantics.",
-      "Optimized PostgreSQL query plans, connection pooling, and table partitioning, reducing DB CPU load by 42% during market open spikes.",
-      "Implemented comprehensive eBPF network tracing and Prometheus alerts, identifying microservice bottlenecks before customer impact.",
-      "Led containerization and migration of 14 legacy services onto Kubernetes with zero-downtime rolling deployments.",
+      "Memimpin migrasi web portal legacy ke Next.js (App Router) & Tailwind CSS, meningkatkan skor Google Core Web Vitals (LCP < 1.2s, Skor 98+).",
+      "Mengembangkan sistem POS & E-Commerce SPA berbasis Vue 3 (Pinia) dengan integrasi payment gateway Midtrans dan Xendit.",
+      "Mengurangi ukuran bundle JavaScript sebesar 35% melalui code-splitting cerdas dan dynamic imports.",
+      "Berkolaborasi erat dengan Product Manager dan UI/UX Designer untuk menerjemahkan wireframe Figma menjadi kode modular siap produksi.",
     ],
-    techStack: ["Go", "PostgreSQL", "Apache Kafka", "Docker", "Kubernetes", "gRPC", "Prometheus", "AWS"],
+    techStack: ["Vue.js", "Nuxt.js", "React", "Next.js", "TypeScript", "Tailwind CSS", "REST API", "Pinia", "Zustand"],
   },
   {
-    id: "full-stack-engineer",
-    role: "Full-Stack Software Engineer",
-    company: "Hyperion Digital Products",
+    id: "full-stack-web-developer",
+    role: "Full-Stack Web Developer",
+    company: "Kreasi Media Solusi",
     companyUrl: "https://example.com",
-    location: "Austin, TX",
-    period: "2019 — 2021",
+    location: "Bandung, Indonesia",
+    period: "2020 — 2021",
     type: "Full-time",
     description:
-      "Developed high-traffic collaborative SaaS web applications, responsive component design systems, and real-time interactive dashboards.",
+      "Membangun aplikasi web berbasis Laravel dan JavaScript modern untuk berbagai klien industri enterprise, pendidikan, dan UMKM.",
     achievements: [
-      "Shipped collaborative multi-user canvas editor with WebSockets and CRDTs delivering fluid 60 FPS interactions under heavy load.",
-      "Refactored frontend codebase to Next.js and TypeScript, improving Core Web Vitals (LCP reduced by 60%, CLS to 0).",
-      "Created reusable UI component library adopted across 4 core product teams, speeding feature delivery by 35%.",
-      "Automated CI/CD pipelines with GitHub Actions, reducing deployment cycle times from 45 minutes to under 5 minutes.",
+      "Merancang dan mendeploy 15+ website dan web application kustom menggunakan Laravel, Blade, Vue.js, dan MySQL.",
+      "Membangun modul autentikasi role-based access control (RBAC) dan custom reporting engine dengan export Excel/PDF.",
+      "Mengintegrasikan layanan third-party seperti SMS/WhatsApp Gateway, Mailgun, dan Cloud Storage (S3 / Cloudinary).",
     ],
-    techStack: ["TypeScript", "React", "Next.js", "Node.js", "Tailwind CSS", "WebSockets", "Redis", "PostgreSQL"],
+    techStack: ["Laravel", "PHP", "Vue.js", "JavaScript", "Bootstrap", "Tailwind CSS", "MySQL", "Git"],
   },
   {
-    id: "systems-software-consultant",
-    role: "Open Source Systems Contributor & Consultant",
-    company: "Independent / Core Engineering",
-    companyUrl: "https://github.com",
+    id: "freelance-web-consultant",
+    role: "Freelance Web Developer & Consultant",
+    company: "Self-Employed",
+    companyUrl: "https://github.com/laxcyyfa",
     location: "Remote",
-    period: "2018 — 2019",
-    type: "Contract",
+    period: "2019 — 2020",
+    type: "Freelance",
     description:
-      "Consulted for high-growth tech startups on API performance optimization, caching strategies, and database architecture.",
+      "Menyediakan jasa konsultasi dan pengembangan website kustom, landing page performa tinggi, dan perbaikan performa website klien.",
     achievements: [
-      "Audited and optimized database queries and Redis caching for a consumer mobile app, saving 55% in cloud infrastructure bills.",
-      "Contributed bug fixes and performance enhancements to open-source distributed storage and CLI developer toolkits.",
-      "Published technical guides on zero-allocation Go patterns and concurrent state machines with 100k+ total views.",
+      "Menyelesaikan 20+ proyek website company profile, landing page, dan sistem inventaris untuk berbagai klien UMKM dan startup lokal.",
+      "Membantu klien meningkatkan SEO on-page dan page speed performance hingga mencapai skor hijau Google Lighthouse.",
     ],
-    techStack: ["Go", "Python", "Redis", "Docker", "Linux", "Git", "SQL"],
+    techStack: ["Laravel", "Vue.js", "PHP", "JavaScript", "HTML/CSS", "WordPress", "MySQL"],
   },
 ];

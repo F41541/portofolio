@@ -73,7 +73,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
       description: data.description || "",
       date: data.date || new Date().toISOString().split("T")[0],
       tags: Array.isArray(data.tags) ? data.tags : [],
-      author: data.author || "Alex Vance",
+      author: data.author || "M. Faisal Fahri",
       image: data.image || undefined,
       featured: Boolean(data.featured),
     };
@@ -125,6 +125,4 @@ export function getAllBlogTags(): { tag: string; count: number }[] {
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
-
-export * from "./projects";
 

@@ -24,18 +24,18 @@ export const LatestArticles: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Badge variant="emerald" dot>
-                Technical Writing
+                Tulisan &amp; Catatan Teknis
               </Badge>
               <span className="text-xs font-mono text-text-muted flex items-center gap-1">
                 <BookOpen className="w-3.5 h-3.5 text-accent-cyan" />
-                Latest Publications
+                Publikasi Terbaru
               </span>
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary">
-              Articles & Research
+              Artikel &amp; Riset Rekayasa Web
             </h2>
             <p className="mt-2 text-text-secondary text-sm md:text-base max-w-xl">
-              Deep dives into systems architecture, distributed state, performance profiling, and AI runtime infrastructure.
+              Ulasan mendalam tentang arsitektur sistem, optimasi performa web modern, database relasional, dan best practices pengembangan web.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export const LatestArticles: React.FC = () => {
             href="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-accent-emerald hover:text-emerald-300 transition-colors group"
           >
-            <span>View all articles</span>
+            <span>Lihat semua artikel</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

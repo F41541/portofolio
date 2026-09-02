@@ -20,17 +20,17 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 
 export type ProjectScope =
-  | "ai-agent"
-  | "fullstack"
-  | "cloud-infra"
-  | "advisory";
+  | "laravel-fullstack"
+  | "frontend-modern"
+  | "api-backend"
+  | "consultation";
 
 export type BudgetRange =
-  | "under-5k"
-  | "5k-15k"
-  | "15k-50k"
-  | "50k-plus"
-  | "advisory-retainer";
+  | "under-5jt"
+  | "5jt-15jt"
+  | "15jt-50jt"
+  | "50jt-plus"
+  | "monthly-retainer";
 
 interface FormData {
   name: string;
@@ -48,41 +48,41 @@ interface FormErrors {
 
 const SCOPE_OPTIONS: { id: ProjectScope; label: string; desc: string }[] = [
   {
-    id: "ai-agent",
-    label: "AI / Agent System",
-    desc: "Autonomous LLM workflows, RAG & vector memory",
+    id: "laravel-fullstack",
+    label: "Full-Stack Web App",
+    desc: "Laravel 11, Inertia.js, Vue 3 / React & arsitektur database",
   },
   {
-    id: "fullstack",
-    label: "Full-Stack Architecture",
-    desc: "Production Next.js, Go/Python APIs & distributed state",
+    id: "frontend-modern",
+    label: "Modern Frontend / SPA",
+    desc: "Next.js 15, React 19, Vue/Nuxt 3, Tailwind & TypeScript",
   },
   {
-    id: "cloud-infra",
-    label: "Cloud / Infra Scaling",
-    desc: "Kubernetes, eBPF telemetry, high-throughput pipelines",
+    id: "api-backend",
+    label: "RESTful API & Integration",
+    desc: "Payment gateway, third-party webhook, microservices & Redis",
   },
   {
-    id: "advisory",
-    label: "Consultation / Advisory",
-    desc: "Architectural audits, team mentorship & tech strategy",
+    id: "consultation",
+    label: "Konsultasi & Refactoring",
+    desc: "Optimasi query, audit performa web & perbaikan arsitektur",
   },
 ];
 
 const BUDGET_OPTIONS: { id: BudgetRange; label: string }[] = [
-  { id: "under-5k", label: "< $5k (Small Sprint / Audit)" },
-  { id: "5k-15k", label: "$5k - $15k (Core Feature / MVP)" },
-  { id: "15k-50k", label: "$15k - $50k (Full System Architecture)" },
-  { id: "50k-plus", label: "$50k+ (Enterprise Multi-Month Build)" },
-  { id: "advisory-retainer", label: "Advisory / Retainer (Monthly)" },
+  { id: "under-5jt", label: "< Rp 5 Juta (Landing Page / Fitur Kecil)" },
+  { id: "5jt-15jt", label: "Rp 5 Juta - Rp 15 Juta (MVP / Sistem Menengah)" },
+  { id: "15jt-50jt", label: "Rp 15 Juta - Rp 50 Juta (Full Web Application)" },
+  { id: "50jt-plus", label: "Rp 50 Juta+ (Sistem Enterprise Multi-Modul)" },
+  { id: "monthly-retainer", label: "Maintenance / Monthly Retainer" },
 ];
 
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = React.useState<FormData>({
     name: "",
     email: "",
-    scope: "ai-agent",
-    budget: "15k-50k",
+    scope: "laravel-fullstack",
+    budget: "5jt-15jt",
     message: "",
   });
 
@@ -97,18 +97,18 @@ export const ContactForm: React.FC = () => {
   const validateField = (name: keyof FormData, value: string): string | undefined => {
     switch (name) {
       case "name":
-        if (!value.trim()) return "Full name is required";
-        if (value.trim().length < 2) return "Name must be at least 2 characters";
+        if (!value.trim()) return "Nama lengkap wajib diisi";
+        if (value.trim().length < 2) return "Nama minimal 2 karakter";
         return undefined;
       case "email":
-        if (!value.trim()) return "Email address is required";
+        if (!value.trim()) return "Alamat email wajib diisi";
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address (e.g. name@domain.com)";
+          return "Format email tidak valid (contoh: nama@domain.com)";
         return undefined;
       case "message":
-        if (!value.trim()) return "Project description is required";
+        if (!value.trim()) return "Deskripsi proyek wajib diisi";
         if (value.trim().length < 15)
-          return `Please provide a bit more detail (${value.trim().length}/15 chars min)`;
+          return `Berikan deskripsi lebih detail (${value.trim().length}/15 karakter min)`;
         return undefined;
       default:
         return undefined;
@@ -157,12 +157,11 @@ export const ContactForm: React.FC = () => {
     setSubmissionError(null);
 
     try {
-      // Simulate real network submission with realistic latency
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setIsSuccess(true);
     } catch {
       setSubmissionError(
-        "Transmission failed. Please try again or reach out directly at alex@engineer.dev"
+        "Gagal mengirim pesan. Silakan coba lagi atau hubungi via email langsung di faisal.fahri@example.com"
       );
     } finally {
       setIsSubmitting(false);
@@ -173,8 +172,8 @@ export const ContactForm: React.FC = () => {
     setFormData({
       name: "",
       email: "",
-      scope: "ai-agent",
-      budget: "15k-50k",
+      scope: "laravel-fullstack",
+      budget: "5jt-15jt",
       message: "",
     });
     setErrors({});
@@ -197,7 +196,7 @@ export const ContactForm: React.FC = () => {
             exit={{ opacity: 0, scale: 0.95 }}
             className="py-10 sm:py-14 text-center space-y-6"
           >
-            {/* Emerald check icon with pulse animation */}
+            {/* Emerald check icon */}
             <div className="relative inline-flex items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
                 <CheckCircle2 className="w-8 h-8" />
@@ -212,22 +211,21 @@ export const ContactForm: React.FC = () => {
 
             <div className="space-y-2 max-w-md mx-auto">
               <h3 className="text-2xl font-bold text-text-primary tracking-tight">
-                Message Dispatched!
+                Pesan Berhasil Terkirim!
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Thank you for reaching out,{" "}
+                Terima kasih,{" "}
                 <span className="font-semibold text-text-primary">
                   {formData.name}
                 </span>
-                . Your inquiry has been routed to my direct inbox. I will review
-                your project scope and reply within 24 hours.
+                . Pesan Anda telah diterima. Saya akan meninjau rincian proyek Anda dan membalas dalam waktu &lt; 24 jam.
               </p>
             </div>
 
             {/* Summary Box */}
             <div className="p-4 rounded-xl bg-surface-elevated/70 border border-border-subtle text-left max-w-md mx-auto space-y-2 font-mono text-xs text-text-muted">
               <div className="flex justify-between">
-                <span>Sender:</span>
+                <span>Pengirim:</span>
                 <span className="text-text-primary">{formData.email}</span>
               </div>
               <div className="flex justify-between">
@@ -237,14 +235,8 @@ export const ContactForm: React.FC = () => {
                 </span>
               </div>
               <div className="flex justify-between">
-                <span>Budget:</span>
+                <span>Estimasi Budget:</span>
                 <span className="text-cyan-400">{formData.budget}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Timestamp:</span>
-                <span className="text-text-secondary">
-                  {new Date().toISOString()}
-                </span>
               </div>
             </div>
 
@@ -256,7 +248,7 @@ export const ContactForm: React.FC = () => {
                 className="font-mono text-xs"
               >
                 <RefreshCcw className="w-3.5 h-3.5 mr-2" />
-                Send Another Message
+                Kirim Pesan Lain
               </Button>
             </div>
           </motion.div>
@@ -274,14 +266,13 @@ export const ContactForm: React.FC = () => {
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                Direct Inquiry Channel
+                Formulir Kontak
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
-                Tell Me About Your Project
+                Ceritakan Kebutuhan Proyek Anda
               </h3>
               <p className="text-xs sm:text-sm text-text-secondary">
-                Fill out the form below or pick a specific scope to receive a tailored
-                technical proposal.
+                Isi form di bawah ini untuk mendiskusikan kebutuhan arsitektur sistem, timeline, dan penawaran teknis.
               </p>
             </div>
 
@@ -290,11 +281,11 @@ export const ContactForm: React.FC = () => {
               <div className="space-y-1.5">
                 <label className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5 text-emerald-400" />
-                  Your Name <span className="text-emerald-400">*</span>
+                  Nama Lengkap <span className="text-emerald-400">*</span>
                 </label>
                 <Input
                   type="text"
-                  placeholder="e.g. Satoshi Nakamoto"
+                  placeholder="Contoh: Budi Santoso"
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   onBlur={() => handleBlur("name")}
@@ -315,11 +306,11 @@ export const ContactForm: React.FC = () => {
               <div className="space-y-1.5">
                 <label className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-cyan-400" />
-                  Email Address <span className="text-emerald-400">*</span>
+                  Alamat Email <span className="text-emerald-400">*</span>
                 </label>
                 <Input
                   type="email"
-                  placeholder="e.g. name@company.com"
+                  placeholder="nama@perusahaan.com"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   onBlur={() => handleBlur("email")}
@@ -342,7 +333,7 @@ export const ContactForm: React.FC = () => {
             <div className="space-y-2">
               <label className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-emerald-400" />
-                Project Scope / Primary Need
+                Lingkup Proyek / Kebutuhan
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {SCOPE_OPTIONS.map((opt) => {
@@ -381,7 +372,7 @@ export const ContactForm: React.FC = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
                 <DollarSign className="w-3.5 h-3.5 text-cyan-400" />
-                Estimated Budget Range
+                Estimasi Anggaran
               </label>
               <div className="relative">
                 <select
@@ -415,15 +406,15 @@ export const ContactForm: React.FC = () => {
               <div className="flex items-center justify-between">
                 <label className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
                   <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-                  Project Details & Goals <span className="text-emerald-400">*</span>
+                  Rincian &amp; Tujuan Proyek <span className="text-emerald-400">*</span>
                 </label>
                 <span className="text-[11px] font-mono text-text-muted">
-                  {formData.message.length} chars
+                  {formData.message.length} karakter
                 </span>
               </div>
               <Textarea
                 rows={4}
-                placeholder="Tell me about your architecture, current bottlenecks, desired timeline, or key technical challenges..."
+                placeholder="Ceritakan gambaran sistem yang ingin dibangun, fitur utama, target timeline, atau tantangan teknis saat ini..."
                 value={formData.message}
                 onChange={(e) => handleChange("message", e.target.value)}
                 onBlur={() => handleBlur("message")}
@@ -461,22 +452,16 @@ export const ContactForm: React.FC = () => {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Transmitting Inquiry...
+                    Mengirim Pesan...
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    Send Transmission
+                    Kirim Pesan
                   </>
                 )}
               </Button>
             </div>
-
-            {/* Trust disclaimer */}
-            <p className="text-center text-[11px] font-mono text-text-muted">
-              🔒 Encrypted transmission. All communications are strictly
-              confidential under mutual NDA upon request.
-            </p>
           </motion.form>
         )}
       </AnimatePresence>

@@ -13,13 +13,13 @@ export interface ProjectsIndexClientProps {
   categories: { category: string; count: number }[];
 }
 
-const PRESET_TABS = ["All", "AI & ML", "Distributed Systems", "Full-Stack"];
+const PRESET_TABS = ["Semua", "Full-Stack", "Frontend & SPA", "Backend & API", "Open Source"];
 
 export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
   projects,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
@@ -37,14 +37,16 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
         );
 
       const matchesCategory =
-        selectedCategory === "All" ||
+        selectedCategory === "Semua" ||
         frontmatter.category.toLowerCase() === selectedCategory.toLowerCase() ||
-        (selectedCategory === "AI & ML" &&
-          (frontmatter.category.includes("AI") || frontmatter.tags.some((t) => t.includes("AI") || t.includes("ML")))) ||
-        (selectedCategory === "Distributed Systems" &&
-          (frontmatter.category.includes("Distributed") || frontmatter.tags.some((t) => t.includes("Distributed")))) ||
         (selectedCategory === "Full-Stack" &&
-          (frontmatter.category.includes("Full-Stack") || frontmatter.tags.some((t) => t.includes("Full-Stack") || t.includes("React"))));
+          (frontmatter.category.includes("Full-Stack") || frontmatter.tags.some((t) => t.includes("Full-Stack") || t.includes("Laravel") || t.includes("Inertia")))) ||
+        (selectedCategory === "Frontend & SPA" &&
+          (frontmatter.category.includes("Frontend") || frontmatter.tags.some((t) => t.includes("Vue") || t.includes("React") || t.includes("Next.js")))) ||
+        (selectedCategory === "Backend & API" &&
+          (frontmatter.category.includes("Backend") || frontmatter.tags.some((t) => t.includes("API") || t.includes("PHP") || t.includes("Node")))) ||
+        (selectedCategory === "Open Source" &&
+          (frontmatter.category.includes("Open Source") || frontmatter.tags.some((t) => t.includes("Open Source"))));
 
       return matchesSearch && matchesCategory;
     });
@@ -57,19 +59,19 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Badge variant="emerald" dot>
-              Engineering Portfolio
+              Portofolio Proyek
             </Badge>
             <span className="text-xs font-mono text-text-muted flex items-center gap-1">
               <FolderGit2 className="w-3.5 h-3.5 text-accent-cyan" />
-              {projects.length} System Architectures
+              {projects.length} Arsitektur Aplikasi Web
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary">
-            Engineering Projects &amp; Systems
+            Proyek Rekayasa &amp; Aplikasi Web
           </h1>
           <p className="mt-4 text-base md:text-lg text-text-secondary leading-relaxed">
-            Production distributed systems, low-latency microservices, autonomous agent execution graphs, and high-performance WebAssembly runtimes.
+            Aplikasi web full-stack produksi, microservices RESTful API, integrasi payment gateway, dan sistem komponen UI interaktif performa tinggi.
           </p>
         </div>
 
@@ -80,7 +82,7 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
             <Input
               type="text"
-              placeholder="Search systems by architecture, tech stack (e.g. Rust, Kafka, LangGraph), or metrics..."
+              placeholder="Cari proyek berdasarkan teknologi (Laravel, Vue 3, Next.js, Redis, PostgreSQL)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 h-12 bg-surface-elevated/80 border-border-subtle focus:border-accent-emerald text-sm"
@@ -90,7 +92,7 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-mono text-text-muted hover:text-text-primary px-1.5 py-0.5 rounded bg-surface-ground"
               >
-                Clear
+                Hapus
               </button>
             )}
           </div>
@@ -99,7 +101,7 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
           <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border-subtle/50">
             <span className="text-xs font-mono text-text-muted flex items-center gap-1 mr-1">
               <Code2 className="w-3 h-3 text-accent-emerald" />
-              Domain:
+              Kategori:
             </span>
 
             {PRESET_TABS.map((tab) => {
@@ -119,13 +121,13 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
               );
             })}
 
-            {selectedCategory !== "All" && (
+            {selectedCategory !== "Semua" && (
               <button
-                onClick={() => setSelectedCategory("All")}
+                onClick={() => setSelectedCategory("Semua")}
                 className="ml-auto text-xs text-accent-emerald hover:underline flex items-center gap-1"
               >
                 <FilterX className="w-3 h-3" />
-                Reset category
+                Reset kategori
               </button>
             )}
           </div>
@@ -134,12 +136,12 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
         {/* Results Stats */}
         <div className="flex items-center justify-between mb-6 text-xs text-text-muted">
           <span>
-            Showing <strong className="text-text-primary">{filteredProjects.length}</strong> of {projects.length} systems
-            {selectedCategory !== "All" && (
-              <> in <span className="text-accent-emerald font-mono">[{selectedCategory}]</span></>
+            Menampilkan <strong className="text-text-primary">{filteredProjects.length}</strong> dari {projects.length} proyek
+            {selectedCategory !== "Semua" && (
+              <> dalam kategori <span className="text-accent-emerald font-mono">[{selectedCategory}]</span></>
             )}
             {searchQuery && (
-              <> matching &ldquo;<span className="text-accent-cyan">{searchQuery}</span>&rdquo;</>
+              <> yang cocok dengan &ldquo;<span className="text-accent-cyan">{searchQuery}</span>&rdquo;</>
             )}
           </span>
         </div>
@@ -154,18 +156,18 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
         ) : (
           <div className="py-16 text-center rounded-2xl border border-dashed border-border-subtle bg-surface-card/30">
             <Sparkles className="w-8 h-8 text-accent-emerald mx-auto mb-3 opacity-60" />
-            <h3 className="text-lg font-semibold text-text-primary">No matching projects found</h3>
+            <h3 className="text-lg font-semibold text-text-primary">Tidak ada proyek yang cocok</h3>
             <p className="mt-1 text-sm text-text-secondary">
-              Try adjusting your search terms or selecting a different domain category filter.
+              Coba gunakan kata kunci pencarian lain atau ubah filter kategori.
             </p>
             <button
               onClick={() => {
                 setSearchQuery("");
-                setSelectedCategory("All");
+                setSelectedCategory("Semua");
               }}
               className="mt-4 px-4 py-2 text-xs font-semibold text-accent-emerald bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-colors"
             >
-              Reset all filters
+              Reset semua filter
             </button>
           </div>
         )}

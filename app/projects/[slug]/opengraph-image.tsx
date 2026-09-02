@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
 
-export const alt = "Case Study | Alex Vance Systems Architecture";
+export const alt = "Case Study | M. Faisal Fahri Web Architecture";
 export const size = {
   width: 1200,
   height: 630,

@@ -72,16 +72,15 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="font-mono font-bold text-sm tracking-wider text-emerald-400 bg-surface-elevated px-2 py-1 rounded border border-border-subtle group-hover:border-emerald-500/50 transition-colors">
-                &lt;AX/&gt;
+                &lt;MFF/&gt;
               </div>
               <span className="font-semibold text-text-primary text-base tracking-tight">
-                Engineer<span className="text-emerald-400">.ai</span>
+                Faisal<span className="text-emerald-400">.dev</span>
               </span>
             </Link>
 
             <p className="text-sm text-text-secondary leading-relaxed max-w-sm">
-              Designing and implementing ultra-resilient distributed architectures,
-              real-time systems, and edge intelligence engines.
+              Membangun aplikasi web full-stack modern, performa tinggi, dan clean code dengan ekosistem Laravel, Vue, React, dan Next.js.
             </p>
 
             {/* Live timezone widget */}
@@ -108,7 +107,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
               <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-              Navigation
+              Navigasi
             </h3>
             <ul className="space-y-2">
               {NAV_ROUTES.map((route) => (
@@ -131,7 +130,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-3 space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-              Articles & Research
+              Artikel &amp; Tulisan
             </h3>
             <ul className="space-y-2.5">
               {BLOG_POSTS_DATA.slice(0, 3).map((post) => (
@@ -157,7 +156,7 @@ export const Footer: React.FC = () => {
           {/* Column 4: Social Connect (lg: 3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-text-muted">
-              Connect & Signals
+              Media Sosial &amp; Kontak
             </h3>
             <div className="space-y-2">
               {SOCIAL_LINKS.map((item) => (
@@ -188,16 +187,15 @@ export const Footer: React.FC = () => {
         {/* Bottom row */}
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
           <div className="font-mono text-center sm:text-left">
-            &copy; 2026 Built with{" "}
-            <span className="text-text-secondary font-semibold">Next.js 15</span>{" "}
+            &copy; 2026 <span className="text-text-primary font-semibold">M. Faisal Fahri</span>. Dibangun dengan{" "}
+            <span className="text-text-secondary font-semibold">Next.js 16</span>{" "}
             &amp;{" "}
             <span className="text-text-secondary font-semibold">Tailwind CSS</span>.
-            Designed for High Performance.
           </div>
           <div className="flex items-center gap-4 font-mono text-[11px]">
             <span className="inline-flex items-center gap-1 text-emerald-400">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              All systems operational
+              Semua sistem berjalan normal
             </span>
           </div>
         </div>

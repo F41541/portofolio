@@ -4,21 +4,21 @@ import { BlogIndexClient } from "@/components/blog/BlogIndexClient";
 import { BreadcrumbListJsonLd } from "@/components/seo";
 
 export const metadata: Metadata = {
-  title: "Articles & Research | Alex Vance",
+  title: "Artikel & Riset Rekayasa Web | M. Faisal Fahri",
   description:
-    "Engineering journals, distributed systems architecture, kernel telemetry, Next.js optimization, and production AI agent patterns.",
+    "Jurnal rekayasa perangkat lunak, optimasi performa web, artikel arsitektur Laravel, Vue, React, Next.js, dan best practices pengembangan web.",
   openGraph: {
-    title: "Articles & Research | Alex Vance",
+    title: "Artikel & Riset Rekayasa Web | M. Faisal Fahri",
     description:
-      "Deep dive articles on low-latency systems, AI agents, edge inference, and Next.js performance.",
-    type: "website",
-    url: "https://alexvance.dev/blog",
+      "Jurnal rekayasa perangkat lunak, optimasi performa web, artikel arsitektur Laravel, Vue, React, Next.js, dan best practices pengembangan web.",
+    url: "https://faisalfahri.dev/blog",
+    siteName: "Portofolio M. Faisal Fahri",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Articles & Research | Alex Vance",
+    title: "Artikel & Riset Rekayasa Web | M. Faisal Fahri",
     description:
-      "Deep dive articles on low-latency systems, AI agents, edge inference, and Next.js performance.",
+      "Jurnal rekayasa perangkat lunak, optimasi performa web, artikel arsitektur Laravel, Vue, React, Next.js, dan best practices pengembangan web.",
   },
 };
 
@@ -27,14 +27,14 @@ export default function BlogPage() {
   const tags = getAllBlogTags();
 
   return (
-    <>
+    <div className="flex-1 flex flex-col">
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://alexvance.dev" },
-          { name: "Blog", url: "https://alexvance.dev/blog" },
+          { name: "Beranda", url: "https://faisalfahri.dev" },
+          { name: "Artikel", url: "https://faisalfahri.dev/blog" },
         ]}
       />
       <BlogIndexClient posts={posts} tags={tags} />
-    </>
+    </div>
   );
 }

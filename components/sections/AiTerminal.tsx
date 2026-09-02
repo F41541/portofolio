@@ -58,16 +58,21 @@ export function AiTerminal() {
   const [historyIndex, setHistoryIndex] = React.useState<number>(-1);
   const [copied, setCopied] = React.useState(false);
 
-  const terminalEndRef = React.useRef<HTMLDivElement>(null);
+  const terminalBufferRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const isInitialMount = React.useRef(true);
 
   const scrollToBottom = () => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (terminalBufferRef.current) {
+      terminalBufferRef.current.scrollTop = terminalBufferRef.current.scrollHeight;
     }
   };
 
   React.useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     scrollToBottom();
   }, [history]);
 
@@ -169,10 +174,10 @@ export function AiTerminal() {
               <span>Interactive Command Shell</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary">
-              AI &amp; Systems Terminal
+              Web Dev Terminal
             </h2>
             <p className="text-sm text-text-secondary max-w-xl">
-              Query tech stack specifications, active projects, engineering background, or hiring availability directly from the CLI.
+              Cek spesifikasi tech stack, proyek aktif, pengalaman kerja, atau status ketersediaan proyek langsung melalui CLI interaktif.
             </p>
           </div>
 
@@ -213,10 +218,10 @@ export function AiTerminal() {
               <div className="flex items-center gap-2 pl-2 text-xs text-text-muted">
                 <TerminalIcon className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="hidden sm:inline text-text-secondary font-medium">
-                  alex@sys-core:~$ (nextjs-ai-env)
+                  faisal@dev-workspace:~$ (web-fullstack-env)
                 </span>
                 <span className="sm:hidden text-text-secondary font-medium">
-                  alex@sys-core
+                  faisal@dev
                 </span>
               </div>
             </div>
@@ -259,14 +264,17 @@ export function AiTerminal() {
           </div>
 
           {/* Terminal Content Buffer */}
-          <div className="p-4 sm:p-6 min-h-[340px] max-h-[500px] overflow-y-auto space-y-4 text-xs sm:text-sm leading-relaxed">
+          <div
+            ref={terminalBufferRef}
+            className="p-4 sm:p-6 min-h-[340px] max-h-[500px] overflow-y-auto space-y-4 text-xs sm:text-sm leading-relaxed"
+          >
             {/* Session Welcome Info */}
             <div className="text-text-muted space-y-1 pb-2 border-b border-border-subtle/40">
               <div className="text-emerald-400 font-semibold">
-                Alex Rivera Systems Shell v2.6.4 (x86_64-edge-linux-gnu)
+                M. Faisal Fahri Developer Shell v2.6.4 (linux-web-core)
               </div>
               <div>
-                Type <span className="text-cyan-400 font-semibold">&apos;help&apos;</span> to explore commands or click any chip above.
+                Ketik <span className="text-cyan-400 font-semibold">&apos;help&apos;</span> untuk melihat perintah atau klik chip di atas.
               </div>
             </div>
 
@@ -275,7 +283,7 @@ export function AiTerminal() {
               <div key={entry.id} className="space-y-2">
                 {/* Command prompt row */}
                 <div className="flex items-center gap-2 text-text-muted">
-                  <span className="text-emerald-400 font-bold">alex@sys:~$</span>
+                  <span className="text-emerald-400 font-bold">faisal@dev:~$</span>
                   <span className="text-text-primary font-semibold">{entry.command}</span>
                   <span className="text-[10px] text-text-muted ml-auto font-sans">
                     {entry.timestamp}
@@ -291,7 +299,7 @@ export function AiTerminal() {
 
             {/* Active Command Input Line */}
             <div className="flex items-center gap-2 pt-2">
-              <span className="text-emerald-400 font-bold whitespace-nowrap">alex@sys:~$</span>
+              <span className="text-emerald-400 font-bold whitespace-nowrap">faisal@dev:~$</span>
               <div className="relative flex-1 flex items-center">
                 <input
                   ref={inputRef}
@@ -299,7 +307,7 @@ export function AiTerminal() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Type a command (e.g. 'skills', 'hire', 'projects')..."
+                  placeholder="Ketik perintah (contoh: 'skills', 'projects', 'hire')..."
                   className="w-full bg-transparent text-text-primary placeholder:text-text-muted/60 focus:outline-none font-mono text-xs sm:text-sm py-0.5"
                   autoComplete="off"
                   autoCorrect="off"
@@ -315,8 +323,6 @@ export function AiTerminal() {
                 </button>
               </div>
             </div>
-
-            <div ref={terminalEndRef} />
           </div>
         </div>
       </Container>
@@ -500,15 +506,8 @@ function renderTerminalOutput(output: TerminalExecutionResult["output"]) {
                 {contact.linkedin}
               </a>
             </div>
-            <div className="flex items-center gap-2">
-              <Twitter className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-text-muted w-20">X / Twitter:</span>
-              <a href={contact.x} target="_blank" rel="noreferrer" className="text-text-primary hover:underline">
-                {contact.x}
-              </a>
-            </div>
             <div className="pt-1 text-[11px] text-text-muted">
-              Timezone: {contact.timezone}
+              Lokasi: {contact.location}
             </div>
           </div>
         </div>
@@ -521,7 +520,7 @@ function renderTerminalOutput(output: TerminalExecutionResult["output"]) {
         <div className="space-y-2 p-3 rounded-lg bg-surface-elevated/60 border border-border-subtle">
           <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
             <Cpu className="w-3.5 h-3.5" />
-            <span>Application System Architecture:</span>
+            <span>Application Tech Stack &amp; Architecture:</span>
           </div>
           <div className="space-y-1.5 text-xs">
             <div>
@@ -529,20 +528,20 @@ function renderTerminalOutput(output: TerminalExecutionResult["output"]) {
               <span className="text-text-secondary">{stack.runtime}</span>
             </div>
             <div>
-              <span className="text-cyan-400 font-semibold">AI &amp; ML Engines:</span>{" "}
-              <span className="text-text-secondary">{stack.ai_ml}</span>
+              <span className="text-cyan-400 font-semibold">Frontend:</span>{" "}
+              <span className="text-text-secondary">{stack.frontend_ecosystem}</span>
             </div>
             <div>
-              <span className="text-cyan-400 font-semibold">UI &amp; Design:</span>{" "}
-              <span className="text-text-secondary">{stack.styling}</span>
+              <span className="text-cyan-400 font-semibold">Backend:</span>{" "}
+              <span className="text-text-secondary">{stack.backend_stack}</span>
             </div>
             <div>
-              <span className="text-cyan-400 font-semibold">Backend Infrastructure:</span>{" "}
-              <span className="text-text-secondary">{stack.backend_infra}</span>
+              <span className="text-cyan-400 font-semibold">Database &amp; Cache:</span>{" "}
+              <span className="text-text-secondary">{stack.database_cache}</span>
             </div>
             <div>
-              <span className="text-cyan-400 font-semibold">Edge Deployment:</span>{" "}
-              <span className="text-text-secondary">{stack.hosting}</span>
+              <span className="text-cyan-400 font-semibold">DevOps &amp; Infra:</span>{" "}
+              <span className="text-text-secondary">{stack.devops_infra}</span>
             </div>
           </div>
         </div>

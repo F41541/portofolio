@@ -57,10 +57,10 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           aria-label="Home"
         >
           <div className="font-mono font-bold text-lg tracking-wider text-emerald-400 bg-surface-elevated px-2 py-0.5 rounded border border-border-subtle group-hover:border-emerald-500/50 transition-colors">
-            &lt;AX/&gt;
+            &lt;MFF/&gt;
           </div>
           <span className="font-semibold text-text-primary text-sm tracking-tight">
-            Engineer<span className="text-emerald-400">.ai</span>
+            Faisal<span className="text-emerald-400">.dev</span>
           </span>
         </Link>
 
@@ -84,11 +84,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span className="text-xs font-medium text-text-primary font-mono">
-              Status: Available for work
+              Status: Tersedia untuk proyek
             </span>
           </div>
           <Badge variant="emerald" className="text-[11px]">
-            Q1/Q2 2026
+            Aktif 2026
           </Badge>
         </div>
 
@@ -104,7 +104,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           >
             <span className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-emerald-400" />
-              Search or jump to...
+              Cari halaman atau proyek...
             </span>
             <kbd className="px-2 py-0.5 text-xs font-mono bg-surface-elevated border border-border-subtle rounded text-text-muted">
               ⌘K
@@ -115,7 +115,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         {/* Navigation list */}
         <div className="space-y-1">
           <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted px-2 pb-1">
-            Menu Navigation
+            Menu Navigasi
           </div>
           {NAV_ROUTES.map((route) => {
             const isActive = pathname === route.href;
@@ -155,7 +155,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           <Link href="/contact" onClick={onClose} className="w-full block">
             <Button variant="primary" size="lg" className="w-full gap-2">
               <Send className="w-4 h-4" />
-              Get in Touch
+              Kontak Saya
             </Button>
           </Link>
         </div>
@@ -163,7 +163,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         {/* Social Links */}
         <div className="pt-4 border-t border-border-subtle">
           <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted px-2 pb-2">
-            Social Connect
+            Media Sosial &amp; Kontak
           </div>
           <div className="grid grid-cols-2 gap-2">
             {SOCIAL_LINKS.map((social) => (

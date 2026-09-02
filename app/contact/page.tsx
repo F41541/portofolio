@@ -17,14 +17,14 @@ import { SOCIAL_LINKS } from "@/lib/navigation";
 import { BreadcrumbListJsonLd } from "@/components/seo";
 
 export const metadata: Metadata = {
-  title: "Contact & Collaboration | Alex Vance",
+  title: "Kontak & Kolaborasi | M. Faisal Fahri",
   description:
-    "Get in touch for architectural consulting, AI systems engineering leadership, and high-impact contract builds. Guaranteed 24-hour response SLA.",
+    "Hubungi M. Faisal Fahri untuk pembuatan aplikasi web full-stack, pengembangan frontend modern (Vue / React / Next.js), backend Laravel, atau konsultasi teknis.",
   openGraph: {
-    title: "Contact & Collaboration | Alex Vance",
+    title: "Kontak & Kolaborasi | M. Faisal Fahri",
     description:
-      "Available for select architectural consulting, AI engineering leadership, and high-impact contract builds.",
-    url: "https://alexvance.dev/contact",
+      "Tersedia untuk proyek full-stack web application, frontend modern, dan konsultasi teknis.",
+    url: "https://faisalfahri.dev/contact",
   },
 };
 
@@ -33,8 +33,8 @@ export default function ContactPage() {
     <div className="py-12 sm:py-16 lg:py-20 flex-1 flex flex-col">
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://alexvance.dev" },
-          { name: "Contact", url: "https://alexvance.dev/contact" },
+          { name: "Beranda", url: "https://faisalfahri.dev" },
+          { name: "Kontak", url: "https://faisalfahri.dev/contact" },
         ]}
       />
       <Container className="flex-1 flex flex-col justify-center">
@@ -44,15 +44,13 @@ export default function ContactPage() {
             Direct Transmission Channel
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary">
-            Let&apos;s Build Something{" "}
+            Mari Bangun Aplikasi Web{" "}
             <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              Extraordinary.
+              Impian Anda.
             </span>
           </h1>
           <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
-            Whether you are designing a high-throughput multi-agent AI system,
-            re-architecting distributed event pipelines, or looking for senior
-            engineering leadership — let&apos;s talk.
+            Apakah Anda membutuhkan full-stack web application berbasis Laravel + Vue/React, migrasi web ke Next.js 15, atau perancangan RESTful API terintegrasi — mari diskusikan bersama.
           </p>
         </div>
 
@@ -72,10 +70,10 @@ export default function ContactPage() {
                       Direct Email
                     </div>
                     <a
-                      href="mailto:alex@engineer.dev"
+                      href="mailto:faisal.fahri@example.com"
                       className="text-sm font-semibold text-text-primary hover:text-emerald-400 transition-colors font-mono"
                     >
-                      alex@engineer.dev
+                      faisal.fahri@example.com
                     </a>
                   </div>
                 </div>
@@ -87,7 +85,7 @@ export default function ContactPage() {
               <div className="pt-3 border-t border-border-subtle grid grid-cols-2 gap-3 text-xs font-mono">
                 <div className="flex items-center gap-2 text-text-secondary">
                   <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>SLA: &lt; 24h</span>
+                  <span>Respon: &lt; 24 Jam</span>
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <Globe2 className="w-3.5 h-3.5 text-cyan-400" />
@@ -96,7 +94,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Calendly Booking Card */}
+            {/* Quick Consultation Card */}
             <div className="p-6 rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-emerald-500/5 to-transparent space-y-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2.5">
@@ -105,52 +103,34 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-text-primary">
-                      Schedule 30-min Technical Intro
+                      Jadwalkan Diskusi Teknis
                     </h3>
                     <p className="text-xs text-text-muted mt-0.5">
-                      Direct calendar booking for architectural scoping
+                      Konsultasi langsung lingkup proyek & timeline
                     </p>
                   </div>
                 </div>
               </div>
 
               <p className="text-xs text-text-secondary leading-relaxed">
-                Prefer an instant video call? Pick an available slot directly on
-                Calendly to discuss requirements, architecture, or deliverables.
+                Ingin diskusi langsung via video call atau Google Meet? Jadwalkan sesi meeting untuk membahas kebutuhan arsitektur dan estimasi proyek Anda.
               </p>
 
               <a
-                href="https://calendly.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:faisal.fahri@example.com?subject=Undangan%20Diskusi%20Proyek"
                 className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold transition-colors"
               >
-                <span>Open Calendly Calendar</span>
+                <span>Kirim Undangan Meeting</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
-            </div>
-
-            {/* PGP Fingerprint & Security Box */}
-            <div className="p-6 rounded-2xl border border-border-subtle bg-surface-card space-y-3">
-              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-text-secondary uppercase tracking-wider">
-                <KeyRound className="w-3.5 h-3.5 text-cyan-400" />
-                PGP Security Fingerprint
-              </div>
-              <p className="text-xs text-text-muted">
-                For sensitive architectural audits, zero-knowledge disclosures,
-                or confidential inquiries:
-              </p>
-              <div className="p-3 rounded-lg bg-surface-ground border border-border-subtle font-mono text-[11px] text-emerald-400 break-all leading-relaxed select-all">
-                4A89 2F1E 99C3 B7D0 E421 88FA 109D 7C62 3B4E 99F1
-              </div>
             </div>
 
             {/* Social Signal Badges */}
             <div className="p-6 rounded-2xl border border-border-subtle bg-surface-card space-y-3">
               <div className="text-xs font-mono font-semibold text-text-muted uppercase tracking-wider">
-                Verified Profiles
+                Profil &amp; Media Sosial
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 gap-2">
                 {SOCIAL_LINKS.map((link) => (
                   <a
                     key={link.name}

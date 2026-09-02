@@ -31,160 +31,153 @@ export interface CareerItem {
 
 export const TERMINAL_PROJECTS: ProjectInfo[] = [
   {
-    name: "EdgeAI Inference Mesh",
-    slug: "edge-inference-mesh",
-    tagline: "Sub-50ms model serving cluster at the network edge with WebAssembly runtimes",
-    tags: ["Rust", "Wasm", "ONNX", "Kubernetes", "gRPC"],
-    metrics: "50k req/s, p99 < 42ms",
+    name: "Enterprise SaaS ERP & CRM",
+    slug: "modern-saas-erp-crm",
+    tagline: "Sistem ERP bisnis modular dengan arsitektur Laravel 11, Inertia, dan Vue 3",
+    tags: ["Laravel 11", "Vue 3", "Inertia.js", "PostgreSQL", "Redis"],
+    metrics: "250k+ tx/bln, p99 < 85ms",
   },
   {
-    name: "Autonomous Trading Engine",
-    slug: "autonomous-trading-engine",
-    tagline: "Low-latency algorithmic order router and risk engine handling real-time order books",
-    tags: ["C++", "Python", "ZeroMQ", "PostgreSQL", "WebSocket"],
-    metrics: "Sub-millisecond execution, 99.999% SLA",
+    name: "Next.js 15 E-Commerce Portal",
+    slug: "nextjs-ecommerce-portal",
+    tagline: "Toko online ultra cepat dengan Server Actions, App Router & Payment Gateway",
+    tags: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Midtrans"],
+    metrics: "Lighthouse 99/100, LCP 0.8s",
   },
   {
-    name: "Distributed Task Queue",
-    slug: "distributed-task-queue",
-    tagline: "High-throughput asynchronous task orchestrator with Raft consensus and priority queues",
-    tags: ["Go", "Redis", "Distributed Systems", "Protobuf"],
-    metrics: "10M+ daily events, zero data loss",
+    name: "RESTful API & Payment Hub",
+    slug: "rest-api-payment-gateway",
+    tagline: "Microservice routing pembayaran & webhook processing terpusat",
+    tags: ["Laravel", "PHP 8.3", "Node.js", "Redis", "MySQL", "Docker"],
+    metrics: "50k tx/day, zero loss",
   },
   {
-    name: "Realtime Telemetry & APM",
-    slug: "cloud-native-observability",
-    tagline: "Multi-tenant tracing pipeline streaming 100k+ events/sec with eBPF probes",
-    tags: ["TypeScript", "ClickHouse", "eBPF", "Kafka", "Grafana"],
-    metrics: "100k+ events/sec ingested, real-time dashboarding",
+    name: "Interactive UI Component Kit",
+    slug: "developer-ui-component-kit",
+    tagline: "Koleksi komponen UI modern & accessible untuk ekosistem Vue 3 & React",
+    tags: ["Vue 3", "React 19", "TypeScript", "Tailwind CSS"],
+    metrics: "40+ Components, 60 FPS",
   },
 ];
 
 export const TERMINAL_SKILLS: SkillCategory[] = [
   {
-    category: "AI & Machine Learning",
+    category: "Frontend & Web UI",
     items: [
-      { name: "LLM Agent Frameworks", notes: "LangChain, LlamaIndex, AutoGen" },
-      { name: "Model Fine-tuning & RAG", notes: "LoRA, QLoRA, Vector DBs (Pinecone, Qdrant)" },
-      { name: "Inference & Optimization", notes: "vLLM, TensorRT, ONNX, Ollama" },
-      { name: "Core ML Tools", notes: "PyTorch, Hugging Face, Scikit-learn" },
-    ],
-  },
-  {
-    category: "Backend & Distributed Systems",
-    items: [
-      { name: "Languages", notes: "TypeScript, Python, Go, Rust" },
-      { name: "Frameworks & Protocols", notes: "Node.js, FastAPI, gRPC, GraphQL, WebSocket" },
-      { name: "Data Stores", notes: "PostgreSQL, Redis, ClickHouse, MongoDB" },
-      { name: "Streaming & Queues", notes: "Apache Kafka, RabbitMQ, BullMQ" },
-    ],
-  },
-  {
-    category: "Cloud, DevOps & Infra",
-    items: [
-      { name: "Container & Orchestration", notes: "Docker, Kubernetes, Helm" },
-      { name: "Cloud Providers", notes: "AWS, GCP, Cloudflare Workers/Pages, Vercel" },
-      { name: "Observability & CI/CD", notes: "Prometheus, Grafana, OpenTelemetry, GitHub Actions" },
-      { name: "IaC & Security", notes: "Terraform, Vault, IAM, OAuth2/OIDC" },
-    ],
-  },
-  {
-    category: "Frontend & Full-Stack",
-    items: [
-      { name: "Frameworks", notes: "Next.js 15 (App Router), React 19, Remix" },
+      { name: "Vue.js Ecosystem", notes: "Vue 3, Nuxt 3, Composition API, Pinia" },
+      { name: "React Ecosystem", notes: "React 19, Next.js 15 (App Router), Server Actions" },
+      { name: "Full-Stack Bridge", notes: "Inertia.js (Vue & React)" },
       { name: "Styling & UI", notes: "Tailwind CSS, Radix UI, Framer Motion" },
-      { name: "State & Data Fetching", notes: "TanStack Query, Zustand, Server Actions" },
-      { name: "Tooling & Standards", notes: "TypeScript, Vite, Webpack, Playwright, Jest" },
+    ],
+  },
+  {
+    category: "Backend & Frameworks",
+    items: [
+      { name: "Laravel & PHP", notes: "Laravel 11/12, PHP 8.3+, Service Layer, Eloquent" },
+      { name: "Node.js / Express", notes: "TypeScript REST APIs, Middleware, Async Worker" },
+      { name: "API & Webhooks", notes: "RESTful Design, Swagger/OpenAPI, Payment Integrations" },
+    ],
+  },
+  {
+    category: "Database & Caching",
+    items: [
+      { name: "Relational DB", notes: "MySQL, PostgreSQL, Prisma ORM, Indexing Optimization" },
+      { name: "In-Memory Store", notes: "Redis (Caching, Queue Workers, Rate Limiting)" },
+    ],
+  },
+  {
+    category: "DevOps & Tooling",
+    items: [
+      { name: "Containers & OS", notes: "Docker, Docker Compose, Linux Ubuntu, Nginx" },
+      { name: "CI/CD & Hosting", notes: "GitHub Actions, VPS Linux, Vercel, Git" },
     ],
   },
 ];
 
 export const TERMINAL_EXPERIENCE: CareerItem[] = [
   {
-    role: "Staff AI & Systems Architect",
-    company: "Autonomous Scale Labs",
-    period: "2023 - Present",
+    role: "Lead Full-Stack Web Developer",
+    company: "Digital Inovasi Studio",
+    period: "2023 - Sekarang",
     highlights: [
-      "Architected multi-agent LLM orchestration engines serving 10M+ monthly requests.",
-      "Engineered sub-50ms vector search retrieval pipeline with hybrid BM25 and dense embeddings.",
-      "Led technical infrastructure and high-scale Next.js / TypeScript edge applications.",
+      "Memimpin arsitektur web ERP & CRM dengan Laravel 11, Inertia, dan Vue 3.",
+      "Optimasi query database PostgreSQL & Redis caching, memangkas latensi API hingga <90ms.",
+      "Membangun design system komponen reusable untuk mempercepat sprint tim.",
     ],
   },
   {
-    role: "Senior Distributed Systems Engineer",
-    company: "Nexus Cloud Systems",
+    role: "Senior Frontend & Web Developer",
+    company: "Nusantara Tech Solusindo",
     period: "2021 - 2023",
     highlights: [
-      "Built resilient Raft consensus task queues handling distributed compute workloads.",
-      "Cut p99 API latency by 45% through Go zero-allocation patterns and Redis caching layers.",
-      "Implemented eBPF-based real-time telemetry pipeline ingesting 100k+ events/sec.",
+      "Memimpin migrasi web portal ke Next.js 15 & Tailwind CSS (Core Web Vitals Skor 98+).",
+      "Mengembangkan SPA POS & E-Commerce berbasis Vue 3 dengan integrasi payment gateway.",
+      "Mengurangi bundle JavaScript sebesar 35% melalui code-splitting dan dynamic imports.",
     ],
   },
   {
-    role: "Full-Stack Software Engineer",
-    company: "Vertex Interactive",
-    period: "2019 - 2021",
+    role: "Full-Stack Web Developer",
+    company: "Kreasi Media Solusi",
+    period: "2020 - 2021",
     highlights: [
-      "Designed and deployed enterprise SaaS applications in Next.js, React, Node.js, and PostgreSQL.",
-      "Delivered real-time collaboration canvas with WebSocket syncing and optimistic mutations.",
+      "Merancang dan mendeploy 15+ aplikasi web kustom menggunakan Laravel & Vue.js.",
+      "Membangun modul RBAC dan custom report generator berbasis data relasional.",
     ],
   },
 ];
 
 export const TERMINAL_CONTACT = {
-  email: "alex@engineer.dev",
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  x: "https://x.com",
-  matrix: "@alex:matrix.org",
-  timezone: "UTC-5 (EST) / Flexible for Global Teams",
+  email: "faisal.fahri@example.com",
+  github: "https://github.com/laxcyyfa",
+  linkedin: "https://linkedin.com/in/mfaisalfahri",
+  location: "Indonesia (WIB / UTC+7)",
 };
 
 export const TERMINAL_HIRE = {
-  status: "🟢 Available for high-impact opportunities",
+  status: "🟢 Available for full-time / freelance opportunities",
   roles: [
-    "Staff / Senior Full-Stack & AI Engineer",
-    "Distributed Systems Architect",
-    "Fractional Technical Advisor / Consultant",
+    "Full-Stack Web Developer (Laravel + Vue / React)",
+    "Senior Frontend Developer (Vue.js / Next.js / TypeScript)",
+    "Web Application Consultant & Architecture Review",
   ],
   engagementTypes: [
     "Full-Time (Remote / Hybrid)",
-    "Contract / Project Sprint Architecture",
-    "Technical Advisory & Systems Review",
+    "Contract / Project-based Development",
+    "Technical Consultation & Code Review",
   ],
   focusAreas: [
-    "Production LLM Agent Workflows & RAG Systems",
-    "High-Performance Web Architecture (Next.js 15, React 19)",
-    "Distributed Microservices & Cloud-Native Infra",
+    "Modern Web App Development (Laravel 11, Inertia.js, Vue 3, Next.js 15)",
+    "API & Database Optimization (PostgreSQL, MySQL, Redis)",
+    "High-Performance Frontend & Design Systems (Tailwind CSS, TypeScript)",
   ],
 };
 
 export const TERMINAL_WHOAMI = {
-  name: "Alex Rivera",
-  role: "AI & Full-Stack Systems Engineer",
-  location: "San Francisco, CA / Remote",
-  bio: "5+ years crafting production-grade distributed architectures, autonomous AI pipelines, and ultra-responsive full-stack systems. Passionate about system latency, zero-downtime deployments, and intuitive developer experiences.",
-  interests: ["Distributed Consensus", "Local LLMs & Speculative Decoding", "eBPF & Kernel Tracing", "Design Systems & Web Performance"],
+  name: "M. Faisal Fahri",
+  role: "Full-Stack Web Developer & Spesialis Frontend",
+  location: "Indonesia (WIB / UTC+7)",
+  bio: "Full-Stack Web Developer yang berfokus membangun aplikasi web modern yang cepat, clean, dan mudah dimaintain. Berpengalaman luas dalam ekosistem Laravel, Vue.js, React, Next.js, dan arsitektur database relasional.",
+  interests: ["Arsitektur Web Modern", "Laravel & Inertia.js", "Vue 3 & React / Next.js", "Performa Web & UX"],
 };
 
 export const TERMINAL_STACK = {
-  runtime: "Next.js 15 (App Router) + React 19 + TypeScript",
-  ai_ml: "PyTorch, LangChain, LlamaIndex, vLLM, Hugging Face Transformers",
-  styling: "Tailwind CSS + Custom Design Tokens + Framer Motion",
-  backend_infra: "Node.js, Go, Rust, PostgreSQL, Redis, ClickHouse, Docker, Kubernetes",
-  hosting: "Vercel Edge Network, Cloudflare Workers, AWS",
+  runtime: "Next.js 16 (Turbopack) + React 19 + TypeScript",
+  frontend_ecosystem: "Vue 3, Nuxt 3, React 19, Next.js 16, Inertia.js, Tailwind CSS",
+  backend_stack: "Laravel 11/12, PHP 8.3+, Node.js, Express",
+  database_cache: "PostgreSQL, MySQL, Redis, Prisma ORM, Eloquent",
+  devops_infra: "Docker, Docker Compose, Linux Nginx, GitHub Actions, Vercel",
 };
 
 export const AVAILABLE_COMMANDS = [
-  { command: "help", description: "Display available CLI commands and usage guide" },
-  { command: "skills", description: "List categorized technical expertise across AI, Backend, Cloud & Frontend" },
-  { command: "projects", description: "Explore flagship production systems and open-source projects" },
-  { command: "experience", description: "Review career timeline, staff roles, and architectural impact" },
-  { command: "hire", description: "Check availability status, open roles, and engagement models" },
-  { command: "contact", description: "Get direct contact endpoints, social links, and email" },
-  { command: "whoami", description: "Display developer bio, background, and core philosophy" },
-  { command: "stack", description: "Inspect current application tech stack and architecture" },
-  { command: "clear", description: "Clear terminal screen and command history buffer" },
+  { command: "help", description: "Menampilkan daftar perintah terminal yang tersedia" },
+  { command: "skills", description: "Lihat ringkasan keahlian (Frontend, Backend, Database, DevOps)" },
+  { command: "projects", description: "Eksplorasi proyek-proyek unggulan dan sistem web" },
+  { command: "experience", description: "Riwayat pengalaman kerja dan rekam jejak teknis" },
+  { command: "hire", description: "Status ketersediaan proyek, role target, dan model kerjasama" },
+  { command: "contact", description: "Informasi kontak langsung, email, dan link sosial" },
+  { command: "whoami", description: "Profil singkat, bio, dan fokus keahlian M. Faisal Fahri" },
+  { command: "stack", description: "Arsitektur tech stack yang digunakan" },
+  { command: "clear", description: "Bersihkan layar terminal" },
 ];
 
 export function executeTerminalCommand(input: string): TerminalExecutionResult {
@@ -287,7 +280,7 @@ export function executeTerminalCommand(input: string): TerminalExecutionResult {
         output: {
           type: "text",
           data: TERMINAL_WHOAMI,
-          text: `Name: ${TERMINAL_WHOAMI.name}\nTitle: ${TERMINAL_WHOAMI.role}\nLocation: ${TERMINAL_WHOAMI.location}\n\n${TERMINAL_WHOAMI.bio}\n\nCore Focus: ${TERMINAL_WHOAMI.interests.join(" • ")}`,
+          text: `Nama: ${TERMINAL_WHOAMI.name}\nRole: ${TERMINAL_WHOAMI.role}\nLokasi: ${TERMINAL_WHOAMI.location}\n\n${TERMINAL_WHOAMI.bio}\n\nFokus: ${TERMINAL_WHOAMI.interests.join(" • ")}`,
         },
       };
 
@@ -305,7 +298,7 @@ export function executeTerminalCommand(input: string): TerminalExecutionResult {
       return {
         output: {
           type: "error",
-          text: `sudo: permission denied: ${args.join(" ") || "command"}. Nice try! You are operating in sandboxed guest mode.`,
+          text: `sudo: permission denied: ${args.join(" ") || "command"}. Mode guest aktif.`,
         },
       };
 
@@ -314,32 +307,31 @@ export function executeTerminalCommand(input: string): TerminalExecutionResult {
       return {
         output: {
           type: "text",
-          text: "Interactive terminal session remains active. Type 'help' for command list.",
+          text: "Sesi terminal interaktif tetap aktif. Ketik 'help' untuk daftar perintah.",
         },
       };
 
     default: {
-      // Natural language / Conversational question detection
       const lower = trimmed.toLowerCase();
-      if (lower.includes("how are you") || lower.includes("hello") || lower.includes("hi")) {
+      if (lower.includes("halo") || lower.includes("hello") || lower.includes("hi") || lower.includes("hai")) {
         return {
           output: {
             type: "text",
-            text: "Hello! AI Systems Core is online and operating at nominal parameters. Type 'help' or click any command pill to explore.",
+            text: "Halo! Terminal interaktif M. Faisal Fahri siap digunakan. Ketik 'help' atau klik tombol perintah di atas untuk mulai eksplorasi.",
           },
         };
       }
 
-      if (lower.includes("ai") || lower.includes("rag") || lower.includes("llm")) {
+      if (lower.includes("laravel") || lower.includes("vue") || lower.includes("react") || lower.includes("next")) {
         return {
           output: {
             type: "text",
-            text: "My AI stack leverages PyTorch, LangChain, vLLM, and hybrid vector retrieval systems for production agent workflows. Type 'skills' or 'projects' to see specific systems.",
+            text: "Keahlian utama mencakup Laravel 11/12, Vue 3, React 19, Next.js 15, dan Inertia.js. Ketik 'skills' atau 'projects' untuk melihat detailnya.",
           },
         };
       }
 
-      if (lower.includes("rate") || lower.includes("salary") || lower.includes("available")) {
+      if (lower.includes("rate") || lower.includes("gaji") || lower.includes("hire") || lower.includes("available")) {
         return {
           output: {
             type: "hire",
@@ -351,7 +343,7 @@ export function executeTerminalCommand(input: string): TerminalExecutionResult {
       return {
         output: {
           type: "error",
-          text: `command not found: "${trimmed}". Type 'help' to see list of valid commands or click a chip below.`,
+          text: `Perintah tidak ditemukan: "${trimmed}". Ketik 'help' untuk melihat daftar perintah.`,
         },
       };
     }

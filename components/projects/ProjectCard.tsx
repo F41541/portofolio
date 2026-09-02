@@ -42,7 +42,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
             </Badge>
             {frontmatter.featured && (
               <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                Featured Case Study
+                Studi Kasus Pilihan
               </span>
             )}
           </div>
@@ -104,11 +104,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
               href={frontmatter.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="View Source Code on GitHub"
+              aria-label="Lihat source code di GitHub"
               className="p-2 rounded-lg bg-surface-elevated text-text-secondary hover:text-text-primary hover:border-text-primary/30 border border-border-subtle transition-colors text-xs flex items-center gap-1.5"
             >
               <Github className="w-4 h-4" />
-              <span className="hidden sm:inline">Source</span>
+              <span className="hidden sm:inline">Source Code</span>
             </a>
           )}
           {frontmatter.liveDemoUrl && (
@@ -116,18 +116,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
               href={frontmatter.liveDemoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="View Live Demo"
+              aria-label="Buka Live Demo"
               className="p-2 rounded-lg bg-surface-elevated text-text-secondary hover:text-text-primary hover:border-text-primary/30 border border-border-subtle transition-colors text-xs flex items-center gap-1.5"
             >
               <ExternalLink className="w-4 h-4 text-accent-cyan" />
-              <span className="hidden sm:inline">Live Demo</span>
+              <span className="hidden sm:inline">Demo Langsung</span>
             </a>
           )}
         </div>
 
         <Link href={`/projects/${slug}`}>
           <Button variant="secondary" size="sm" className="gap-1.5 group/btn">
-            <span>Read Case Study</span>
+            <span>Baca Studi Kasus</span>
             <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 text-accent-emerald" />
           </Button>
         </Link>

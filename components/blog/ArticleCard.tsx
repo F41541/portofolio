@@ -27,7 +27,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ post, featured = false
         <div className="flex flex-wrap items-center gap-2 mb-4">
           {post.frontmatter.featured && (
             <Badge variant="emerald" dot>
-              Featured Article
+              Artikel Pilihan
             </Badge>
           )}
           {post.frontmatter.tags.slice(0, 3).map((tag) => (
@@ -68,7 +68,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ post, featured = false
         </div>
 
         <div className="flex items-center gap-1 font-medium text-text-primary group-hover:text-accent-emerald group-hover:translate-x-1 transition-all duration-200">
-          <span>Read article</span>
+          <span>Baca artikel</span>
           <ArrowRight className="w-4 h-4" />
         </div>
       </div>

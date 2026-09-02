@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "Alex Vance | AI & Full-Stack Systems Engineer";
+export const alt = "M. Faisal Fahri | Full-Stack Web Developer";
 export const size = {
   width: 1200,
   height: 630,
@@ -77,7 +77,7 @@ export default async function OpenGraphImage() {
                 letterSpacing: "1px",
               }}
             >
-              &lt;AX/&gt;
+              &lt;MFF/&gt;
             </div>
             <div
               style={{
@@ -93,7 +93,7 @@ export default async function OpenGraphImage() {
                   fontWeight: 600,
                 }}
               >
-                ENGINEER.AI // SYS_NODE_01
+                FAISAL.DEV // PORTFOLIO
               </span>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default async function OpenGraphImage() {
                 letterSpacing: "0.5px",
               }}
             >
-              SYSTEMS OPERATIONAL
+              AVAILABLE FOR PROJECTS
             </span>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default async function OpenGraphImage() {
                 textTransform: "uppercase",
               }}
             >
-              PORTFOLIO &amp; SYSTEMS ARCHITECTURE
+              FULL-STACK WEB &amp; FRONTEND SPECIALIST
             </span>
           </div>
 
@@ -171,7 +171,7 @@ export default async function OpenGraphImage() {
               letterSpacing: "-1px",
             }}
           >
-            Alex Vance | AI &amp; Full-Stack Systems Engineer
+            M. Faisal Fahri | Full-Stack Developer
           </h1>
 
           <p
@@ -183,7 +183,7 @@ export default async function OpenGraphImage() {
               maxWidth: "920px",
             }}
           >
-            High-Scale Distributed Systems, LLM Agent Architectures &amp; Modern Web Apps
+            Laravel, Vue.js, React, Next.js, and Modern Web Architectures
           </p>
         </div>
 
@@ -221,7 +221,7 @@ export default async function OpenGraphImage() {
                 color: "#10B981",
               }}
             >
-              <span>10M+ Requests</span>
+              <span>Laravel &amp; Inertia</span>
             </div>
 
             <div
@@ -238,7 +238,7 @@ export default async function OpenGraphImage() {
                 color: "#06B6D4",
               }}
             >
-              <span>Sub-10ms Latency</span>
+              <span>Vue &amp; React / Next.js</span>
             </div>
 
             <div
@@ -255,7 +255,7 @@ export default async function OpenGraphImage() {
                 color: "#F3F4F6",
               }}
             >
-              <span>Open Source</span>
+              <span>TypeScript</span>
             </div>
           </div>
 
@@ -268,7 +268,7 @@ export default async function OpenGraphImage() {
               letterSpacing: "1px",
             }}
           >
-            alexvance.dev
+            faisalfahri.dev
           </span>
         </div>
       </div>

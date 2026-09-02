@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/mdx";
 
-export const alt = "Article | Alex Vance Engineering Journals";
+export const alt = "Article | M. Faisal Fahri Engineering Journals";
 export const size = {
   width: 1200,
   height: 630,
@@ -271,7 +271,7 @@ export default async function BlogPostOpenGraphImage({
                   color: "#FFFFFF",
                 }}
               >
-                Alex Vance
+                M. Faisal Fahri
               </span>
               <span
                 style={{

@@ -28,15 +28,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) {
     return {
-      title: "Article Not Found | Alex Vance",
+      title: "Article Not Found | M. Faisal Fahri",
     };
   }
 
   const { frontmatter } = post;
-  const url = `https://alexvance.dev/blog/${slug}`;
+  const url = `https://faisalfahri.dev/blog/${slug}`;
 
   return {
-    title: `${frontmatter.title} | Alex Vance`,
+    title: `${frontmatter.title} | M. Faisal Fahri`,
     description: frontmatter.description,
     keywords: frontmatter.tags,
     authors: [{ name: frontmatter.author }],
@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const { frontmatter, readingTime, content } = post;
 
-  const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
+  const formattedDate = new Date(frontmatter.date).toLocaleDateString("id-ID", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -92,16 +92,16 @@ export default async function BlogPostPage({ params }: PageProps) {
         description={frontmatter.description}
         datePublished={frontmatter.date}
         authorName={frontmatter.author}
-        authorUrl="https://alexvance.dev"
-        url={`https://alexvance.dev/blog/${slug}`}
+        authorUrl="https://faisalfahri.dev"
+        url={`https://faisalfahri.dev/blog/${slug}`}
         tags={frontmatter.tags}
-        image={frontmatter.image ? `https://alexvance.dev${frontmatter.image}` : undefined}
+        image={frontmatter.image ? `https://faisalfahri.dev${frontmatter.image}` : undefined}
       />
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://alexvance.dev" },
-          { name: "Blog", url: "https://alexvance.dev/blog" },
-          { name: frontmatter.title, url: `https://alexvance.dev/blog/${slug}` },
+          { name: "Home", url: "https://faisalfahri.dev" },
+          { name: "Blog", url: "https://faisalfahri.dev/blog" },
+          { name: frontmatter.title, url: `https://faisalfahri.dev/blog/${slug}` },
         ]}
       />
 
@@ -113,16 +113,16 @@ export default async function BlogPostPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent-emerald transition-colors font-medium group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to all articles</span>
+            <span>Kembali ke semua artikel</span>
           </Link>
 
           <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-text-muted">
             <Link href="/" className="hover:text-text-primary">
-              home
+              beranda
             </Link>
             <span>/</span>
             <Link href="/blog" className="hover:text-text-primary">
-              blog
+              artikel
             </Link>
             <span>/</span>
             <span className="text-accent-emerald line-clamp-1 max-w-[150px]">
@@ -195,7 +195,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-mono text-text-muted flex items-center gap-1 mr-2">
                   <Tag className="w-3.5 h-3.5 text-accent-emerald" />
-                  Filed under:
+                  Topik pembahasan:
                 </span>
                 {frontmatter.tags.map((tag) => (
                   <Badge key={tag} variant="outline">
@@ -214,7 +214,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     Written by {frontmatter.author}
                   </h4>
                   <p className="mt-1 text-xs sm:text-sm text-text-secondary leading-relaxed">
-                    Staff Systems & AI Engineer specializing in distributed state engines, low-latency microservices, and AI edge runtimes.
+                    Full-Stack Web Developer &amp; Frontend Specialist dengan fokus pada Laravel, Vue.js, React, dan Next.js modern.
                   </p>
                 </div>
               </div>
@@ -228,15 +228,15 @@ export default async function BlogPostPage({ params }: PageProps) {
 
               <div className="pt-6 border-t border-border-subtle/60 text-xs text-text-muted space-y-3">
                 <div className="flex justify-between">
-                  <span>Reading time:</span>
+                  <span>Estimasi baca:</span>
                   <span className="text-text-primary font-mono">{readingTime}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Word count:</span>
-                  <span className="text-text-primary font-mono">{post.wordCount} words</span>
+                  <span>Jumlah kata:</span>
+                  <span className="text-text-primary font-mono">{post.wordCount} kata</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Published:</span>
+                  <span>Diterbitkan:</span>
                   <span className="text-text-primary font-mono">{formattedDate}</span>
                 </div>
               </div>

@@ -41,20 +41,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!project) {
     return {
-      title: "Project Not Found | Alex Vance",
+      title: "Project Not Found | M. Faisal Fahri",
     };
   }
 
   const { frontmatter } = project;
-  const url = `https://alexvance.dev/projects/${slug}`;
+  const url = `https://faisalfahri.dev/projects/${slug}`;
 
   return {
-    title: `${frontmatter.title} | Systems Case Study`,
+    title: `${frontmatter.title} | M. Faisal Fahri`,
     description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
-    keywords: [...frontmatter.tags, frontmatter.category, "Architecture Case Study"],
+    keywords: [...frontmatter.tags, frontmatter.category, "Web Project Case Study"],
     authors: [{ name: frontmatter.author }],
     openGraph: {
-      title: `${frontmatter.title} | Systems Case Study`,
+      title: `${frontmatter.title} | M. Faisal Fahri`,
       description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
       type: "article",
       publishedTime: frontmatter.date,
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${frontmatter.title} | Systems Case Study`,
+      title: `${frontmatter.title} | M. Faisal Fahri`,
       description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
       images: frontmatter.image ? [frontmatter.image] : undefined,
     },
@@ -91,7 +91,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
   const { frontmatter, readingTime, content } = project;
 
-  const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
+  const formattedDate = new Date(frontmatter.date).toLocaleDateString("id-ID", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -104,17 +104,17 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         name={frontmatter.title}
         description={frontmatter.subtitle || frontmatter.title}
         authorName={frontmatter.author}
-        authorUrl="https://alexvance.dev"
+        authorUrl="https://faisalfahri.dev"
         datePublished={frontmatter.date}
-        url={`https://alexvance.dev/projects/${slug}`}
+        url={`https://faisalfahri.dev/projects/${slug}`}
         keywords={frontmatter.tags}
-        image={frontmatter.image ? `https://alexvance.dev${frontmatter.image}` : undefined}
+        image={frontmatter.image ? `https://faisalfahri.dev${frontmatter.image}` : undefined}
       />
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://alexvance.dev" },
-          { name: "Projects", url: "https://alexvance.dev/projects" },
-          { name: frontmatter.title, url: `https://alexvance.dev/projects/${slug}` },
+          { name: "Home", url: "https://faisalfahri.dev" },
+          { name: "Projects", url: "https://faisalfahri.dev/projects" },
+          { name: frontmatter.title, url: `https://faisalfahri.dev/projects/${slug}` },
         ]}
       />
 
@@ -126,16 +126,16 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent-emerald transition-colors font-medium group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to all projects</span>
+            <span>Kembali ke semua proyek</span>
           </Link>
 
           <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-text-muted">
             <Link href="/" className="hover:text-text-primary">
-              home
+              beranda
             </Link>
             <span>/</span>
             <Link href="/projects" className="hover:text-text-primary">
-              projects
+              proyek
             </Link>
             <span>/</span>
             <span className="text-accent-emerald line-clamp-1 max-w-[180px]">
@@ -220,7 +220,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 >
                   <Button variant="secondary" size="md" className="gap-2">
                     <Github className="w-4 h-4" />
-                    <span>View Repository</span>
+                    <span>Lihat Repositori</span>
                   </Button>
                 </a>
               )}
@@ -232,7 +232,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 >
                   <Button variant="primary" size="md" className="gap-2">
                     <ExternalLink className="w-4 h-4" />
-                    <span>Live Interactive Demo</span>
+                    <span>Demo Interaktif</span>
                   </Button>
                 </a>
               )}
@@ -255,10 +255,10 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                   </div>
                   <div>
                     <h4 className="text-base font-bold text-text-primary">
-                      Principal Engineer: {frontmatter.author}
+                      Lead Developer: {frontmatter.author}
                     </h4>
                     <p className="mt-0.5 text-xs sm:text-sm text-text-secondary">
-                      Architecture Design, Kernel Benchmarking &amp; Systems Implementation.
+                      Full-Stack Architecture, Database Optimization &amp; Web Implementation.
                     </p>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 <Link href="/projects">
                   <Button variant="secondary" size="sm" className="gap-1.5 shrink-0">
                     <ArrowLeft className="w-3.5 h-3.5" />
-                    <span>More Projects</span>
+                    <span>Lihat Proyek Lain</span>
                   </Button>
                 </Link>
               </div>
@@ -281,19 +281,19 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
                 <div className="pt-6 border-t border-border-subtle/60 text-xs text-text-muted space-y-3">
                   <div className="flex justify-between">
-                    <span>Category:</span>
+                    <span>Kategori:</span>
                     <span className="text-text-primary font-mono">{frontmatter.category}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Est. Read Time:</span>
+                    <span>Estimasi Baca:</span>
                     <span className="text-text-primary font-mono">{readingTime}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Total Length:</span>
-                    <span className="text-text-primary font-mono">{project.wordCount} words</span>
+                    <span>Jumlah Kata:</span>
+                    <span className="text-text-primary font-mono">{project.wordCount} kata</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Case Study Date:</span>
+                    <span>Tanggal Rilis:</span>
                     <span className="text-text-primary font-mono">{formattedDate}</span>
                   </div>
                 </div>
@@ -303,20 +303,20 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               <div className="rounded-2xl border border-border-subtle bg-surface-card/30 p-6 font-mono text-xs space-y-3">
                 <div className="flex items-center gap-2 text-accent-emerald font-semibold">
                   <Layers className="w-4 h-4" />
-                  <span>KEY_SYSTEM_PILLARS</span>
+                  <span>PILAR_UTAMA_SISTEM</span>
                 </div>
                 <div className="space-y-2 pt-2 text-text-secondary">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                    <span>Deterministic State Snapshots</span>
+                    <span>Performa Tinggi &amp; Latensi Rendah</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                    <span>Sub-millisecond Tail Latencies</span>
+                    <span>Arsitektur Bersih &amp; Terstruktur</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                    <span>Zero-loss Exactly-Once Resumption</span>
+                    <span>Keamanan &amp; Integritas Data Terjamin</span>
                   </div>
                 </div>
               </div>

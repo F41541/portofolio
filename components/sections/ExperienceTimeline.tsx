@@ -29,29 +29,28 @@ export function ExperienceTimeline() {
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2">
               <Badge variant="cyan" dot>
-                Career &amp; Engineering Track
+                Riwayat Pengalaman Kerja
               </Badge>
-              <span className="text-xs font-mono text-text-muted">CHRONOLOGY: 2018-2026</span>
+              <span className="text-xs font-mono text-text-muted">KRONOLOGI: 2019-2026</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary">
-              Work Experience &amp;{" "}
+              Pengalaman Kerja &amp;{" "}
               <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-                Milestones
+                Pencapaian
               </span>
             </h2>
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-              Track record of architecting mission-critical platforms, scaling microservices,
-              and delivering high-impact software systems.
+              Rekam jejak dalam merancang aplikasi web bisnis, memimpin migrasi frontend modern,
+              dan mengoptimalkan arsitektur database.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <Link
-              href="/Alex_Rivera_Resume.pdf"
-              target="_blank"
+              href="/contact"
               className="text-xs font-mono text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle hover:border-emerald-500/40 transition-all"
             >
-              <span>Download Full CV</span>
+              <span>Hubungi Saya</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -93,7 +92,7 @@ export function ExperienceTimeline() {
                         </h3>
                         {isCurrent && (
                           <Badge variant="emerald" dot>
-                            Current Role
+                            Posisi Saat Ini
                           </Badge>
                         )}
                         <span className="text-xs font-mono text-text-muted bg-surface-elevated px-2 py-0.5 rounded border border-border-subtle">
@@ -131,7 +130,7 @@ export function ExperienceTimeline() {
                   <div className="space-y-2.5 pt-1">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted flex items-center gap-1.5">
                       <Sparkles className="w-3 h-3 text-emerald-400" />
-                      <span>Key Measurable Impact &amp; Deliverables</span>
+                      <span>Dampak &amp; Hasil Kerja Nyata</span>
                     </h4>
                     <ul className="space-y-2 text-xs sm:text-sm text-text-secondary">
                       {item.achievements.map((achievement, i) => (
@@ -145,7 +144,7 @@ export function ExperienceTimeline() {
 
                   {/* Associated Tech Stack Badges */}
                   <div className="pt-4 border-t border-border-subtle/60 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-mono text-text-muted">Stack:</span>
+                    <span className="text-xs font-mono text-text-muted">Teknologi:</span>
                     {item.techStack.map((tech) => (
                       <span
                         key={tech}

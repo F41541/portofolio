@@ -24,7 +24,7 @@ interface CommandItem {
   id: string;
   title: string;
   subtitle?: string;
-  category: "Navigation" | "Projects" | "Blog" | "Social";
+  category: "Navigasi" | "Proyek" | "Artikel" | "Sosial";
   href: string;
   external?: boolean;
 }
@@ -130,7 +130,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: `route-${route.href}`,
         title: route.name,
         subtitle: route.description,
-        category: "Navigation",
+        category: "Navigasi",
         href: route.href,
       });
     });
@@ -141,7 +141,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: `proj-${proj.id}`,
         title: proj.title,
         subtitle: `${proj.category} • ${proj.tags.join(", ")}`,
-        category: "Projects",
+        category: "Proyek",
         href: proj.href,
       });
     });
@@ -152,7 +152,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: `blog-${post.id}`,
         title: post.title,
         subtitle: `${post.category} • ${post.readTime}`,
-        category: "Blog",
+        category: "Artikel",
         href: post.href,
       });
     });
@@ -163,7 +163,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: `social-${soc.name}`,
         title: soc.name,
         subtitle: soc.handle,
-        category: "Social",
+        category: "Sosial",
         href: soc.href,
         external: true,
       });
@@ -233,13 +233,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   const getCategoryIcon = (category: CommandItem["category"]) => {
     switch (category) {
-      case "Navigation":
+      case "Navigasi":
         return <Globe className="w-4 h-4 text-emerald-400" />;
-      case "Projects":
+      case "Proyek":
         return <Folder className="w-4 h-4 text-cyan-400" />;
-      case "Blog":
+      case "Artikel":
         return <FileText className="w-4 h-4 text-amber-400" />;
-      case "Social":
+      case "Sosial":
         return <ArrowUpRight className="w-4 h-4 text-purple-400" />;
     }
   };
@@ -265,7 +265,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleInputKeyDown}
-            placeholder="Type a command, route, project, or article..."
+            placeholder="Ketik perintah, rute, proyek, atau artikel..."
             className="w-full bg-transparent text-text-primary placeholder:text-text-muted focus:outline-none text-sm sm:text-base"
           />
           {query && (
@@ -273,7 +273,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               type="button"
               onClick={() => setQuery("")}
               className="p-1 text-text-muted hover:text-text-primary rounded"
-              aria-label="Clear query"
+              aria-label="Bersihkan pencarian"
             >
               <X className="w-4 h-4" />
             </button>
@@ -290,7 +290,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         >
           {filteredItems.length === 0 ? (
             <div className="py-12 text-center text-text-muted text-sm">
-              No matching commands or resources found for &ldquo;{query}&rdquo;
+              Tidak ada hasil yang cocok untuk &ldquo;{query}&rdquo;
             </div>
           ) : (
             <div className="space-y-1">
@@ -321,7 +321,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                           <span className="truncate">{item.title}</span>
                           {isCurrentPage && (
                             <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-                              current
+                              halaman ini
                             </span>
                           )}
                         </div>
@@ -358,23 +358,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-surface-ground border border-border-subtle rounded">
                 ↓
               </kbd>{" "}
-              Navigate
+              Navigasi
             </span>
             <span className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-surface-ground border border-border-subtle rounded">
                 ↵
               </kbd>{" "}
-              Select
+              Pilih
             </span>
             <span className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-surface-ground border border-border-subtle rounded">
                 ESC
               </kbd>{" "}
-              Close
+              Tutup
             </span>
           </div>
           <span className="font-mono text-[11px] text-text-muted hidden sm:inline-block">
-            {filteredItems.length} results
+            {filteredItems.length} hasil
           </span>
         </div>
       </div>

@@ -71,7 +71,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     <nav className="space-y-3">
       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-text-muted">
         <ListCollapse className="w-4 h-4 text-accent-emerald" />
-        <span>Table of Contents</span>
+        <span>Daftar Isi</span>
       </div>
 
       <ul className="space-y-2 text-sm border-l border-border-subtle pl-3">

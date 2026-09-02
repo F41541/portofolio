@@ -24,120 +24,120 @@ import { Button } from "@/components/ui/Button";
 import { ProfilePageJsonLd, BreadcrumbListJsonLd } from "@/components/seo";
 
 export const metadata: Metadata = {
-  title: "About | Alex Vance - AI & Full-Stack Systems Engineer",
+  title: "Tentang Saya | M. Faisal Fahri - Full-Stack Web Developer",
   description:
-    "Engineering philosophy, distributed systems journey, modern autonomous AI agent architectures, hardware/software stack, and open source impact of Alex Vance.",
+    "Filosofi engineering, perjalanan pengembangan web full-stack, stack teknologi Laravel, Vue, React, Next.js, dan kontribusi proyek M. Faisal Fahri.",
   openGraph: {
-    title: "About | Alex Vance - AI & Full-Stack Systems Engineer",
+    title: "Tentang Saya | M. Faisal Fahri - Full-Stack Web Developer",
     description:
-      "Journey from distributed systems to modern autonomous AI agent architectures.",
+      "Perjalanan karir dari web development hingga arsitektur aplikasi modern berkinerja tinggi.",
   },
 };
 
 const PHILOSOPHIES = [
   {
     icon: <Layers className="w-5 h-5 text-emerald-400" />,
-    title: "Systems First, Frameworks Second",
-    subtitle: "Enduring Fundamentals",
+    title: "Clean Architecture & Maintainability",
+    subtitle: "Kerapian & Keteraturan Kode",
     description:
-      "Frameworks evolve rapidly, but foundational computer science principles—data locality, cache hierarchies, protocol ergonomics, and concurrency primitives—remain invariants. I engineer systems by modeling data flows and state lifetimes first, picking the cleanest tooling to materialize them.",
-  },
-  {
-    icon: <Binary className="w-5 h-5 text-cyan-400" />,
-    title: "Determinism in Probabilistic AI",
-    subtitle: "Hardened Agent Frameworks",
-    description:
-      "Large Language Models provide unprecedented cognitive elasticity, but production demands predictability. I treat LLMs not as magic boxes, but as nondeterministic compute nodes bounded by strict state validation, cyclic state graphs, fallback policies, and typed schemas.",
-  },
-  {
-    icon: <Shield className="w-5 h-5 text-emerald-400" />,
-    title: "Observability as a First-Class Citizen",
-    subtitle: "Zero Blind Spots",
-    description:
-      "If you cannot measure internal state, you cannot reason about latency or failure. Telemetry, structured logs, and distributed trace propagation (via eBPF / OpenTelemetry) are designed directly into the domain models from day zero, not patched on post-incident.",
+      "Kode yang baik bukan hanya berjalan tanpa error, tapi mudah dibaca dan dikembangkan oleh tim. Saya mengutamakan arsitektur terstruktur (Service Layer, Repositories, Domain-Driven Design) agar aplikasi siap diskalakan.",
   },
   {
     icon: <Zap className="w-5 h-5 text-cyan-400" />,
-    title: "Zero Waste & Mechanical Sympathy",
-    subtitle: "Performance at the Metal",
+    title: "Performa & Core Web Vitals",
+    subtitle: "Kecepatan Tanpa Kompromi",
     description:
-      "Whether it is eliminating unnecessary allocations in Go garbage-collected runtimes, minimizing round-trips over gRPC connections, or optimizing vector quantization in Rust, understanding underlying hardware mechanics produces scalable architectures that save real compute dollars.",
+      "Pengalaman pengguna berbanding lurus dengan kecepatan loading. Dari optimasi query database (eager loading, index, Redis cache) hingga code-splitting dan SSR pada frontend.",
+  },
+  {
+    icon: <Code2 className="w-5 h-5 text-emerald-400" />,
+    title: "Komponen Reusable & Type Safety",
+    subtitle: "Efisiensi Siklus Pengembangan",
+    description:
+      "Menggunakan TypeScript dan Tailwind CSS untuk menciptakan sistem komponen modular yang konsisten, aman dari runtime error, dan mempercepat delivery fitur baru.",
+  },
+  {
+    icon: <Shield className="w-5 h-5 text-cyan-400" />,
+    title: "Keamanan & Integritas Data",
+    subtitle: "Security by Design",
+    description:
+      "Menerapkan proteksi keamanan standar industri pada level aplikasi (CSRF, XSS prevention, SQL injection defense, sanitasi input, rate limiting, dan hashing transaksi sensitif).",
   },
 ];
 
 const HARDWARE_STACK = [
   {
-    label: "Primary Machine",
-    spec: "Apple MacBook Pro 16\" (M3 Max, 64GB Unified Memory, 2TB NVMe)",
-    desc: "Mobile workstation for rapid multi-model benchmarking & full-stack development",
+    label: "Main Laptop",
+    spec: "Laptop Workstation (AMD Ryzen / Intel Core i7, 32GB RAM, 1TB NVMe SSD)",
+    desc: "Perangkat utama untuk development full-stack, multitasking Docker, dan build tools cepat",
   },
   {
-    label: "Dev Cluster & Compute",
-    spec: "Custom Linux Node (AMD Ryzen 9 7950X, 128GB DDR5, Dual RTX 4090 24GB)",
-    desc: "Local PyTorch fine-tuning, Ollama/vLLM inference testing & heavy container builds",
+    label: "Testing & Server VPS",
+    spec: "Cloud VPS Linux Ubuntu Server (Nginx, Docker Compose, PostgreSQL, Redis)",
+    desc: "Staging dan live production environment untuk simulasi beban server nyata",
   },
   {
-    label: "Peripherals & Display",
-    spec: "Dell UltraSharp 32\" 4K USB-C Hub + Ergodox EZ Mechanical Keyboard",
-    desc: "Ergonomic configuration tuned for long async focus sessions",
+    label: "Display & Setup",
+    spec: "Dual Monitor 27\" IPS Display + Mechanical Keyboard",
+    desc: "Setup ergonomis untuk fokus coding dan debugging jangka panjang",
   },
 ];
 
 const SOFTWARE_STACK = [
   {
     category: "Editor & Terminal",
-    items: ["Neovim (Lua config)", "VS Code (Remote SSH)", "Ghostty / WezTerm", "Tmux", "Zsh + Starship"],
+    items: ["VS Code / Cursor", "PHPStorm / WebStorm", "Zsh + Oh My Zsh", "Git CLI"],
   },
   {
-    category: "Operating Systems",
-    items: ["macOS Sequoia (Daily)", "Arch Linux (Custom Kernel)", "Debian / Ubuntu Server"],
+    category: "Backend & Database",
+    items: ["Laravel (PHP 8.3+)", "Node.js & Express", "MySQL & PostgreSQL", "Redis Cache"],
   },
   {
-    category: "Core Languages",
-    items: ["TypeScript / Node / Bun", "Go (Golang)", "Python 3.12+", "Rust", "SQL (Postgres)"],
+    category: "Frontend & UI",
+    items: ["Vue 3 & Nuxt 3", "React 19 & Next.js 15", "TypeScript", "Tailwind CSS", "Inertia.js"],
   },
   {
-    category: "AI & Vector Tooling",
-    items: ["LangGraph / LangChain", "Qdrant / Pinecone", "PyTorch / Transformers", "Ollama / vLLM"],
+    category: "DevOps & Tools",
+    items: ["Docker & Compose", "GitHub Actions CI/CD", "Nginx Web Server", "Postman / Insomnia"],
   },
 ];
 
 const CREDENTIALS = [
   {
-    title: "B.S. in Computer Science",
-    issuer: "University of California, Berkeley",
-    period: "2015 — 2019",
-    detail: "Focus on Distributed Systems, Operating Systems & Concurrent Computing.",
+    title: "Bachelor of Computer Science (S.Kom)",
+    issuer: "Universitas / Institut Teknologi",
+    period: "Pendidikan Formal",
+    detail: "Fokus pada Rekayasa Perangkat Lunak, Basis Data Relasional, dan Algoritma Pemrograman.",
   },
   {
-    title: "AWS Certified Solutions Architect – Professional",
-    issuer: "Amazon Web Services",
-    period: "Verified",
-    detail: "Enterprise-grade multi-region architectures, VPC topologies, and IAM zero-trust.",
+    title: "Full-Stack Web Development Certification",
+    issuer: "Professional Certification Program",
+    period: "Terverifikasi",
+    detail: "Spesialisasi Modern PHP (Laravel), SPA Architecture (Vue/React), dan Database Optimization.",
   },
   {
-    title: "Certified Kubernetes Administrator (CKA)",
-    issuer: "Cloud Native Computing Foundation (CNCF)",
-    period: "Verified",
-    detail: "Production cluster operations, etcd backups, container networking & CNI plugins.",
+    title: "Git & DevOps CI/CD Practitioner",
+    issuer: "Industry Best Practices",
+    period: "Terverifikasi",
+    detail: "Implementasi containerization dengan Docker dan alur otomasi rilis GitHub Actions.",
   },
 ];
 
 const OPEN_SOURCE_IMPACT = [
   {
-    stat: "12k+",
-    label: "GitHub Stars Across Projects",
-    desc: "Created and contributed to open-source distributed queues, agent runtimes, and developer tooling.",
+    stat: "30+",
+    label: "Web Projects Completed",
+    desc: "Membangun sistem SaaS, aplikasi enterprise, e-commerce, dan portal interaktif modern.",
   },
   {
-    stat: "50M+",
-    label: "Docker Image Pulls",
-    desc: "Maintained lightweight distroless container images widely adopted by Go and Python teams.",
+    stat: "100%",
+    label: "Client Satisfaction",
+    desc: "Fokus pada ketepatan waktu, kualitas kode bersih, dan komunikasi yang transparan.",
   },
   {
-    stat: "100k+",
-    label: "Technical Readers",
-    desc: "Published deep dives on zero-allocation Go, eBPF telemetry, and multi-agent memory patterns.",
+    stat: "5+ Thn",
+    label: "Dedikasi di Web Engineering",
+    desc: "Terus mengikuti evolusi teknologi web terkini untuk memberikan solusi paling efektif.",
   },
 ];
 
@@ -146,14 +146,14 @@ export default function AboutPage() {
     <div className="py-12 sm:py-16 lg:py-20 flex-1 flex flex-col space-y-16 sm:space-y-24">
       {/* Inject JSON-LD */}
       <ProfilePageJsonLd
-        name="About | Alex Vance - AI & Full-Stack Systems Engineer"
-        description="Engineering philosophy, distributed systems journey, modern autonomous AI agent architectures, hardware/software stack, and open source impact of Alex Vance."
-        url="https://alexvance.dev/about"
+        name="Tentang | M. Faisal Fahri - Full-Stack Web Developer"
+        description="Filosofi engineering, perjalanan pengembangan web full-stack, stack teknologi Laravel, Vue, React, Next.js, dan kontribusi proyek M. Faisal Fahri."
+        url="https://faisalfahri.dev/about"
       />
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://alexvance.dev" },
-          { name: "About", url: "https://alexvance.dev/about" },
+          { name: "Beranda", url: "https://faisalfahri.dev" },
+          { name: "Tentang", url: "https://faisalfahri.dev/about" },
         ]}
       />
 
@@ -162,43 +162,29 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-3">
             <Badge variant="emerald" dot className="font-mono text-xs">
-              Executive Profile
+              Profil Profesional
             </Badge>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary">
-              Engineering Resilient Systems &amp;{" "}
+              Membangun Aplikasi Web Modern &amp;{" "}
               <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-                Autonomous Intelligence
+                Solusi Skalabel
               </span>
             </h1>
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed pt-2">
-              Hi, I&apos;m Alex Vance. Over the last 8+ years, I have navigated the
-              evolution of software architecture — starting with high-throughput
-              financial transaction gateways and distributed consensus engines,
-              to modern agentic AI networks running at the network edge.
+              Halo! Saya <strong>M. Faisal Fahri</strong>, seorang Full-Stack Web Developer dengan pengalaman lebih dari 5 tahun dalam membangun aplikasi web bisnis, sistem SaaS, portal e-commerce, dan dashboard interaktif.
             </p>
           </div>
 
           {/* Narrative paragraphs */}
           <div className="space-y-4 text-sm sm:text-base text-text-secondary leading-relaxed font-normal border-l-2 border-emerald-500/30 pl-4 sm:pl-6">
             <p>
-              My journey began in low-level systems programming: analyzing CPU
-              cache lines, profiling Go garbage collector pause times, and
-              building real-time market event streams handling hundreds of millions
-              in transactional volume. That era instilled a deep respect for
-              hardware limits and deterministic predictability.
+              Fokus utama saya adalah memadukan keandalan arsitektur backend <strong>Laravel (PHP)</strong> dan database relasional dengan antarmuka frontend modern yang responsif menggunakan <strong>Vue.js</strong>, <strong>React</strong>, <strong>Next.js</strong>, dan <strong>Tailwind CSS</strong>.
             </p>
             <p>
-              When the generative AI paradigm shift arrived, I realized the biggest
-              unsolved challenge wasn&apos;t just training models—it was wrapping
-              probabilistic neural nets into dependable, observable, and low-latency
-              production architectures. Today, I lead architecture at the
-              intersection of distributed backends and multi-agent AI graphs,
-              helping engineering teams ship autonomous agents with 99.9%
-              execution integrity.
+              Saya terbiasa menangani siklus pengembangan end-to-end: mulai dari perancangan skema database, pembuatan RESTful API, integrasi payment gateway / third-party service, hingga deployment server produksi menggunakan Docker dan CI/CD.
             </p>
             <p>
-              I believe great software is crafted at the boundary where rigorous
-              systems engineering meets fluid, intuitive human experiences.
+              Prinsip kerja saya sederhana: menulis kode yang bersih (clean code), terstruktur, mudah di-maintenance, dan selalu mengutamakan performa serta pengalaman pengguna (UX).
             </p>
           </div>
 
@@ -206,26 +192,26 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
             <div className="p-4 rounded-xl bg-surface-card border border-border-subtle">
               <div className="text-2xl font-bold font-mono text-emerald-400">
-                8+
+                5+
               </div>
               <div className="text-xs text-text-muted mt-1">
-                Years in Systems &amp; Web
+                Tahun Pengalaman Web Dev
               </div>
             </div>
             <div className="p-4 rounded-xl bg-surface-card border border-border-subtle">
               <div className="text-2xl font-bold font-mono text-cyan-400">
-                10M+
+                30+
               </div>
               <div className="text-xs text-text-muted mt-1">
-                Monthly Active Endpoints
+                Aplikasi Web Selesai
               </div>
             </div>
             <div className="p-4 rounded-xl bg-surface-card border border-border-subtle">
               <div className="text-2xl font-bold font-mono text-emerald-400">
-                &lt;10ms
+                &lt;100ms
               </div>
               <div className="text-xs text-text-muted mt-1">
-                P99 Vector Retrieval SLA
+                Rata-rata Respon API
               </div>
             </div>
             <div className="p-4 rounded-xl bg-surface-card border border-border-subtle">
@@ -233,7 +219,7 @@ export default function AboutPage() {
                 99.9%
               </div>
               <div className="text-xs text-text-muted mt-1">
-                Agent State Reliability
+                Komitmen Kualitas &amp; Uptime
               </div>
             </div>
           </div>
@@ -246,14 +232,13 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="space-y-2">
               <Badge variant="cyan" className="font-mono text-xs">
-                Core Mindset
+                Prinsip Kerja
               </Badge>
               <h2 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-                Engineering Principles &amp; Philosophy
+                Prinsip &amp; Standar Pengembangan
               </h2>
               <p className="text-sm sm:text-base text-text-secondary">
-                The technical tenets that guide every architectural decision, RFC,
-                and pull request I produce.
+                Pendekatan teknis yang saya terapkan dalam setiap baris kode, arsitektur database, dan antarmuka web.
               </p>
             </div>
 
@@ -297,11 +282,10 @@ export default function AboutPage() {
               Environment
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-              Work Environment &amp; Development Setup
+              Development Environment &amp; Toolchain
             </h2>
             <p className="text-sm sm:text-base text-text-secondary">
-              A high-efficiency workstation tuned for local model fine-tuning,
-              kernel-level debugging, and rapid full-stack iteration.
+              Perangkat keras dan toolchain perangkat lunak yang mendukung alur kerja pengembangan web yang cepat dan andal.
             </p>
           </div>
 
@@ -310,7 +294,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-text-muted flex items-center gap-2">
                 <Laptop className="w-4 h-4 text-emerald-400" />
-                Hardware Infrastructure
+                Hardware Setup
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {HARDWARE_STACK.map((hw, idx) => (
@@ -336,7 +320,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-text-muted flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-cyan-400" />
-                Software Toolchain &amp; Runtimes
+                Software &amp; Frameworks
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {SOFTWARE_STACK.map((group, idx) => (
@@ -372,18 +356,17 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="space-y-2">
               <Badge variant="cyan" className="font-mono text-xs">
-                Credentials &amp; Ecosystem
+                Kredensial &amp; Pengalaman
               </Badge>
               <h2 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-                Education &amp; Open Source Impact
+                Pendidikan &amp; Rekam Jejak
               </h2>
               <p className="text-sm sm:text-base text-text-secondary">
-                Academic foundations, cloud certifications, and public developer
-                contributions.
+                Latar belakang pendidikan, sertifikasi kompetensi, dan dampak proyek yang telah dibangun.
               </p>
             </div>
 
-            {/* Open Source Impact Numbers */}
+            {/* Impact Numbers */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {OPEN_SOURCE_IMPACT.map((item, idx) => (
                 <div
@@ -407,7 +390,7 @@ export default function AboutPage() {
             <div className="space-y-4 pt-4">
               <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-text-muted flex items-center gap-2">
                 <GraduationCap className="w-4 h-4 text-emerald-400" />
-                Degrees &amp; Formal Certifications
+                Pendidikan &amp; Sertifikasi
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {CREDENTIALS.map((cred, idx) => (
@@ -445,24 +428,23 @@ export default function AboutPage() {
           <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-surface-card to-cyan-500/10 p-8 sm:p-12 text-center space-y-6">
             <div className="space-y-3 max-w-xl mx-auto">
               <h3 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-                Let&apos;s Build Your Next Architecture
+                Siap Berkolaborasi Membangun Proyek Anda?
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Interested in working together or reviewing your systems topology?
-                Explore current projects or reach out directly.
+                Punya ide aplikasi web baru, butuh migrasi sistem, atau ingin berdiskusi teknis? Mari terhubung dan diskusikan kebutuhan Anda.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <Link href="/contact" className="w-full sm:w-auto">
                 <Button size="lg" variant="primary" className="w-full sm:w-auto font-mono text-sm group">
-                  <span>Start a Conversation</span>
+                  <span>Mulai Diskusi</span>
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/projects" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" className="w-full sm:w-auto font-mono text-sm">
-                  <span>Explore Case Studies</span>
+                  <span>Lihat Semua Proyek</span>
                 </Button>
               </Link>
             </div>

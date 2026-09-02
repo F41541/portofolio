@@ -23,24 +23,24 @@ export interface HeroSectionProps {
 export function HeroSection({ onScrollToTerminal }: HeroSectionProps) {
   const stats = [
     {
-      value: "10M+",
-      label: "Monthly API Requests Handled",
-      icon: Zap,
+      value: "5+ Thn",
+      label: "Pengalaman Web Development",
+      icon: Activity,
     },
     {
-      value: "99.99%",
-      label: "Production Uptime SLA",
-      icon: ShieldCheck,
-    },
-    {
-      value: "45+",
-      label: "AI & Full-Stack Deployments",
+      value: "30+",
+      label: "Web App & Proyek Selesai",
       icon: Layers,
     },
     {
-      value: "5+ Yrs",
-      label: "Deep Engineering Experience",
-      icon: Activity,
+      value: "<100ms",
+      label: "Rata-rata Respon API",
+      icon: Zap,
+    },
+    {
+      value: "99.9%",
+      label: "Uptime & Stabilitas Sistem",
+      icon: ShieldCheck,
     },
   ];
 
@@ -73,24 +73,22 @@ export function HeroSection({ onScrollToTerminal }: HeroSectionProps) {
               dot
               className="bg-surface-card/90 text-emerald-400 font-mono text-xs sm:text-sm px-3.5 py-1 tracking-wide uppercase font-semibold"
             >
-              AI &amp; Full-Stack Systems Engineer
+              Full-Stack Web Developer &amp; Frontend Specialist
             </Badge>
           </div>
 
           {/* High-Contrast Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-text-primary leading-[1.1]">
-            Engineering{" "}
+            Membangun{" "}
             <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              Intelligent Systems
+              Aplikasi Web Modern
             </span>{" "}
-            &amp; High-Scale Web Applications
+            yang Cepat, Bersih, &amp; Skalabel
           </h1>
 
           {/* Sub-headline Value Proposition */}
           <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-3xl">
-            Architecting robust full-stack web platforms, autonomous LLM agent pipelines,
-            and sub-millisecond distributed backend microservices engineered for extreme resilience,
-            scalability, and developer velocity.
+            Spesialis dalam merancang full-stack web application menggunakan ekosistem <strong>Laravel</strong>, <strong>Vue.js</strong>, <strong>React</strong>, dan <strong>Next.js 15</strong> dengan arsitektur database yang efisien dan UI interaktif berkinerja tinggi.
           </p>
 
           {/* Action Buttons */}
@@ -101,7 +99,7 @@ export function HeroSection({ onScrollToTerminal }: HeroSectionProps) {
                 size="lg"
                 className="gap-2.5 shadow-xl shadow-emerald-500/20 group"
               >
-                <span>Explore Featured Work</span>
+                <span>Lihat Proyek Pilihan</span>
                 <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
               </Button>
             </Link>
@@ -126,7 +124,7 @@ export function HeroSection({ onScrollToTerminal }: HeroSectionProps) {
                 size="lg"
                 className="gap-1.5 text-text-muted hover:text-text-primary"
               >
-                <span>Connect</span>
+                <span>Hubungi Saya</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Button>
             </Link>

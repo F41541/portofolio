@@ -43,21 +43,20 @@ export const ContactCta: React.FC = () => {
             <div className="flex justify-center">
               <Badge variant="emerald" dot className="px-3 py-1 font-mono text-xs">
                 <Sparkles className="w-3.5 h-3.5 mr-1 text-emerald-400" />
-                Available for Q1 / Q2 Engagements
+                Available for New Projects &amp; Freelance
               </Badge>
             </div>
 
             {/* Headline & Description */}
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary">
-                Ready to Build Something{" "}
+                Siap Membangun Aplikasi Web{" "}
                 <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-                  Extraordinary?
+                  Berkualitas Tinggi?
                 </span>
               </h2>
               <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
-                Available for select architectural consulting, AI engineering
-                leadership, and high-impact contract builds.
+                Tersedia untuk pembuatan web application kustom, integrasi API sistem, modernisasi frontend (Vue/React/Next.js), atau konsultasi teknis.
               </p>
             </div>
 
@@ -65,15 +64,15 @@ export const ContactCta: React.FC = () => {
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
                 <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Response within 24 hours</span>
+                <span>Respon Cepat &lt; 24 Jam</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
                 <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-                <span>NDA Protected</span>
+                <span>Clean &amp; Maintainable Code</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
                 <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Direct Senior Engineer Access</span>
+                <span>Full-Stack Support</span>
               </div>
             </div>
 
@@ -86,7 +85,7 @@ export const ContactCta: React.FC = () => {
                   className="w-full sm:w-auto font-mono text-sm group"
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>Schedule Intro Call</span>
+                  <span>Jadwalkan Diskusi</span>
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -97,7 +96,7 @@ export const ContactCta: React.FC = () => {
                   className="w-full sm:w-auto font-mono text-sm group"
                 >
                   <Mail className="w-4 h-4 mr-2 text-text-muted group-hover:text-emerald-400 transition-colors" />
-                  <span>Send Direct Message</span>
+                  <span>Kirim Pesan Langsung</span>
                 </Button>
               </Link>
             </div>

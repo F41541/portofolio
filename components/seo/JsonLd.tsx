@@ -53,8 +53,8 @@ export interface BreadcrumbListJsonLdProps {
   items: BreadcrumbItem[];
 }
 
-const DEFAULT_SITE_URL = "https://alexvance.dev";
-const DEFAULT_NAME = "Alex Vance";
+const DEFAULT_SITE_URL = "https://faisalfahri.dev";
+const DEFAULT_NAME = "M. Faisal Fahri";
 
 /**
  * Generic JsonLd script wrapper
@@ -78,30 +78,27 @@ export function generatePersonSchema(props?: PersonJsonLdProps) {
     "@type": "Person",
     "@id": `${url}/#person`,
     name: props?.name || DEFAULT_NAME,
-    alternateName: props?.alternateName || ["Alex Rivers"],
-    jobTitle: props?.jobTitle || "AI & Full-Stack Systems Engineer",
+    alternateName: props?.alternateName || ["Faisal Fahri", "laxcyyfa"],
+    jobTitle: props?.jobTitle || "Full-Stack Web Developer",
     description:
       props?.description ||
-      "AI & Full-Stack Systems Engineer specializing in low-latency distributed systems, LLM agent architectures, and high-scale modern web applications.",
+      "Full-Stack Web Developer specializing in Laravel, Vue.js, React 19, Next.js 15, and modern high-performance web architecture.",
     url,
     sameAs: props?.sameAs || [
       "https://github.com",
       "https://linkedin.com",
-      "https://x.com",
     ],
     knowsAbout: props?.knowsAbout || [
-      "Distributed Systems",
-      "Artificial Intelligence",
-      "Autonomous Agent Architectures",
-      "High-Throughput Microservices",
-      "Vector Search & RAG",
-      "Next.js & React 19",
+      "Laravel & PHP",
+      "Vue.js & Nuxt",
+      "React 19 & Next.js 15",
       "TypeScript",
-      "Rust",
-      "Go",
-      "Python",
-      "eBPF & Kernel Telemetry",
-      "Cloud-Native Kubernetes",
+      "RESTful API & GraphQL",
+      "PostgreSQL & MySQL",
+      "Tailwind CSS",
+      "Docker",
+      "Inertia.js",
+      "Web Architecture",
     ],
     ...(props?.alumniOf
       ? {
@@ -110,12 +107,7 @@ export function generatePersonSchema(props?: PersonJsonLdProps) {
             name: props.alumniOf,
           },
         }
-      : {
-          alumniOf: {
-            "@type": "EducationalOrganization",
-            name: "University of California, Berkeley",
-          },
-        }),
+      : {}),
     ...(props?.image ? { image: props.image } : {}),
   };
 }
@@ -144,7 +136,7 @@ export function generateProfilePageSchema(props?: ProfilePageJsonLdProps) {
         name: props?.name || `${personSchema.name} | ${personSchema.jobTitle}`,
         description:
           props?.description ||
-          "Personal portfolio and technical case studies of Alex Vance — AI & Full-Stack Systems Engineer specializing in low-latency distributed systems and autonomous agent pipelines.",
+          "Personal portfolio and technical case studies of M. Faisal Fahri — Full-Stack Web Developer specializing in Laravel, Vue.js, React, and Next.js modern web applications.",
         mainEntity: {
           "@id": `${url}/#person`,
         },

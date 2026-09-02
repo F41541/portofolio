@@ -65,7 +65,7 @@ export function getProjectBySlug(slug: string): Project | null {
       subtitle: data.subtitle || data.description || "",
       category: data.category || "Full-Stack",
       date: data.date || new Date().toISOString().split("T")[0],
-      author: data.author || "Alex Vance",
+      author: data.author || "M. Faisal Fahri",
       featured: Boolean(data.featured),
       tags: Array.isArray(data.tags) ? data.tags : [],
       metrics: Array.isArray(data.metrics) ? data.metrics : [],

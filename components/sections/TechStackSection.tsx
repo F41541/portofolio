@@ -29,13 +29,13 @@ export function TechStackSection() {
 
   const getCategoryIcon = (category: TechCategory) => {
     switch (category) {
-      case "ai-ml":
-        return <Cpu className="w-4 h-4" />;
-      case "backend":
-        return <Server className="w-4 h-4" />;
       case "frontend":
         return <Layout className="w-4 h-4" />;
-      case "cloud-devops":
+      case "backend":
+        return <Server className="w-4 h-4" />;
+      case "database":
+        return <Cpu className="w-4 h-4" />;
+      case "tools-devops":
         return <Cloud className="w-4 h-4" />;
       default:
         return <Layers className="w-4 h-4" />;
@@ -64,26 +64,25 @@ export function TechStackSection() {
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2">
               <Badge variant="emerald" dot>
-                Production Capabilities
+                Keahlian &amp; Kapabilitas Teknis
               </Badge>
               <span className="text-xs font-mono text-text-muted">STACK_REGISTRY: v2.6</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary">
-              Core Tech Stack &amp;{" "}
+              Keahlian Tech Stack &amp;{" "}
               <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-                Tooling
+                Toolchain
               </span>
             </h2>
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-              Curated technologies battle-tested across production systems, high-scale microservices,
-              and low-latency AI pipelines.
+              Kombinasi teknologi yang terbukti andal dalam membangun aplikasi web bisnis, sistem e-commerce, dan RESTful API performa tinggi.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono text-text-muted bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Hover cards for production usage details</span>
+              <span>Arahkan kursor ke kartu untuk melihat detail implementasi</span>
             </span>
           </div>
         </div>
@@ -143,7 +142,7 @@ export function TechStackSection() {
                         {tech.name}
                       </h3>
                       <div className="flex items-center gap-2 text-[11px] font-mono text-text-muted mt-0.5">
-                        <span>{tech.years} Yrs Exp</span>
+                        <span>{tech.years} Thn Pengalaman</span>
                         <span>•</span>
                         <span className="capitalize">{tech.category.replace("-", " / ")}</span>
                       </div>
@@ -181,9 +180,9 @@ export function TechStackSection() {
           <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
             <Zap className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-text-primary">Performance First</h4>
+              <h4 className="text-sm font-semibold text-text-primary">Fokus Performa</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
-                Zero-allocation algorithms in Go &amp; SIMD vector calculations in Rust for sub-millisecond hot paths.
+                Optimasi rendering SSR/SSG, efisiensi query database (eager loading &amp; indexing), dan Redis caching.
               </p>
             </div>
           </div>
@@ -191,9 +190,9 @@ export function TechStackSection() {
           <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
             <Cpu className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-text-primary">Agentic Architectures</h4>
+              <h4 className="text-sm font-semibold text-text-primary">Arsitektur Modular</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
-                State machine graph execution, dynamic tool binding, and robust memory checkpointing with LangGraph &amp; Redis.
+                Penerapan Service Layer terstruktur di Laravel serta sistem komponen reusable dengan TypeScript &amp; Tailwind CSS.
               </p>
             </div>
           </div>
@@ -201,9 +200,9 @@ export function TechStackSection() {
           <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
             <Cloud className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-text-primary">Zero-Downtime Infra</h4>
+              <h4 className="text-sm font-semibold text-text-primary">Deployment &amp; CI/CD</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
-                Cloud-native Kubernetes deployments, global edge routing via Cloudflare Workers, and multi-region resilience.
+                Deployment konsisten dengan Docker Compose, konfigurasi Nginx reverse proxy di VPS Linux, dan otomasi GitHub Actions.
               </p>
             </div>
           </div>

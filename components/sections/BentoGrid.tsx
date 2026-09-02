@@ -58,26 +58,26 @@ export function BentoGrid() {
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2">
               <Badge variant="emerald" dot>
-                Bento Architecture Showcase
+                Arsitektur &amp; Portofolio Pilihan
               </Badge>
               <span className="text-xs font-mono text-text-muted">SYSTEM_INDEX: 0x4A</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary">
-              Flagship Projects &amp;{" "}
+              Proyek Unggulan &amp;{" "}
               <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-                Core Systems
+                Sistem Utama
               </span>
             </h2>
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-              Asymmetric view into production architectures, high-concurrency pipelines,
-              and low-latency computational engines.
+              Tinjauan mendalam pada arsitektur produksi, alur kerja full-stack,
+              dan optimasi database berkecepatan tinggi.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <Link href="/projects">
               <Button variant="secondary" size="md" className="gap-2 group">
-                <span>View All Projects</span>
+                <span>Lihat Semua Proyek</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-emerald-400" />
               </Button>
             </Link>
@@ -152,7 +152,7 @@ export function BentoGrid() {
                             : "bg-surface-elevated/80 border-border-subtle text-text-secondary"
                         }`}
                       >
-                        <div className="text-[9px] text-text-muted">STEP 0{i + 1}</div>
+                        <div className="text-[9px] text-text-muted">LANGKAH 0{i + 1}</div>
                         <div className="truncate mt-0.5">{node}</div>
                       </div>
                     );
@@ -201,7 +201,7 @@ export function BentoGrid() {
 
               <Link href={flagship.caseStudyUrl}>
                 <Button variant="primary" size="sm" className="gap-2">
-                  <span>Deep Dive Case Study</span>
+                  <span>Pelajari Studi Kasus</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Button>
               </Link>
@@ -286,7 +286,7 @@ export function BentoGrid() {
                 href={ragPipeline.caseStudyUrl}
                 className="text-xs font-mono text-cyan-400 hover:underline flex items-center gap-1"
               >
-                <span>Architecture RFD</span>
+                <span>Studi Kasus Lengkap</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -311,10 +311,10 @@ export function BentoGrid() {
 
               <div>
                 <h4 className="text-base font-bold text-text-primary">
-                  System Benchmark
+                  Performa Endpoint
                 </h4>
                 <p className="text-xs text-text-secondary mt-1">
-                  Synthetic P99 round-trip gateway latency.
+                  Rata-rata latensi round-trip respon API.
                 </p>
               </div>
 
@@ -371,10 +371,10 @@ export function BentoGrid() {
 
               <div>
                 <h4 className="text-base font-bold text-text-primary">
-                  Community Impact
+                  Open Source &amp; Komunitas
                 </h4>
                 <p className="text-xs text-text-secondary mt-1">
-                  Public repositories, crates, and dev-tools.
+                  Repositori publik, package, dan UI component tools.
                 </p>
               </div>
 
@@ -415,47 +415,47 @@ export function BentoGrid() {
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-emerald-400" />
                   <span className="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">
-                    Tech Radar &amp; Research Focus
+                    Eksplorasi Teknologi &amp; Riset
                   </span>
                 </div>
-                <span className="text-xs font-mono text-text-muted">Q1 2026</span>
+                <span className="text-xs font-mono text-text-muted">2026</span>
               </div>
 
               <div>
                 <h4 className="text-xl font-bold text-text-primary">
-                  Reasoning Models &amp; Distributed Speculative Decoding
+                  Arsitektur Web Modern &amp; Server Components (RSC)
                 </h4>
                 <p className="text-sm text-text-secondary mt-1 leading-relaxed">
-                  Investigating dynamic test-time compute scaling, tree-of-thought verification graphs, and sub-10ms draft token verification for local inference engines.
+                  Mengembangkan pola rendering hybrid di Next.js 16 / Nuxt 3, optimasi query database Eloquent &amp; Prisma, serta interaksi real-time tanpa latency.
                 </p>
               </div>
 
               {/* Research Pillars */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 font-mono text-xs">
                 <div className="p-2.5 rounded-lg bg-surface-ground border border-border-subtle/80 space-y-1">
-                  <span className="text-emerald-400 font-semibold block text-[11px]">ADOPT</span>
-                  <p className="text-text-secondary text-[11px]">LangGraph, Qdrant, Rust Wasm</p>
+                  <span className="text-emerald-400 font-semibold block text-[11px]">TERAPKAN</span>
+                  <p className="text-text-secondary text-[11px]">Laravel 12, Vue 3, Next.js 16</p>
                 </div>
                 <div className="p-2.5 rounded-lg bg-surface-ground border border-border-subtle/80 space-y-1">
-                  <span className="text-cyan-400 font-semibold block text-[11px]">TRIAL</span>
-                  <p className="text-text-secondary text-[11px]">DeepSeek-R1, Speculative Drafting</p>
+                  <span className="text-cyan-400 font-semibold block text-[11px]">UJI COBA</span>
+                  <p className="text-text-secondary text-[11px]">Inertia v2, Server Actions, Redis</p>
                 </div>
                 <div className="p-2.5 rounded-lg bg-surface-ground border border-border-subtle/80 space-y-1">
-                  <span className="text-amber-400 font-semibold block text-[11px]">ASSESS</span>
-                  <p className="text-text-secondary text-[11px]">Kernel-Level eBPF AI Gateway</p>
+                  <span className="text-amber-400 font-semibold block text-[11px]">EVALUASI</span>
+                  <p className="text-text-secondary text-[11px]">Edge Functions, AI Web Integrations</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-4 mt-4 border-t border-border-subtle/60 flex items-center justify-between">
               <span className="text-xs font-mono text-text-muted">
-                Status: Continuous Prototyping
+                Status: Eksplorasi Aktif
               </span>
               <Link
                 href="/blog"
                 className="text-xs font-mono text-emerald-400 hover:underline flex items-center gap-1"
               >
-                <span>Read Research Notes</span>
+                <span>Baca Artikel Riset</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
