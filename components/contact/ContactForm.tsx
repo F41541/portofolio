@@ -23,16 +23,16 @@ import { Select } from "@/components/ui/Select";
 import { FormField } from "@/components/ui/FormField";
 
 export type ProjectScope =
-  | "laravel-fullstack"
-  | "frontend-modern"
-  | "api-backend"
-  | "consultation";
+  | "modern-landing-page"
+  | "erp-system-umkm"
+  | "ecommerce-cms-store"
+  | "custom-web-application";
 
 export type BudgetRange =
-  | "under-5jt"
+  | "1jt-3jt"
+  | "3jt-5jt"
   | "5jt-15jt"
-  | "15jt-50jt"
-  | "50jt-plus"
+  | "15jt-plus"
   | "monthly-retainer";
 
 interface FormData {
@@ -49,43 +49,47 @@ interface FormErrors {
   message?: string;
 }
 
-const SCOPE_OPTIONS: { id: ProjectScope; label: string; desc: string }[] = [
+const SCOPE_OPTIONS: { id: ProjectScope; label: string; desc: string; price: string }[] = [
   {
-    id: "laravel-fullstack",
-    label: "Full-Stack Web App",
-    desc: "Laravel 11, Inertia.js, Vue 3 / React & arsitektur database",
+    id: "modern-landing-page",
+    label: "Modern Landing Page & Profil Bisnis",
+    desc: "Next.js 16, Tailwind CSS, Core Web Vitals 95+, SEO prima & responsif",
+    price: "Mulai Rp 1.250.000",
   },
   {
-    id: "frontend-modern",
-    label: "Modern Frontend / SPA",
-    desc: "Next.js 15, React 19, Vue/Nuxt 3, Tailwind & TypeScript",
+    id: "erp-system-umkm",
+    label: "Sistem ERP & Manajemen Bisnis UMKM",
+    desc: "Laravel (PHP) & Vue 3 / Inertia.js, stok gudang, POS kasir & pelaporan keuangan",
+    price: "Mulai Rp 3.850.000",
   },
   {
-    id: "api-backend",
-    label: "RESTful API & Integration",
-    desc: "Payment gateway, third-party webhook, microservices & Redis",
+    id: "ecommerce-cms-store",
+    label: "Platform E-Commerce & CMS Toko Online",
+    desc: "Katalog produk variasi, keranjang belanja, dashboard admin & gateway Duitku",
+    price: "Mulai Rp 2.750.000",
   },
   {
-    id: "consultation",
-    label: "Konsultasi & Refactoring",
-    desc: "Optimasi query, audit performa web & perbaikan arsitektur",
+    id: "custom-web-application",
+    label: "Aplikasi Web Custom & Solusi SaaS Khusus",
+    desc: "Rekayasa software web khusus sesuai SOP bisnis, modular, scalable & clean code",
+    price: "Mulai Rp 5.000.000",
   },
 ];
 
 const BUDGET_OPTIONS: { id: BudgetRange; label: string }[] = [
-  { id: "under-5jt", label: "< Rp 5 Juta (Landing Page / Fitur Kecil)" },
-  { id: "5jt-15jt", label: "Rp 5 Juta - Rp 15 Juta (MVP / Sistem Menengah)" },
-  { id: "15jt-50jt", label: "Rp 15 Juta - Rp 50 Juta (Full Web Application)" },
-  { id: "50jt-plus", label: "Rp 50 Juta+ (Sistem Enterprise Multi-Modul)" },
-  { id: "monthly-retainer", label: "Maintenance / Monthly Retainer" },
+  { id: "1jt-3jt", label: "Rp 1 Juta - Rp 3 Juta (Landing Page / Toko Online Basic)" },
+  { id: "3jt-5jt", label: "Rp 3 Juta - Rp 5 Juta (Sistem ERP / E-Commerce Bisnis)" },
+  { id: "5jt-15jt", label: "Rp 5 Juta - Rp 15 Juta (Aplikasi Web Custom & SaaS MVP)" },
+  { id: "15jt-plus", label: "Rp 15 Juta+ (Sistem Enterprise Multi-Modul)" },
+  { id: "monthly-retainer", label: "Maintenance & Layanan Berkala (Monthly Retainer)" },
 ];
 
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = React.useState<FormData>({
     name: "",
     email: "",
-    scope: "laravel-fullstack",
-    budget: "5jt-15jt",
+    scope: "erp-system-umkm",
+    budget: "3jt-5jt",
     message: "",
   });
 
@@ -229,8 +233,8 @@ export const ContactForm: React.FC = () => {
     setFormData({
       name: "",
       email: "",
-      scope: "laravel-fullstack",
-      budget: "5jt-15jt",
+      scope: "erp-system-umkm",
+      budget: "3jt-5jt",
       message: "",
     });
     setErrors({});
@@ -432,18 +436,18 @@ export const ContactForm: React.FC = () => {
                       key={opt.id}
                       type="button"
                       onClick={() => setFormData((p) => ({ ...p, scope: opt.id }))}
-                      className={`p-3 rounded-xl border text-left transition-all ${
+                      className={`p-3.5 rounded-xl border text-left transition-all duration-fast ease-spring-snappy focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-[0.98] ${
                         isSelected
                           ? "bg-accent-emerald/10 border-accent-emerald/60 shadow-sm shadow-accent-emerald/10 text-text-primary"
-                          : "bg-surface-elevated/50 border-border-subtle hover:border-border-accent text-text-secondary hover:text-text-primary"
+                          : "bg-surface-elevated/50 border-border-subtle hover:border-accent-emerald/40 text-text-secondary hover:text-text-primary"
                       }`}
                     >
-                      <div className="text-xs font-semibold flex items-center justify-between">
-                        <span className={isSelected ? "text-accent-emerald" : ""}>
+                      <div className="text-xs font-semibold flex items-center justify-between gap-2">
+                        <span className={isSelected ? "text-accent-emerald font-bold" : ""}>
                           {opt.label}
                         </span>
                         <span
-                          className={`w-2 h-2 rounded-full ${
+                          className={`w-2 h-2 rounded-full shrink-0 ${
                             isSelected ? "bg-accent-emerald ring-4 ring-accent-emerald/20" : "bg-border-subtle"
                           }`}
                         />
@@ -451,6 +455,10 @@ export const ContactForm: React.FC = () => {
                       <p className="text-[11px] text-text-muted mt-1 leading-snug">
                         {opt.desc}
                       </p>
+                      <div className="mt-2 text-[10px] font-mono font-semibold text-emerald-700 dark:text-emerald-300 flex items-center justify-between">
+                        <span>{opt.price}</span>
+                        <span className="text-[9px] text-text-muted font-sans font-normal">Katalog Store</span>
+                      </div>
                     </button>
                   );
                 })}

@@ -99,9 +99,6 @@ export default function StorePage() {
         <Container className="space-y-12">
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20">
-              Etalase Produk &amp; Layanan Resmi
-            </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-[1.15]">
               Layanan &amp; Modul Solusi{" "}
               <span className="bg-gradient-to-r from-accent-emerald to-accent-cyan bg-clip-text text-transparent">

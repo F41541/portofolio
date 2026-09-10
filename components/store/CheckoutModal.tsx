@@ -139,24 +139,25 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 12 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-lg rounded-3xl border border-border-subtle bg-surface-card p-6 sm:p-8 shadow-2xl z-10 space-y-5"
         >
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="space-y-1">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-accent-emerald/10 text-emerald-700 dark:text-emerald-300 border border-accent-emerald/20">
                 <ShieldCheck className="w-3 h-3" />
                 Duitku Sandbox Checkout
               </span>
-              <h2 className="text-xl font-bold text-text-primary tracking-tight">
-                Formulir Pemesanan &amp; Pembayaran
-              </h2>
+              <h3 className="text-xl font-bold text-text-primary">
+                Selesaikan Pembayaran
+              </h3>
             </div>
+
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-elevated transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2.5 -mr-2 text-text-muted hover:text-text-primary rounded-xl hover:bg-surface-elevated transition-all duration-fast ease-spring-snappy focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-95"
               aria-label="Tutup form pemesanan"
             >
               <X className="w-5 h-5" />

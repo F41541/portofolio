@@ -20,23 +20,23 @@ export function getButtonStyles({
   className,
 }: ButtonStyleOptions = {}): string {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-accent-emerald focus:ring-offset-2 focus:ring-offset-surface-ground disabled:opacity-60 disabled:cursor-not-allowed select-none active:scale-[0.98]";
+    "inline-flex items-center justify-center font-medium rounded-xl transition-all duration-fast ease-spring-snappy focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald focus-visible:ring-offset-2 focus-visible:ring-offset-surface-ground disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none select-none active:scale-[0.97]";
 
   const variantStyles: Record<ButtonVariant, string> = {
     primary:
-      "bg-emerald-500 text-black font-semibold shadow-lg shadow-emerald-500/20 hover:bg-emerald-400 border border-emerald-400/20",
+      "bg-accent-emerald text-slate-950 font-semibold shadow-md shadow-accent-emerald/20 hover:bg-emerald-400 hover:shadow-lg hover:shadow-accent-emerald/25 active:shadow-sm border border-emerald-400/30",
     secondary:
-      "bg-surface-elevated text-text-primary hover:border-accent-emerald border border-border-subtle",
+      "bg-surface-card text-text-primary hover:bg-surface-elevated hover:border-accent-emerald/50 border border-border-subtle shadow-sm active:bg-surface-ground",
     outline:
-      "border border-border-subtle hover:border-accent-emerald text-text-primary bg-transparent",
+      "border border-border-subtle hover:border-accent-emerald/70 text-text-primary bg-transparent hover:bg-surface-elevated/50",
     ghost:
-      "hover:bg-surface-elevated text-text-secondary hover:text-text-primary bg-transparent",
+      "text-text-secondary hover:text-text-primary hover:bg-surface-elevated/80 active:bg-surface-elevated bg-transparent",
   };
 
   const sizeStyles: Record<ButtonSize, string> = {
-    sm: "h-8 px-3 text-xs gap-1.5",
-    md: "h-10 px-4 text-sm gap-2",
-    lg: "h-12 px-6 text-base gap-2.5",
+    sm: "min-h-[38px] sm:min-h-[40px] px-3.5 text-xs gap-1.5",
+    md: "min-h-[44px] px-4 text-sm gap-2",
+    lg: "min-h-[48px] px-6 text-base gap-2.5",
   };
 
   return cn(baseStyles, variantStyles[variant], sizeStyles[size], className);

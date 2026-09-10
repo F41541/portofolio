@@ -29,7 +29,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
 
   return (
     <div
-      className={`group relative flex flex-col justify-between rounded-2xl border border-border-subtle bg-surface-card p-6 sm:p-7 transition-all duration-300 hover:border-accent-emerald/40 hover:bg-surface-elevated/40 hover:shadow-2xl hover:shadow-accent-emerald/10 hover:-translate-y-1 ${
+      className={`group relative flex flex-col justify-between rounded-2xl border border-border-subtle bg-surface-card p-6 sm:p-7 transition-all duration-normal ease-spring-natural hover:border-accent-emerald/40 hover:bg-surface-elevated/40 hover:shadow-2xl hover:shadow-accent-emerald/10 hover:-translate-y-1.5 ${
         featured ? "md:col-span-2 border-accent-emerald/30 bg-accent-emerald/5" : ""
       }`}
     >

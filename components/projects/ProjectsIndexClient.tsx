@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 import { SearchFilterBar } from "@/components/ui/SearchFilterBar";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Project } from "@/lib/projects";
@@ -137,15 +138,17 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
             <p className="mt-1 text-sm text-text-secondary">
               Coba gunakan kata kunci pencarian lain atau ubah filter kategori.
             </p>
-            <button
+            <Button
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("Semua");
               }}
-              className="mt-4 px-4 py-2 text-xs font-semibold text-accent-emerald bg-accent-emerald/10 hover:bg-accent-emerald/20 border border-accent-emerald/30 rounded-lg transition-colors"
+              variant="secondary"
+              size="sm"
+              className="mt-4 border-accent-emerald/40 text-accent-emerald hover:bg-accent-emerald/10"
             >
               Reset semua filter
-            </button>
+            </Button>
           </div>
         )}
       </Container>

@@ -25,17 +25,17 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       onClick={toggleTheme}
       suppressHydrationWarning
       className={cn(
-        "flex items-center justify-center gap-2 p-2 rounded-lg bg-surface-elevated/60 hover:bg-surface-elevated border border-border-subtle hover:border-accent-emerald/40 text-text-muted hover:text-text-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-emerald select-none cursor-pointer",
+        "flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] p-2.5 rounded-xl bg-surface-elevated/60 hover:bg-surface-elevated border border-border-subtle hover:border-accent-emerald/40 text-text-muted hover:text-text-primary transition-all duration-fast ease-spring-snappy focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-95 select-none cursor-pointer",
         className
       )}
       aria-label={isDark ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
       title={isDark ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
     >
-      <div className="relative w-4 h-4 flex items-center justify-center">
+      <div className="relative w-5 h-5 flex items-center justify-center">
         {isDark ? (
-          <Sun className="w-4 h-4 text-amber-400 transition-transform duration-200 rotate-0 hover:rotate-45" />
+          <Sun className="w-4 h-4 text-amber-400 transition-transform duration-normal ease-spring-bouncy rotate-0 hover:rotate-90" />
         ) : (
-          <Moon className="w-4 h-4 text-text-secondary hover:text-text-primary transition-transform duration-200 -rotate-12 hover:rotate-0" />
+          <Moon className="w-4 h-4 text-accent-cyan transition-transform duration-normal ease-spring-bouncy -rotate-12 hover:rotate-12" />
         )}
       </div>
       {showLabel && (

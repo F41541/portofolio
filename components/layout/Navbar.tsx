@@ -74,10 +74,10 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileNavOpen(true)}
-              className="md:hidden p-2 text-text-secondary hover:text-text-primary rounded-lg bg-surface-elevated border border-border-subtle transition-colors focus:outline-none focus:ring-2 focus:ring-accent-emerald"
-              aria-label="Open mobile menu"
+              className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-2.5 text-text-secondary hover:text-text-primary rounded-xl bg-surface-elevated/80 border border-border-subtle hover:border-accent-emerald/40 transition-all duration-fast ease-spring-snappy focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-95"
+              aria-label="Buka menu navigasi"
             >
-              <Menu className="w-4 h-4" />
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </Container>

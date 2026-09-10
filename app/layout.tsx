@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar, Footer } from "@/components/layout";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { CursorGlow } from "@/components/ui/CursorGlow";
 import { SITE_URL } from "@/lib/utils";
 
 const inter = Inter({
@@ -94,6 +95,7 @@ export default function RootLayout({
             className="pointer-events-none fixed inset-0 z-0 opacity-[0.03] dark:opacity-[0.015] [background-image:linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:4rem_4rem]"
             aria-hidden="true"
           />
+          <CursorGlow />
           <Navbar />
           <main className="flex-1 flex flex-col relative z-10">{children}</main>
           <Footer />

@@ -37,7 +37,7 @@ function BentoSubProjectCard({
 
   return (
     <div
-      className={`lg:col-span-6 group relative rounded-2xl bg-surface-card border border-border-subtle ${hoverBorder} p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl ${hoverShadow}`}
+      className={`lg:col-span-6 group relative rounded-2xl bg-surface-card border border-border-subtle ${hoverBorder} p-6 sm:p-7 flex flex-col justify-between transition-all duration-normal ease-spring-natural hover:-translate-y-1.5 hover:shadow-2xl ${hoverShadow}`}
     >
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-2">
@@ -118,12 +118,12 @@ function BentoSubProjectCard({
           )}
           <Button
             href={project.caseStudyUrl}
-            variant="primary"
+            variant="secondary"
             size="sm"
             className="gap-1"
           >
             <span>Detail</span>
-            <ArrowUpRight className="w-3 h-3" />
+            <ArrowUpRight className="w-3 h-3 text-accent-emerald" />
           </Button>
         </div>
       </div>
@@ -169,7 +169,7 @@ export function BentoGrid() {
           {/* PROJECT 1: ERP SaaS Multi-Tenant UMKM (Flagship - 12 Cols) */}
           {/* ============================================================ */}
           {erpProject && (
-            <div className="lg:col-span-12 group relative rounded-2xl bg-surface-card border border-border-subtle hover:border-accent-emerald/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-accent-emerald/10">
+            <div className="lg:col-span-12 group relative rounded-2xl bg-surface-card border border-border-subtle hover:border-accent-emerald/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-normal ease-spring-natural hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-accent-emerald/10">
               <div className="space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-2">

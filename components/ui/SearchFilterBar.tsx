@@ -41,8 +41,10 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
         />
         {searchQuery && (
           <button
+            type="button"
             onClick={() => onSearchChange("")}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-text-muted hover:text-text-primary px-1.5 py-0.5 rounded bg-surface-ground"
+            aria-label="Hapus kata kunci pencarian"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-text-muted hover:text-text-primary px-2 py-1 rounded-lg bg-surface-ground border border-border-subtle transition-all duration-fast ease-spring-snappy active:scale-95"
           >
             Hapus
           </button>
@@ -61,11 +63,12 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           return (
             <button
               key={tab}
+              type="button"
               onClick={() => onCategoryChange(tab)}
-              className={`text-xs px-3.5 py-1.5 rounded-full transition-all duration-200 font-medium ${
+              className={`text-xs min-h-[36px] px-3.5 py-1.5 rounded-full transition-all duration-fast ease-spring-snappy font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-95 ${
                 isSelected
-                  ? "bg-accent-emerald text-surface-ground font-semibold shadow-md shadow-emerald-500/20"
-                  : "bg-surface-elevated text-text-secondary hover:text-text-primary border border-border-subtle hover:border-text-muted"
+                  ? "bg-accent-emerald text-slate-950 font-semibold shadow-md shadow-emerald-500/20"
+                  : "bg-surface-elevated text-text-secondary hover:text-text-primary border border-border-subtle hover:border-accent-emerald/40"
               }`}
             >
               {tab}
@@ -75,8 +78,9 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
         {selectedCategory !== defaultCategory && (
           <button
+            type="button"
             onClick={() => onCategoryChange(defaultCategory)}
-            className="ml-auto text-xs text-accent-emerald hover:underline flex items-center gap-1"
+            className="ml-auto text-xs text-accent-emerald hover:underline flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald rounded px-1"
           >
             <FilterX className="w-3 h-3" />
             Reset kategori

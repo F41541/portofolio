@@ -12,11 +12,11 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     const variantStyles: Record<NonNullable<BadgeProps["variant"]>, string> = {
       emerald:
-        "bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20",
-      cyan: "bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20",
+        "bg-accent-emerald/10 text-emerald-700 dark:text-emerald-300 border border-accent-emerald/25 font-semibold",
+      cyan: "bg-accent-cyan/10 text-cyan-700 dark:text-cyan-300 border border-accent-cyan/25 font-semibold",
       neutral:
-        "bg-surface-elevated text-text-secondary border border-border-subtle",
-      outline: "border border-border-subtle text-text-muted bg-transparent",
+        "bg-surface-elevated text-text-primary border border-border-subtle font-medium",
+      outline: "border border-border-subtle text-text-secondary bg-transparent font-medium",
     };
 
     return (

@@ -69,13 +69,6 @@ export function TechStackSection() {
               Kombinasi teknologi yang terbukti andal dalam membangun aplikasi web bisnis, sistem e-commerce, dan RESTful API performa tinggi.
             </p>
           </div>
-
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-text-muted bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-accent-emerald" />
-              <span>Arahkan kursor ke kartu untuk melihat detail implementasi</span>
-            </span>
-          </div>
         </div>
 
         {/* Category Switcher Tabs */}
@@ -90,10 +83,11 @@ export function TechStackSection() {
             return (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                className={`flex items-center gap-2 min-h-[40px] px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-fast ease-spring-snappy whitespace-nowrap cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald active:scale-95 ${
                   isActive
-                    ? "bg-surface-elevated text-accent-emerald shadow-sm border border-accent-emerald/30"
+                    ? "bg-surface-elevated text-accent-emerald shadow-sm border border-accent-emerald/30 font-semibold"
                     : "text-text-secondary hover:text-text-primary hover:bg-surface-elevated/50 border border-transparent"
                 }`}
               >

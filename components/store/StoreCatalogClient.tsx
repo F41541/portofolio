@@ -67,9 +67,9 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
             <Card
               key={service.id}
               hoverGlow
-              className={`p-6 rounded-2xl flex flex-col justify-between group relative ${
+              className={`p-6 rounded-2xl flex flex-col justify-between group relative transition-all duration-normal ease-spring-natural ${
                 service.isPopular
-                  ? "border-accent-emerald/50 bg-accent-emerald/[0.02] shadow-lg shadow-accent-emerald/5"
+                  ? "border-accent-emerald/60 bg-accent-emerald/[0.03] ring-1 ring-accent-emerald/30 shadow-xl shadow-accent-emerald/10"
                   : ""
               }`}
             >
