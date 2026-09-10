@@ -1,14 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { calculateReadingTime } from "./mdx";
+import { calculateReadingTime } from "./utils";
 
 const PROJECTS_DIR = path.join(process.cwd(), "content/projects");
 
 export interface ProjectFrontmatter {
   title: string;
   subtitle?: string;
-  category: "AI & ML" | "Distributed Systems" | "Full-Stack" | string;
+  category: "Full-Stack" | "Frontend & SPA" | "Backend & API" | string;
   date: string;
   author: string;
   featured?: boolean;
@@ -34,10 +34,12 @@ export function getProjectSlugs(): string[] {
   if (!fs.existsSync(PROJECTS_DIR)) {
     return [];
   }
-  return fs
+  const files = fs
     .readdirSync(PROJECTS_DIR)
-    .filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
-    .map((file) => file.replace(/\.mdx?$/, ""));
+    .filter((file) => !file.startsWith(".") && (file.endsWith(".mdx") || file.endsWith(".md")))
+    .map((file) => file.replace(/\.mdx?$/, ""))
+    .filter((slug) => slug.length > 0);
+  return Array.from(new Set(files));
 }
 
 /**
@@ -45,14 +47,19 @@ export function getProjectSlugs(): string[] {
  */
 export function getProjectBySlug(slug: string): Project | null {
   try {
-    const realSlug = slug.replace(/\.mdx?$/, "");
-    let fullPath = path.join(PROJECTS_DIR, `${realSlug}.mdx`);
-
-    if (!fs.existsSync(fullPath)) {
-      fullPath = path.join(PROJECTS_DIR, `${realSlug}.md`);
+    const cleanSlug = path.basename(slug).replace(/\.mdx?$/, "");
+    if (!cleanSlug || cleanSlug.startsWith(".")) {
+      return null;
     }
 
+    const resolvedDir = path.resolve(PROJECTS_DIR);
+    let fullPath = path.resolve(resolvedDir, `${cleanSlug}.mdx`);
+
     if (!fs.existsSync(fullPath)) {
+      fullPath = path.resolve(resolvedDir, `${cleanSlug}.md`);
+    }
+
+    if (!fullPath.startsWith(resolvedDir + path.sep) || !fs.existsSync(fullPath)) {
       return null;
     }
 
@@ -75,7 +82,7 @@ export function getProjectBySlug(slug: string): Project | null {
     };
 
     return {
-      slug: realSlug,
+      slug: cleanSlug,
       frontmatter,
       content,
       readingTime,
@@ -96,27 +103,12 @@ export function getAllProjects(): Project[] {
     .map((slug) => getProjectBySlug(slug))
     .filter((project): project is Project => project !== null)
     .sort((a, b) => {
-      const dateA = new Date(a.frontmatter.date).getTime();
-      const dateB = new Date(b.frontmatter.date).getTime();
-      return dateB - dateA;
+      const timeA = new Date(a.frontmatter.date).getTime();
+      const timeB = new Date(b.frontmatter.date).getTime();
+      const validA = isNaN(timeA) ? 0 : timeA;
+      const validB = isNaN(timeB) ? 0 : timeB;
+      return validB - validA;
     });
 
   return projects;
-}
-
-/**
- * Get all unique project categories across all projects with count
- */
-export function getProjectCategories(): { category: string; count: number }[] {
-  const projects = getAllProjects();
-  const categoryCounts: Record<string, number> = {};
-
-  projects.forEach((project) => {
-    const cat = project.frontmatter.category || "Full-Stack";
-    categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
-  });
-
-  return Object.entries(categoryCounts)
-    .map(([category, count]) => ({ category, count }))
-    .sort((a, b) => b.count - a.count || a.category.localeCompare(b.category));
 }

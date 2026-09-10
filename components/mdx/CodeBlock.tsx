@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Check, Copy, Terminal } from "lucide-react";
+import { Check, Copy, Code2 } from "lucide-react";
 
 export interface CodeBlockProps {
   children?: React.ReactNode;
@@ -37,7 +37,20 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(rawCode);
+      if (typeof navigator !== "undefined" && navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(rawCode);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = rawCode;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -50,7 +63,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       {/* Header Bar */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-surface-card/80 border-b border-border-subtle text-xs font-mono text-text-secondary">
         <div className="flex items-center gap-2">
-          <Terminal className="w-3.5 h-3.5 text-accent-emerald" />
+          <Code2 className="w-3.5 h-3.5 text-accent-emerald" />
           <span className="font-semibold text-text-primary">
             {filename || language.toUpperCase()}
           </span>

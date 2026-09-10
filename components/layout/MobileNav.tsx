@@ -3,118 +3,143 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, ArrowRight, Sparkles, Send } from "lucide-react";
+import { X, ArrowRight, Send } from "lucide-react";
 import { NAV_ROUTES, SOCIAL_LINKS } from "@/lib/navigation";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenCommandPalette?: () => void;
 }
 
 export const MobileNav: React.FC<MobileNavProps> = ({
   isOpen,
   onClose,
-  onOpenCommandPalette,
 }) => {
   const pathname = usePathname();
+  const prevPathname = React.useRef(pathname);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const triggerElementRef = React.useRef<HTMLElement | null>(null);
 
-  // Prevent background scroll when mobile navigation is open
+  // Prevent background scroll when mobile navigation is open & manage focus restore
   React.useEffect(() => {
     if (isOpen) {
+      triggerElementRef.current = document.activeElement as HTMLElement | null;
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      if (triggerElementRef.current) {
+        triggerElementRef.current.focus();
+        triggerElementRef.current = null;
+      }
     }
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
 
-  // Close when route changes
+  // Close only when route actually changes
   React.useEffect(() => {
-    onClose();
-  }, [pathname, onClose]);
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      if (isOpen) {
+        onClose();
+      }
+    }
+  }, [pathname, isOpen, onClose]);
+
+  // Focus trap & keyboard navigation (Escape, Tab)
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const getFocusableElements = (): HTMLElement[] => {
+      return Array.from(
+        container.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true");
+    };
+
+    const focusables = getFocusableElements();
+    const closeBtn = container.querySelector<HTMLElement>('button[aria-label="Close navigation menu"]');
+    if (closeBtn) {
+      closeBtn.focus();
+    } else if (focusables.length > 0) {
+      focusables[0].focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const elements = getFocusableElements();
+        if (elements.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const firstElement = elements[0];
+        const lastElement = elements[elements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement || !container.contains(document.activeElement)) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement || !container.contains(document.activeElement)) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 lg:hidden flex flex-col bg-surface-ground/95 backdrop-blur-xl animate-in fade-in duration-200"
+      ref={containerRef}
+      className="fixed inset-0 z-50 md:hidden flex flex-col bg-surface-ground/95 backdrop-blur-xl animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
     >
       {/* Header bar */}
       <div className="flex items-center justify-between px-4 sm:px-6 h-16 border-b border-border-subtle shrink-0">
-        <Link
-          href="/"
-          onClick={onClose}
-          className="flex items-center gap-2 group"
-          aria-label="Home"
-        >
-          <div className="font-mono font-bold text-lg tracking-wider text-emerald-400 bg-surface-elevated px-2 py-0.5 rounded border border-border-subtle group-hover:border-emerald-500/50 transition-colors">
-            &lt;MFF/&gt;
-          </div>
-          <span className="font-semibold text-text-primary text-sm tracking-tight">
-            Faisal<span className="text-emerald-400">.dev</span>
-          </span>
-        </Link>
+        <BrandLogo onClick={onClose} />
 
-        <button
-          type="button"
-          onClick={onClose}
-          className="p-2 -mr-2 text-text-secondary hover:text-text-primary rounded-lg bg-surface-elevated/50 border border-border-subtle transition-colors focus:outline-none focus:ring-2 focus:ring-accent-emerald"
-          aria-label="Close navigation menu"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 -mr-2 text-text-secondary hover:text-text-primary rounded-lg bg-surface-elevated/50 border border-border-subtle transition-colors focus:outline-none focus:ring-2 focus:ring-accent-emerald"
+            aria-label="Close navigation menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* Main content scrollable area */}
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-6">
-        {/* Status indicator */}
-        <div className="flex items-center justify-between p-3 rounded-xl bg-surface-card border border-border-subtle">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span className="text-xs font-medium text-text-primary font-mono">
-              Status: Tersedia untuk proyek
-            </span>
-          </div>
-          <Badge variant="emerald" className="text-[11px]">
-            Aktif 2026
-          </Badge>
-        </div>
-
-        {/* Quick search shortcut trigger */}
-        {onOpenCommandPalette && (
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              onOpenCommandPalette();
-            }}
-            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-surface-card/60 border border-border-subtle text-left text-sm text-text-secondary hover:text-text-primary hover:border-emerald-500/30 transition-colors"
-          >
-            <span className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              Cari halaman atau proyek...
-            </span>
-            <kbd className="px-2 py-0.5 text-xs font-mono bg-surface-elevated border border-border-subtle rounded text-text-muted">
-              ⌘K
-            </kbd>
-          </button>
-        )}
-
         {/* Navigation list */}
         <div className="space-y-1">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted px-2 pb-1">
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-muted px-2 pb-1">
             Menu Navigasi
           </div>
           {NAV_ROUTES.map((route) => {
@@ -127,7 +152,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 className={cn(
                   "flex items-center justify-between px-3 py-3 rounded-lg text-base font-medium transition-all",
                   isActive
-                    ? "bg-surface-elevated text-emerald-400 border border-emerald-500/20"
+                    ? "bg-surface-elevated text-accent-emerald border border-accent-emerald/20"
                     : "text-text-secondary hover:text-text-primary hover:bg-surface-card/60 border border-transparent"
                 )}
               >
@@ -141,7 +166,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                   className={cn(
                     "w-4 h-4 transition-transform",
                     isActive
-                      ? "text-emerald-400 translate-x-0.5"
+                      ? "text-accent-emerald translate-x-0.5"
                       : "text-text-muted"
                   )}
                 />
@@ -152,12 +177,10 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 
         {/* Contact CTA */}
         <div className="pt-2">
-          <Link href="/contact" onClick={onClose} className="w-full block">
-            <Button variant="primary" size="lg" className="w-full gap-2">
-              <Send className="w-4 h-4" />
-              Kontak Saya
-            </Button>
-          </Link>
+          <Button href="/contact" onClick={onClose} variant="primary" size="lg" className="w-full gap-2">
+            <Send className="w-4 h-4" />
+            Kontak Saya
+          </Button>
         </div>
 
         {/* Social Links */}
@@ -172,7 +195,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-card/40 border border-border-subtle text-xs text-text-secondary hover:text-text-primary hover:border-emerald-500/30 transition-colors"
+                className="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-card/40 border border-border-subtle text-xs text-text-secondary hover:text-text-primary hover:border-accent-emerald/30 transition-colors"
               >
                 <span>{social.name}</span>
                 <span className="text-[10px] font-mono text-text-muted">↗</span>

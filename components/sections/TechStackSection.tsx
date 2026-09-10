@@ -14,13 +14,10 @@ import {
   Layers,
   Sparkles,
   Zap,
-  CheckCircle,
-  HelpCircle,
 } from "lucide-react";
 
 export function TechStackSection() {
   const [activeCategory, setActiveCategory] = React.useState<TechCategory>("all");
-  const [hoveredTech, setHoveredTech] = React.useState<TechItem | null>(null);
 
   const filteredSkills = React.useMemo(() => {
     if (activeCategory === "all") return TECH_STACK;
@@ -56,21 +53,15 @@ export function TechStackSection() {
   return (
     <section id="tech-stack" className="py-16 md:py-24 border-b border-border-subtle/60 relative">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/3 w-[600px] h-[300px] bg-emerald-500/5 blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/3 w-[600px] h-[300px] bg-accent-emerald/5 blur-[150px] pointer-events-none -z-10" />
 
       <Container className="space-y-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2">
-              <Badge variant="emerald" dot>
-                Keahlian &amp; Kapabilitas Teknis
-              </Badge>
-              <span className="text-xs font-mono text-text-muted">STACK_REGISTRY: v2.6</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary">
               Keahlian Tech Stack &amp;{" "}
-              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-accent-emerald to-accent-cyan bg-clip-text text-transparent">
                 Toolchain
               </span>
             </h2>
@@ -80,8 +71,8 @@ export function TechStackSection() {
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-text-muted bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-xs text-text-muted bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-accent-emerald" />
               <span>Arahkan kursor ke kartu untuk melihat detail implementasi</span>
             </span>
           </div>
@@ -102,16 +93,16 @@ export function TechStackSection() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? "bg-surface-elevated text-emerald-400 shadow-sm border border-emerald-500/30"
+                    ? "bg-surface-elevated text-accent-emerald shadow-sm border border-accent-emerald/30"
                     : "text-text-secondary hover:text-text-primary hover:bg-surface-elevated/50 border border-transparent"
                 }`}
               >
                 {getCategoryIcon(cat.id)}
                 <span>{cat.label}</span>
                 <span
-                  className={`text-[11px] font-mono px-1.5 py-0.2 rounded-full ${
+                  className={`text-[11px] px-1.5 py-0.2 rounded-full font-medium ${
                     isActive
-                      ? "bg-emerald-500/20 text-emerald-300"
+                      ? "bg-accent-emerald/20 text-accent-emerald"
                       : "bg-surface-ground text-text-muted"
                   }`}
                 >
@@ -125,23 +116,22 @@ export function TechStackSection() {
         {/* Tech Stack Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {filteredSkills.map((tech) => (
-            <div
+            <Card
               key={tech.name}
-              onMouseEnter={() => setHoveredTech(tech)}
-              onMouseLeave={() => setHoveredTech(null)}
-              className="group relative rounded-xl bg-surface-card border border-border-subtle hover:border-emerald-500/40 p-5 transition-all duration-200 flex flex-col justify-between hover:shadow-xl hover:shadow-emerald-500/5 hover:-translate-y-0.5"
+              hoverGlow
+              className="group relative p-5 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="p-2 rounded-lg bg-surface-ground border border-border-subtle text-emerald-400 group-hover:border-emerald-500/30 group-hover:scale-105 transition-all">
+                    <span className="p-2 rounded-lg bg-surface-ground border border-border-subtle text-accent-emerald group-hover:border-accent-emerald/30 group-hover:scale-105 transition-all">
                       <Code2 className="w-4 h-4" />
                     </span>
                     <div>
-                      <h3 className="font-bold text-base text-text-primary group-hover:text-emerald-400 transition-colors">
+                      <h3 className="font-bold text-base text-text-primary group-hover:text-accent-emerald transition-colors">
                         {tech.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-[11px] font-mono text-text-muted mt-0.5">
+                      <div className="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
                         <span>{tech.years} Thn Pengalaman</span>
                         <span>•</span>
                         <span className="capitalize">{tech.category.replace("-", " / ")}</span>
@@ -165,47 +155,47 @@ export function TechStackSection() {
                 {tech.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 text-[11px] font-mono text-text-muted bg-surface-elevated rounded border border-border-subtle/60"
+                    className="px-2 py-0.5 text-[11px] text-text-muted bg-surface-elevated rounded border border-border-subtle/60"
                   >
-                    #{tag}
+                    {tag}
                   </span>
                 ))}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
 
         {/* Bottom Highlights & Metrics Summary */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-          <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
-            <Zap className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+          <Card className="p-4 bg-surface-card/60 flex items-start gap-3">
+            <Zap className="w-5 h-5 text-accent-emerald flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
               <h4 className="text-sm font-semibold text-text-primary">Fokus Performa</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
                 Optimasi rendering SSR/SSG, efisiensi query database (eager loading &amp; indexing), dan Redis caching.
               </p>
             </div>
-          </div>
+          </Card>
 
-          <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
-            <Cpu className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+          <Card className="p-4 bg-surface-card/60 flex items-start gap-3">
+            <Cpu className="w-5 h-5 text-accent-cyan flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
               <h4 className="text-sm font-semibold text-text-primary">Arsitektur Modular</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
                 Penerapan Service Layer terstruktur di Laravel serta sistem komponen reusable dengan TypeScript &amp; Tailwind CSS.
               </p>
             </div>
-          </div>
+          </Card>
 
-          <div className="p-4 rounded-xl bg-surface-card/60 border border-border-subtle flex items-start gap-3">
-            <Cloud className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+          <Card className="p-4 bg-surface-card/60 flex items-start gap-3">
+            <Cloud className="w-5 h-5 text-accent-emerald flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
               <h4 className="text-sm font-semibold text-text-primary">Deployment &amp; CI/CD</h4>
               <p className="text-xs text-text-secondary leading-relaxed">
                 Deployment konsisten dengan Docker Compose, konfigurasi Nginx reverse proxy di VPS Linux, dan otomasi GitHub Actions.
               </p>
             </div>
-          </div>
+          </Card>
         </div>
       </Container>
     </section>

@@ -1,0 +1,37 @@
+---
+title: "Sistem Informasi Keuangan & Tabungan Lembaga"
+subtitle: "Platform pencatatan kas, billing SPP batch, tabungan siswa, dan integrasi payment gateway Duitku"
+category: "Full-Stack"
+date: "2026-02-05"
+author: "M. Faisal Fahri"
+featured: true
+tags: ["Laravel 13", "Vue 3", "Inertia.js", "Tailwind CSS v4", "Duitku API", "DomPDF", "MySQL"]
+metrics: ["Payment Gateway Duitku", "Batch Billing SPP Auto", "Export Laporan PDF & Excel"]
+githubUrl: "https://github.com/F41541/ibu-egar_keuangan"
+---
+
+## Gambaran Umum Proyek
+
+**Ibu Egar Keuangan** adalah sistem informasi manajemen finansial dan tabungan siswa yang dibangun khusus untuk institusi pendidikan dan bimbingan belajar. Sistem ini menyederhanakan siklus penagihan SPP, pencatatan transaksi kas masuk/keluar, pelacakan saldo tabungan siswa dan kas lembaga, serta integrasi gateway pembayaran online **Duitku** yang mematuhi standar verifikasi merchant.
+
+Aplikasi ini dibangun di atas pondasi backend **Laravel 13** dan frontend modern **Vue 3** melalui jembatan **Inertia.js**, memanfaatkan utilitas styling **Tailwind CSS v4** untuk antarmuka yang bersih, cepat, dan responsif di berbagai perangkat.
+
+---
+
+## Arsitektur & Alur Keuangan
+
+Sistem membagi manajemen kas ke dalam modul-modul independen yang saling terhubung:
+1. **Master Data Pendidikan**: Manajemen entitas Murid (Students), Kelas (Classrooms), Angkatan (Cohorts), dan Kategori Dompet Kas.
+2. **Billing Engine & SPP Batch Generator**: Kemampuan menghasilkan tagihan SPP bulanan secara kolektif dalam hitungan detik serta memonitor status tunggakan per siswa secara transparan.
+3. **Transaksi Kas & Audit Trail**: Pencatatan arus kas operasional (pemasukan & pengeluaran) dengan fitur pembatalan (*void transaction*) berotorisasi untuk menjaga integritas pembukuan.
+4. **Modul Tabungan Siswa & Lembaga**: Manajemen setoran dan penarikan tabungan siswa, fitur pembayaran biaya administrasi/SPP langsung dari saldo tabungan, serta tabungan lembaga/BMT.
+5. **Mesin Laporan Finansial**: Generator laporan otomatis harian, bulanan, dan laporan yayasan yang dapat diekspor langsung ke format PDF (`barryvdh/laravel-dompdf`) dan Excel spreadsheet (`maatwebsite/excel`).
+6. **Payment Gateway Duitku**: Integrasi checkout pembayaran online dedicated dengan penanganan status transaksi otomatis via secure webhook callback yang idempotent.
+
+---
+
+## Nilai Tambah & Dampak Solusi
+
+- **Efisiensi Rekonsiliasi**: Mengeliminasi pencatatan manual berbasis buku kas kertas dan memangkas waktu rekapitulasi akhir bulan dari hitungan hari menjadi sekali klik export.
+- **Transparansi Wali Murid**: Setiap transaksi pembayaran memiliki bukti digital tercatat, meminimalkan potensi selisih saldo kas atau klaim pembayaran ganda.
+- **Kepatuhan Regulasi Pembayaran**: Halaman checkout dedicated yang terstruktur rapi sesuai persyaratan verifikasi resmi penyedia payment gateway.

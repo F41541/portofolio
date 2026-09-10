@@ -26,13 +26,17 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
         document.querySelectorAll("article h2, article h3")
       );
       const parsed: HeadingItem[] = elements.map((elem) => {
-        const id = elem.id || elem.textContent?.toLowerCase().replace(/\W+/g, "-") || "";
+        const rawText =
+          elem.querySelector("span")?.textContent ||
+          elem.textContent?.replace(/#+\s*$/, "").trim() ||
+          "";
+        const id = elem.id || rawText.toLowerCase().replace(/\W+/g, "-") || "";
         if (!elem.id && id) {
           elem.id = id;
         }
         return {
           id,
-          text: elem.textContent || "",
+          text: rawText,
           level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
         };
       });
@@ -98,6 +102,9 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                     const top = target.getBoundingClientRect().top + window.scrollY - 90;
                     window.scrollTo({ top, behavior: "smooth" });
                     setActiveId(heading.id);
+                    if (window.history && window.history.pushState) {
+                      window.history.pushState(null, "", `#${heading.id}`);
+                    }
                   }
                 }}
               >

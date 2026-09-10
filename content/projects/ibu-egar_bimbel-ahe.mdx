@@ -1,0 +1,40 @@
+---
+title: "Sistem Manajemen Operasional & Presensi Bimbel AHE"
+subtitle: "Platform bimbingan belajar terpadu dengan multi-role access, penjadwalan tetap, dan live board presensi"
+category: "Full-Stack"
+date: "2026-01-28"
+author: "M. Faisal Fahri"
+featured: true
+tags: ["Laravel 13", "Vue 3", "Inertia.js", "Tailwind CSS v4", "Radix Vue", "Ziggy", "MySQL"]
+metrics: ["Multi-Role RBAC Granular", "Live Board Presensi Real-Time", "WhatsApp Broadcast Generator"]
+githubUrl: "https://github.com/F41541/ibu-egar_bimbel-ahe"
+---
+
+## Gambaran Umum Proyek
+
+**Ibu Egar Bimbel AHE** adalah platform manajemen operasional dan presensi untuk jaringan bimbingan belajar membaca Anak Hebat (AHE). Sistem ini menghubungkan tiga pihak pemangku kepentingan utama: Administrator Cabang, Mentor (Guru Pengajar), dan Staf Presensi ke dalam satu ekosistem web yang sinkron dan mudah dioperasikan.
+
+Dibangun dengan arsitektur **Laravel 13** dan **Vue 3** melalui **Inertia.js**, sistem ini dirancang untuk menyederhanakan alur presensi harian siswa yang berputar cepat, penjadwalan sesi bimbingan belajar, evaluasi materi belajar anak, serta pelaporan keuangan operasional cabang.
+
+---
+
+## Modul & Alur Kerja Berbasis Peran (RBAC)
+
+### 1. Portal Administrator
+- Manajemen multi-cabang (branches) dan program bimbingan belajar.
+- Pengelolaan data siswa, pengaturan jadwal belajar tetap (*fixed schedules*), dan riwayat belajar.
+- Manajemen mentor pengajar serta kontrol status aktif/non-aktif mentor.
+- Rekapitulasi keuangan cabang: pembayaran SPP siswa, denda keterlambatan, dan ekspor laporan bulanan.
+
+### 2. Portal Mentor / Pengajar
+- Dashboard aktivitas mengajar harian.
+- Pengisian absensi presensi mengajar langsung per sesi bimbingan.
+- Pengajuan jadwal pengganti (*reschedule*) dan formulir ketersediaan jam mengajar (*availability*).
+- Pengajuan izin cuti terstruktur serta pencatatan evaluasi perkembangan belajar anak didik.
+- Riwayat sesi mengajar lampau (*teaching history*).
+
+### 3. Staf Presensi & Live Board
+- **Live Board Presensi Real-Time**: Tampilan papan digital untuk staf memantau kedatangan siswa, ketersediaan meja belajar, dan status sesi berlangsung secara langsung.
+- **Booking Fleksibel**: Pendaftaran dan pengaturan sesi belajar fleksibel di luar jadwal tetap siswa.
+- **WhatsApp Broadcast Generator**: Generator teks pesan otomatis untuk konfirmasi kehadiran atau pengingat jadwal bimbingan belajar ke nomor wali murid.
+- **Tracker & Status Sesi**: Pembaruan status sesi belajar secara cepat dan responsif.

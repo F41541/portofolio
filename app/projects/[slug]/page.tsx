@@ -3,30 +3,28 @@ import { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Calendar,
-  Clock,
   User,
   Github,
   ExternalLink,
-  Activity,
   Layers,
-  Sparkles,
   Zap,
   CheckCircle2,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
-import { MarkdownContent } from "@/components/blog/MarkdownContent";
-import { TableOfContents } from "@/components/blog/TableOfContents";
+import { MarkdownContent, TableOfContents } from "@/components/mdx";
+import { ContactCta } from "@/components/sections";
 import { SoftwareApplicationJsonLd, BreadcrumbListJsonLd } from "@/components/seo";
+import { SITE_URL } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -41,20 +39,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!project) {
     return {
-      title: "Project Not Found | M. Faisal Fahri",
+      title: "Project Not Found | Laxstudio",
     };
   }
 
   const { frontmatter } = project;
-  const url = `https://faisalfahri.dev/projects/${slug}`;
+  const url = `${SITE_URL}/projects/${slug}`;
 
   return {
-    title: `${frontmatter.title} | M. Faisal Fahri`,
+    title: `${frontmatter.title} | Laxstudio`,
     description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
     keywords: [...frontmatter.tags, frontmatter.category, "Web Project Case Study"],
     authors: [{ name: frontmatter.author }],
     openGraph: {
-      title: `${frontmatter.title} | M. Faisal Fahri`,
+      title: `${frontmatter.title} | Laxstudio`,
       description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
       type: "article",
       publishedTime: frontmatter.date,
@@ -74,7 +72,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${frontmatter.title} | M. Faisal Fahri`,
+      title: `${frontmatter.title} | Laxstudio`,
       description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
       images: frontmatter.image ? [frontmatter.image] : undefined,
     },
@@ -98,27 +96,28 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   });
 
   return (
-    <div className="py-10 md:py-16">
+    <div className="relative flex-1 flex flex-col overflow-hidden">
       {/* Structured Data */}
       <SoftwareApplicationJsonLd
         name={frontmatter.title}
         description={frontmatter.subtitle || frontmatter.title}
         authorName={frontmatter.author}
-        authorUrl="https://faisalfahri.dev"
+        authorUrl={SITE_URL}
         datePublished={frontmatter.date}
-        url={`https://faisalfahri.dev/projects/${slug}`}
+        url={`${SITE_URL}/projects/${slug}`}
         keywords={frontmatter.tags}
-        image={frontmatter.image ? `https://faisalfahri.dev${frontmatter.image}` : undefined}
+        image={frontmatter.image ? `${SITE_URL}${frontmatter.image}` : undefined}
       />
       <BreadcrumbListJsonLd
         items={[
-          { name: "Home", url: "https://faisalfahri.dev" },
-          { name: "Projects", url: "https://faisalfahri.dev/projects" },
-          { name: frontmatter.title, url: `https://faisalfahri.dev/projects/${slug}` },
+          { name: "Beranda", url: SITE_URL },
+          { name: "Proyek", url: `${SITE_URL}/projects` },
+          { name: frontmatter.title, url: `${SITE_URL}/projects/${slug}` },
         ]}
       />
 
-      <Container>
+      <section className="py-12 md:py-20 border-b border-border-subtle/60 relative">
+        <Container>
         {/* Navigation & Breadcrumbs */}
         <div className="flex items-center justify-between mb-8">
           <Link
@@ -129,42 +128,26 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             <span>Kembali ke semua proyek</span>
           </Link>
 
-          <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-text-muted">
+          <div className="hidden sm:flex items-center gap-2 text-xs text-text-muted">
             <Link href="/" className="hover:text-text-primary">
-              beranda
+              Beranda
             </Link>
             <span>/</span>
             <Link href="/projects" className="hover:text-text-primary">
-              proyek
+              Proyek
             </Link>
             <span>/</span>
             <span className="text-accent-emerald line-clamp-1 max-w-[180px]">
-              {slug}
+              {frontmatter.title}
             </span>
           </div>
         </div>
 
         {/* Hero Banner Section */}
-        <header className="relative rounded-3xl border border-border-subtle bg-surface-card p-6 sm:p-10 md:p-12 overflow-hidden mb-10 shadow-2xl shadow-emerald-500/5">
+        <header className="relative rounded-3xl border border-border-subtle bg-surface-card p-6 sm:p-10 md:p-12 overflow-hidden mb-10 shadow-2xl shadow-accent-emerald/5">
           {/* Subtle Ambient Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 blur-[120px] pointer-events-none -z-10" />
-          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-cyan-500/10 blur-[100px] pointer-events-none -z-10" />
-
-          {/* Top badges */}
-          <div className="flex flex-wrap items-center gap-2.5 mb-6">
-            <Badge variant="emerald" dot>
-              {frontmatter.category}
-            </Badge>
-            <span className="text-xs font-mono text-text-muted bg-surface-elevated px-2.5 py-1 rounded-md border border-border-subtle">
-              SYSTEM_CASE_STUDY
-            </span>
-            {frontmatter.featured && (
-              <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" />
-                FLAGSHIP_PRODUCTION
-              </span>
-            )}
-          </div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent-emerald/10 blur-[120px] pointer-events-none -z-10" />
+          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-accent-cyan/10 blur-[100px] pointer-events-none -z-10" />
 
           {/* Title & Subtitle */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary leading-[1.15] max-w-4xl">
@@ -185,11 +168,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                   key={idx}
                   className="p-4 rounded-2xl bg-surface-ground/80 border border-border-subtle flex flex-col justify-between"
                 >
-                  <div className="flex items-center justify-between text-xs font-mono text-text-muted mb-1">
-                    <span>METRIC_0{idx + 1}</span>
+                  <div className="flex items-center justify-between text-xs text-text-muted mb-1 font-medium">
+                    <span>Sorotan {idx + 1}</span>
                     <Zap className="w-3.5 h-3.5 text-accent-emerald" />
                   </div>
-                  <span className="text-lg sm:text-xl font-bold font-mono text-text-primary mt-1">
+                  <span className="text-lg sm:text-xl font-bold text-text-primary mt-1">
                     {metric}
                   </span>
                 </div>
@@ -203,7 +186,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               {frontmatter.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 text-xs font-mono text-text-secondary bg-surface-elevated rounded-lg border border-border-subtle"
+                  className="px-2.5 py-1 text-xs text-text-secondary bg-surface-elevated rounded-lg border border-border-subtle"
                 >
                   {tag}
                 </span>
@@ -213,28 +196,26 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {/* Live Demo & GitHub Buttons */}
             <div className="flex items-center gap-3">
               {frontmatter.githubUrl && (
-                <a
+                <Button
                   href={frontmatter.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  variant="secondary"
+                  size="md"
+                  className="gap-2"
                 >
-                  <Button variant="secondary" size="md" className="gap-2">
-                    <Github className="w-4 h-4" />
-                    <span>Lihat Repositori</span>
-                  </Button>
-                </a>
+                  <Github className="w-4 h-4" />
+                  <span>Lihat Repositori</span>
+                </Button>
               )}
               {frontmatter.liveDemoUrl && (
-                <a
+                <Button
                   href={frontmatter.liveDemoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  variant="primary"
+                  size="md"
+                  className="gap-2"
                 >
-                  <Button variant="primary" size="md" className="gap-2">
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Demo Interaktif</span>
-                  </Button>
-                </a>
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Demo Interaktif</span>
+                </Button>
               )}
             </div>
           </div>
@@ -250,7 +231,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             <div className="mt-16 pt-8 border-t border-border-subtle">
               <div className="p-6 rounded-2xl border border-border-subtle bg-surface-card/60 backdrop-blur-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-accent-emerald shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center text-accent-emerald shrink-0">
                     <User className="w-6 h-6" />
                   </div>
                   <div>
@@ -263,12 +244,10 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                   </div>
                 </div>
 
-                <Link href="/projects">
-                  <Button variant="secondary" size="sm" className="gap-1.5 shrink-0">
-                    <ArrowLeft className="w-3.5 h-3.5" />
-                    <span>Lihat Proyek Lain</span>
-                  </Button>
-                </Link>
+                <Button href="/projects" variant="secondary" size="sm" className="gap-1.5 shrink-0">
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Lihat Proyek Lain</span>
+                </Button>
               </div>
             </div>
           </article>
@@ -282,28 +261,28 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 <div className="pt-6 border-t border-border-subtle/60 text-xs text-text-muted space-y-3">
                   <div className="flex justify-between">
                     <span>Kategori:</span>
-                    <span className="text-text-primary font-mono">{frontmatter.category}</span>
+                    <span className="text-text-primary font-medium">{frontmatter.category}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Estimasi Baca:</span>
-                    <span className="text-text-primary font-mono">{readingTime}</span>
+                    <span className="text-text-primary font-medium">{readingTime}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Jumlah Kata:</span>
-                    <span className="text-text-primary font-mono">{project.wordCount} kata</span>
+                    <span className="text-text-primary font-medium">{project.wordCount} kata</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tanggal Rilis:</span>
-                    <span className="text-text-primary font-mono">{formattedDate}</span>
+                    <span className="text-text-primary font-medium">{formattedDate}</span>
                   </div>
                 </div>
               </div>
 
               {/* Architecture Highlights Pill Box */}
-              <div className="rounded-2xl border border-border-subtle bg-surface-card/30 p-6 font-mono text-xs space-y-3">
+              <div className="rounded-2xl border border-border-subtle bg-surface-card/30 p-6 text-xs space-y-3">
                 <div className="flex items-center gap-2 text-accent-emerald font-semibold">
                   <Layers className="w-4 h-4" />
-                  <span>PILAR_UTAMA_SISTEM</span>
+                  <span>Pilar Utama Sistem</span>
                 </div>
                 <div className="space-y-2 pt-2 text-text-secondary">
                   <div className="flex items-center gap-2">
@@ -324,6 +303,9 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           </aside>
         </div>
       </Container>
+      </section>
+
+      <ContactCta />
     </div>
   );
 }

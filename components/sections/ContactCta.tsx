@@ -1,21 +1,17 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Sparkles,
   ArrowRight,
   Clock,
   ShieldCheck,
   Zap,
   Calendar,
   Mail,
-  Terminal,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 
 export const ContactCta: React.FC = () => {
   return (
@@ -39,19 +35,11 @@ export const ContactCta: React.FC = () => {
           <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
 
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            {/* Status Pill */}
-            <div className="flex justify-center">
-              <Badge variant="emerald" dot className="px-3 py-1 font-mono text-xs">
-                <Sparkles className="w-3.5 h-3.5 mr-1 text-emerald-400" />
-                Available for New Projects &amp; Freelance
-              </Badge>
-            </div>
-
             {/* Headline & Description */}
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary">
                 Siap Membangun Aplikasi Web{" "}
-                <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-accent-emerald to-accent-cyan bg-clip-text text-transparent">
                   Berkualitas Tinggi?
                 </span>
               </h2>
@@ -62,54 +50,41 @@ export const ContactCta: React.FC = () => {
 
             {/* Quick stats / guarantee pills */}
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
-                <Clock className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs text-text-secondary">
+                <Clock className="w-3.5 h-3.5 text-accent-emerald" />
                 <span>Respon Cepat &lt; 24 Jam</span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
-                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs text-text-secondary">
+                <ShieldCheck className="w-3.5 h-3.5 text-accent-cyan" />
                 <span>Clean &amp; Maintainable Code</span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs font-mono text-text-secondary">
-                <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated/70 border border-border-subtle text-xs text-text-secondary">
+                <Zap className="w-3.5 h-3.5 text-accent-emerald" />
                 <span>Full-Stack Support</span>
               </div>
             </div>
 
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link href="/contact" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="primary"
-                  className="w-full sm:w-auto font-mono text-sm group"
-                >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span>Jadwalkan Diskusi</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/contact" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="w-full sm:w-auto font-mono text-sm group"
-                >
-                  <Mail className="w-4 h-4 mr-2 text-text-muted group-hover:text-emerald-400 transition-colors" />
-                  <span>Kirim Pesan Langsung</span>
-                </Button>
-              </Link>
-            </div>
-
-            {/* Terminal snippet hint */}
-            <div className="pt-4 flex items-center justify-center gap-2 text-xs font-mono text-text-muted">
-              <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-              <span>
-                CLI prompt:{" "}
-                <code className="text-text-secondary bg-surface-elevated px-1.5 py-0.5 rounded border border-border-subtle">
-                  contact --direct
-                </code>
-              </span>
+              <Button
+                href="/contact"
+                size="lg"
+                variant="primary"
+                className="w-full sm:w-auto text-sm font-medium group"
+              >
+                <Calendar className="w-4 h-4 mr-2" />
+                <span>Jadwalkan Diskusi</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button
+                href="/contact"
+                size="lg"
+                variant="secondary"
+                className="w-full sm:w-auto text-sm font-medium group"
+              >
+                <Mail className="w-4 h-4 mr-2 text-text-muted group-hover:text-accent-emerald transition-colors" />
+                <span>Kirim Pesan Langsung</span>
+              </Button>
             </div>
           </div>
         </motion.div>

@@ -1,0 +1,50 @@
+---
+title: "ERP SaaS Multi-Tenant UMKM"
+subtitle: "Platform bisnis dan operasional terpadu berbasis Laravel 12, Stancl Tenancy, Vue 3, dan Inertia.js"
+category: "Full-Stack"
+date: "2026-02-10"
+author: "M. Faisal Fahri"
+featured: true
+tags: ["Laravel 12", "Vue 3", "Inertia.js", "Stancl Tenancy", "Tailwind CSS", "Radix Vue", "MySQL"]
+metrics: ["Arsitektur Multi-Tenant", "Multi-Modul ERP & POS", "Katalog API Terintegrasi"]
+githubUrl: "https://github.com/F41541/erp-saas-umkm"
+---
+
+## Gambaran Umum Proyek
+
+**ERP SaaS Multi-Tenant UMKM** adalah solusi platform manajemen terintegrasi yang dirancang khusus untuk memenuhi kebutuhan operasional Usaha Mikro, Kecil, dan Menengah (UMKM). Platform ini mengadopsi arsitektur *multi-tenancy* menggunakan library `stancl/tenancy` pada **Laravel 12**, memisahkan data antartenant secara aman melalui subdomain terisolasi sembari menyediakan kontrol terpusat bagi Super Admin di central domain.
+
+Antarmuka frontend dibangun dengan **Vue 3**, **Inertia.js**, dan **Tailwind CSS**, menghadirkan pengalaman navigasi Single Page Application (SPA) yang responsif tanpa perlu menulis boilerplate REST API untuk setiap interaksi internal.
+
+---
+
+## Arsitektur & Topologi Sistem
+
+Aplikasi ini membagi ekosistemnya menjadi dua domain utama:
+1. **Central Domain (Super Admin)**: Mengelola pendaftaran tenant baru, alokasi kuota/slot usaha, serta aktivasi fitur modular (misalnya aktivasi modul manufaktur).
+2. **Tenant Domain**: Lingkungan mandiri bagi setiap pemilik bisnis, mencakup beberapa sub-ekosistem kerja:
+   - **Admin / Owner**: Manajemen master data (kategori, tipe, produk dengan varian multi-foto, supplier, dan skema harga), manajemen pengguna dan pengaturan toko.
+   - **Procurement & Gudang (Inventory)**: Purchase Order (PO), penerimaan barang (Goods Receipt), pelacakan mutasi stok otomatis, Quality Control (QC), dan penanganan barang kadaluarsa/rusak.
+   - **Manufaktur**: Pembuatan Bill of Materials (BOM) dan eksekusi Production Orders untuk tenant yang memiliki lini produksi sendiri.
+   - **Point of Sale (POS)**: Modul kasir dan pemrosesan Sales Order (termasuk POS Agro terisolasi).
+   - **Public Catalog API**: Endpoint API publik terautentikasi untuk integrasi katalog produk ke etalase eksternal.
+
+---
+
+## Fitur Utama & Kapabilitas Teknis
+
+### 1. Arsitektur Multi-Tenant Mandiri
+- Isolasi konteks bisnis penuh menggunakan middleware `InitializeTenancyByDomain`.
+- Konfigurasi setting toko dan aset media tenant terlindungi dengan akses storage tersendiri.
+
+### 2. Manajemen Pengadaan & Gudang Berstandar
+- Alur pengadaan barang tertata rapi dari pengajuan Purchase Order hingga penerimaan dan pemeriksaan kualitas (QC).
+- Audit trail mutasi stok otomatis untuk mencatat setiap pengurangan, penambahan, dan penyesuaian inventaris.
+
+### 3. Modul Manufaktur & Bill of Materials (BOM)
+- Perhitungan kebutuhan bahan baku otomatis berdasarkan formula BOM saat membuat order produksi.
+- Penguncian dan verifikasi fitur manufaktur berbasis status aktivasi dari Super Admin.
+
+### 4. Frontend Reaktif & Type-Safe
+- Komponen UI berbasis `radix-vue` dan `lucide-vue-next` yang modular dan aksesibel.
+- Dukungan dark mode dan integrasi styling fleksibel menggunakan Tailwind CSS.

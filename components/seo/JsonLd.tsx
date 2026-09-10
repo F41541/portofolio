@@ -19,17 +19,6 @@ export interface ProfilePageJsonLdProps {
   person?: PersonJsonLdProps;
 }
 
-export interface BlogPostingJsonLdProps {
-  title: string;
-  description: string;
-  datePublished: string;
-  dateModified?: string;
-  authorName?: string;
-  authorUrl?: string;
-  url: string;
-  image?: string;
-  tags?: string[];
-}
 
 export interface SoftwareApplicationJsonLdProps {
   name: string;
@@ -53,17 +42,20 @@ export interface BreadcrumbListJsonLdProps {
   items: BreadcrumbItem[];
 }
 
-const DEFAULT_SITE_URL = "https://faisalfahri.dev";
+import { SITE_URL } from "@/lib/utils";
+
+const DEFAULT_SITE_URL = SITE_URL;
 const DEFAULT_NAME = "M. Faisal Fahri";
 
 /**
  * Generic JsonLd script wrapper
  */
 export function JsonLd({ schema }: { schema: Record<string, unknown> | Array<Record<string, unknown>> }) {
+  const jsonString = JSON.stringify(schema).replace(/</g, "\\u003c");
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: jsonString }}
     />
   );
 }
@@ -78,45 +70,33 @@ export function generatePersonSchema(props?: PersonJsonLdProps) {
     "@type": "Person",
     "@id": `${url}/#person`,
     name: props?.name || DEFAULT_NAME,
-    alternateName: props?.alternateName || ["Faisal Fahri", "laxcyyfa"],
+    alternateName: props?.alternateName || ["Faisal Fahri", "F41541"],
     jobTitle: props?.jobTitle || "Full-Stack Web Developer",
     description:
       props?.description ||
-      "Full-Stack Web Developer specializing in Laravel, Vue.js, React 19, Next.js 15, and modern high-performance web architecture.",
+      "Full-Stack Web Developer specializing in Laravel, Vue.js, React, Next.js, and modern high-performance web architecture.",
     url,
     sameAs: props?.sameAs || [
-      "https://github.com",
-      "https://linkedin.com",
+      "https://github.com/F41541",
     ],
     knowsAbout: props?.knowsAbout || [
       "Laravel & PHP",
-      "Vue.js & Nuxt",
-      "React 19 & Next.js 15",
+      "Vue.js & Inertia.js",
+      "React & Next.js",
       "TypeScript",
-      "RESTful API & GraphQL",
-      "PostgreSQL & MySQL",
+      "RESTful API & Webhooks",
+      "MySQL & PostgreSQL",
       "Tailwind CSS",
       "Docker",
-      "Inertia.js",
-      "Web Architecture",
+      "Multi-Tenancy Architecture",
+      "Payment Gateway Integration",
     ],
-    ...(props?.alumniOf
-      ? {
-          alumniOf: {
-            "@type": "EducationalOrganization",
-            name: props.alumniOf,
-          },
-        }
-      : {}),
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: props?.alumniOf || "Universitas Catur Insan Cendekia (UCIC) Cirebon",
+    },
     ...(props?.image ? { image: props.image } : {}),
   };
-}
-
-/**
- * Helper component for Person JSON-LD
- */
-export function PersonJsonLd(props: PersonJsonLdProps) {
-  return <JsonLd schema={generatePersonSchema(props)} />;
 }
 
 /**
@@ -133,10 +113,10 @@ export function generateProfilePageSchema(props?: ProfilePageJsonLdProps) {
         "@type": "ProfilePage",
         "@id": `${url}/#profile`,
         url,
-        name: props?.name || `${personSchema.name} | ${personSchema.jobTitle}`,
+        name: props?.name || `Laxstudio | ${personSchema.name}`,
         description:
           props?.description ||
-          "Personal portfolio and technical case studies of M. Faisal Fahri — Full-Stack Web Developer specializing in Laravel, Vue.js, React, and Next.js modern web applications.",
+          "Portfolio and technical case studies of Laxstudio by M. Faisal Fahri — Full-Stack Web Developer specializing in Laravel, Vue.js, React, and Next.js modern web applications.",
         mainEntity: {
           "@id": `${url}/#person`,
         },
@@ -153,40 +133,6 @@ export function ProfilePageJsonLd(props?: ProfilePageJsonLdProps) {
   return <JsonLd schema={generateProfilePageSchema(props)} />;
 }
 
-/**
- * Helper to generate BlogPosting schema
- */
-export function generateBlogPostingSchema(props: BlogPostingJsonLdProps) {
-  const authorUrl = props.authorUrl || DEFAULT_SITE_URL;
-  const authorName = props.authorName || DEFAULT_NAME;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: props.title,
-    description: props.description,
-    author: {
-      "@type": "Person",
-      name: authorName,
-      url: authorUrl,
-    },
-    datePublished: props.datePublished,
-    dateModified: props.dateModified || props.datePublished,
-    ...(props.tags && props.tags.length > 0 ? { keywords: props.tags.join(", ") } : {}),
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": props.url,
-    },
-    ...(props.image ? { image: props.image } : {}),
-  };
-}
-
-/**
- * Helper component for BlogPosting JSON-LD
- */
-export function BlogPostingJsonLd(props: BlogPostingJsonLdProps) {
-  return <JsonLd schema={generateBlogPostingSchema(props)} />;
-}
 
 /**
  * Helper to generate SoftwareApplication schema (for case studies/projects)

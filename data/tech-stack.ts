@@ -12,43 +12,35 @@ export interface TechItem {
   years: number;
   productionUsage: string;
   featured?: boolean;
-  iconSlug?: string;
   tags: string[];
-}
-
-export interface TechCategoryGroup {
-  id: TechCategory;
-  name: string;
-  description: string;
-  skills: TechItem[];
 }
 
 export const TECH_STACK: TechItem[] = [
   // Frontend & Web Architecture
   {
-    name: "Vue.js & Nuxt",
+    name: "Vue 3 & Inertia.js",
     category: "frontend",
     level: "Mastery",
-    years: 4,
-    productionUsage: "Single Page Applications (SPA), SSR dengan Nuxt 3, Composition API, Pinia state management, dan arsitektur komponen modular responsif.",
+    years: 3,
+    productionUsage: "Single Page Applications (SPA), Composition API, Inertia bridge tanpa REST boilerplate, integrasi modular dengan Laravel backend.",
     featured: true,
-    tags: ["Vue 3", "Nuxt 3", "Composition API", "Pinia"],
+    tags: ["Vue 3", "Inertia.js", "Composition API", "Radix Vue"],
   },
   {
-    name: "React 19 & Next.js 15",
+    name: "React & Next.js",
     category: "frontend",
-    level: "Mastery",
-    years: 4,
-    productionUsage: "App Router, Server Components (RSC), dynamic server action mutations, optimasi Core Web Vitals, dan performa client-side fluid.",
+    level: "Advanced",
+    years: 2,
+    productionUsage: "App Router, Server Components, SSR rendering, performa Core Web Vitals, dan arsitektur komponen modular responsif.",
     featured: true,
-    tags: ["React 19", "Next.js 15", "App Router", "Server Actions"],
+    tags: ["React 19", "Next.js 15", "App Router", "SSR"],
   },
   {
     name: "TypeScript",
     category: "frontend",
-    level: "Mastery",
-    years: 4,
-    productionUsage: "Type-safety end-to-end, dynamic generic utilities, typing schema validasi, integrasi API contracts, dan minim runtime errors.",
+    level: "Advanced",
+    years: 2,
+    productionUsage: "Type-safety end-to-end, schema validation contracts, refactoring aman, dan pencegahan runtime error.",
     featured: true,
     tags: ["Type Safety", "Generics", "Strict", "Clean Code"],
   },
@@ -56,19 +48,10 @@ export const TECH_STACK: TechItem[] = [
     name: "Tailwind CSS",
     category: "frontend",
     level: "Mastery",
-    years: 4,
-    productionUsage: "Design system custom tokens, dark mode and high-contrast styling, responsive layouts, dan animasi UI interaktif modern.",
-    featured: true,
-    tags: ["Design Systems", "CSS3", "Responsive", "UI/UX"],
-  },
-  {
-    name: "Inertia.js",
-    category: "frontend",
-    level: "Mastery",
     years: 3,
-    productionUsage: "Monolith modern tanpa REST boilerplate: integrasi seamless Laravel backend dengan frontend Vue 3 atau React.",
+    productionUsage: "Design system tokens, styling responsif mobile-first, animasi transisi halus, serta implementasi dark mode.",
     featured: true,
-    tags: ["Full-Stack", "Inertia Vue", "Inertia React", "SPA Monolith"],
+    tags: ["Tailwind v3/v4", "Design Systems", "Responsive UI", "Dark Mode"],
   },
 
   // Backend & APIs
@@ -76,28 +59,19 @@ export const TECH_STACK: TechItem[] = [
     name: "Laravel (PHP)",
     category: "backend",
     level: "Mastery",
-    years: 5,
-    productionUsage: "RESTful API development, Service Layer architecture, Queue jobs, Event-driven architecture, Eloquent ORM, dan Sanctum / JWT authentication.",
-    featured: true,
-    tags: ["Laravel 11/12", "PHP 8.3+", "REST API", "Queues", "Eloquent"],
-  },
-  {
-    name: "Node.js & Express / NestJS",
-    category: "backend",
-    level: "Advanced",
     years: 3,
-    productionUsage: "Microservices, async I/O streaming, API Gateway, middleware autentikasi, serta integrasi webhook payment & third-party services.",
+    productionUsage: "Laravel 11/12/13, Service Layer architecture, Queue jobs, Eloquent ORM, Spatie Permissions, dan Stancl Tenancy (Multi-Tenant).",
     featured: true,
-    tags: ["Node.js", "Express", "REST API", "Backend"],
+    tags: ["Laravel 12/13", "PHP 8.2+", "Stancl Tenancy", "Eloquent", "Queues"],
   },
   {
-    name: "RESTful API & Webhooks",
+    name: "RESTful API & Integrasi",
     category: "backend",
     level: "Mastery",
-    years: 5,
-    productionUsage: "Desain API standar industri, API rate limiting, robust error handling, webhook idempotency, dan dokumentasi OpenAPI/Swagger.",
-    featured: false,
-    tags: ["REST", "Webhooks", "Swagger", "Postman"],
+    years: 3,
+    productionUsage: "Desain API standar, webhook handling pembayaran (Duitku), rate limiting, sanitasi input, dan dokumentasi endpoint.",
+    featured: true,
+    tags: ["REST API", "Payment Webhooks", "Duitku API", "JSON"],
   },
 
   // Databases & Cache
@@ -105,28 +79,19 @@ export const TECH_STACK: TechItem[] = [
     name: "MySQL & PostgreSQL",
     category: "database",
     level: "Mastery",
-    years: 5,
-    productionUsage: "Relational database schema design, indexing optimization (B-Tree/GIN), complex query profiling, migrations, dan ACID transactions.",
+    years: 3,
+    productionUsage: "Perancangan skema relasional, indexing terstruktur, migrasi database, relasi multi-table kompleks, dan transaksi ACID.",
     featured: true,
-    tags: ["Relational DB", "SQL", "Indexing", "Query Optimization"],
+    tags: ["MySQL", "PostgreSQL", "Relational DB", "Indexing"],
   },
   {
     name: "Redis",
     category: "database",
     level: "Advanced",
-    years: 3,
-    productionUsage: "High-speed in-memory caching, rate-limiting, session management, dan asynchronous queue background processing.",
+    years: 2,
+    productionUsage: "In-memory caching untuk data frekuensi tinggi, session caching, dan background queue processing.",
     featured: true,
-    tags: ["In-Memory", "Caching", "Queues", "Rate Limiting"],
-  },
-  {
-    name: "Prisma ORM / Eloquent",
-    category: "database",
-    level: "Mastery",
-    years: 4,
-    productionUsage: "Database abstraction, schema migrations otomatis, relasi multi-table kompleks, dan query batching hemat bandwidth.",
-    featured: false,
-    tags: ["ORM", "Migrations", "Schema Design"],
+    tags: ["Redis", "Caching", "Queues"],
   },
 
   // Tools, Cloud & DevOps
@@ -134,37 +99,28 @@ export const TECH_STACK: TechItem[] = [
     name: "Git & GitHub",
     category: "tools-devops",
     level: "Mastery",
-    years: 5,
-    productionUsage: "Branching strategies (Gitflow/Trunk-based), code review workflows, pull request automation, dan semantic release tagging.",
+    years: 3,
+    productionUsage: "Version control sistematis, manajemen branch, repositori open-source, dan kolaborasi kode.",
     featured: true,
-    tags: ["Version Control", "GitHub", "Code Review"],
+    tags: ["Git", "GitHub", "Version Control"],
   },
   {
     name: "Docker & Containerization",
     category: "tools-devops",
     level: "Advanced",
-    years: 3,
-    productionUsage: "Multi-stage production Dockerfile, konsistensi dev/prod environment dengan Docker Compose (PHP-FPM, Nginx, Node, Postgres, Redis).",
+    years: 2,
+    productionUsage: "Containerization lingkungan dev/prod dengan Docker Compose (PHP-FPM, Nginx, MySQL, Redis).",
     featured: true,
-    tags: ["Containers", "Docker Compose", "Nginx", "PHP-FPM"],
+    tags: ["Docker", "Docker Compose", "Nginx"],
   },
   {
-    name: "CI/CD & Deployment (GitHub Actions, Vercel, VPS)",
+    name: "Linux & Server Environment",
     category: "tools-devops",
     level: "Advanced",
     years: 3,
-    productionUsage: "Automated test runner, automated build/deploy ke VPS Linux (Nginx/SSL Certbot) dan cloud hosting modern seperti Vercel / Railway.",
+    productionUsage: "Pengoperasian sistem server Linux (Ubuntu), Nginx reverse proxy, shell automation, dan process management.",
     featured: false,
-    tags: ["CI/CD", "Linux VPS", "Nginx", "GitHub Actions", "Vercel"],
-  },
-  {
-    name: "Linux & Terminal (Ubuntu/Debian)",
-    category: "tools-devops",
-    level: "Advanced",
-    years: 4,
-    productionUsage: "Server configuration, Nginx reverse proxy, cron jobs, process manager (Supervisor, PM2), dan shell scripting automation.",
-    featured: false,
-    tags: ["Linux", "Bash", "Nginx", "PM2", "Supervisor"],
+    tags: ["Linux", "Ubuntu", "Bash", "Nginx"],
   },
 ];
 

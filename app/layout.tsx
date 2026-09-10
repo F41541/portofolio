@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar, Footer, CommandPalette } from "@/components/layout";
+import { Navbar, Footer } from "@/components/layout";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { SITE_URL } from "@/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,47 +18,46 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://faisalfahri.dev"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "M. Faisal Fahri | Full-Stack Web Developer",
-    template: "%s | M. Faisal Fahri",
+    default: "Laxstudio | Full-Stack Web Development & Solutions",
+    template: "%s | Laxstudio",
   },
   description:
-    "Portofolio pribadi & studi kasus teknis M. Faisal Fahri — Full-Stack Web Developer yang berfokus pada Laravel, Vue.js, React, Next.js, dan arsitektur aplikasi web modern yang cepat & skalabel.",
+    "Laxstudio — Studio rekayasa web dan pengembangan sistem aplikasi full-stack modern oleh M. Faisal Fahri (S.Kom). Spesialisasi dalam ekosistem Laravel, Vue.js, Inertia.js, React, dan Next.js.",
   keywords: [
+    "Laxstudio",
     "M. Faisal Fahri",
     "Faisal Fahri",
     "Full-Stack Developer",
     "Web Developer Indonesia",
-    "Frontend Developer",
+    "Web Developer Cirebon",
     "Laravel",
     "Vue.js",
+    "Inertia.js",
     "React",
     "Next.js",
     "TypeScript",
     "Tailwind CSS",
-    "Inertia.js",
-    "RESTful API",
     "PostgreSQL",
     "MySQL",
   ],
-  authors: [{ name: "M. Faisal Fahri", url: "https://faisalfahri.dev" }],
+  authors: [{ name: "M. Faisal Fahri", url: "https://github.com/F41541" }],
   creator: "M. Faisal Fahri",
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://faisalfahri.dev",
-    title: "M. Faisal Fahri | Full-Stack Web Developer",
+    url: SITE_URL,
+    title: "Laxstudio | Full-Stack Web Development & Solutions",
     description:
-      "Full-Stack Web Developer dengan spesialisasi Laravel, Vue.js, React, Next.js, dan arsitektur modern.",
-    siteName: "M. Faisal Fahri Portfolio",
+      "Studio rekayasa web modern oleh M. Faisal Fahri dengan spesialisasi Laravel, Vue.js, Inertia.js, React, dan arsitektur aplikasi web performa tinggi.",
+    siteName: "Laxstudio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "M. Faisal Fahri | Full-Stack Web Developer",
+    title: "Laxstudio | Full-Stack Web Development & Solutions",
     description:
-      "Full-Stack Web Developer dengan spesialisasi Laravel, Vue.js, React, Next.js, dan arsitektur modern.",
-    creator: "@faisalfahri",
+      "Studio rekayasa web modern oleh M. Faisal Fahri dengan spesialisasi Laravel, Vue.js, Inertia.js, React, dan arsitektur aplikasi web performa tinggi.",
   },
   robots: {
     index: true,
@@ -70,12 +71,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased bg-surface-ground text-text-primary font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
-        <Navbar />
-        <CommandPalette />
-        <main className="flex-1 flex flex-col">{children}</main>
-        <Footer />
+    <html
+      lang="id"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col antialiased bg-surface-ground text-text-primary font-sans selection:bg-emerald-500/20 selection:text-emerald-900 dark:selection:text-emerald-300 relative">
+        <ThemeProvider>
+          {/* Global Ambient Glow & Grid Accents */}
+          <div
+            className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.08),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.08),transparent)]"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none fixed inset-0 z-0 opacity-[0.03] dark:opacity-[0.015] [background-image:linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:4rem_4rem]"
+            aria-hidden="true"
+          />
+          <Navbar />
+          <main className="flex-1 flex flex-col relative z-10">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

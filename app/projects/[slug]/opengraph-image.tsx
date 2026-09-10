@@ -1,12 +1,15 @@
 import { ImageResponse } from "next/og";
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
+import { SITE_URL } from "@/lib/utils";
 
-export const alt = "Case Study | M. Faisal Fahri Web Architecture";
+export const alt = "Case Study | Laxstudio Web Architecture";
 export const size = {
   width: 1200,
   height: 630,
 };
 export const contentType = "image/png";
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -27,7 +30,7 @@ export default async function ProjectOpenGraphImage({
   const subtitle = project
     ? project.frontmatter.subtitle || "Production architecture design & benchmarks"
     : "Detailed architecture and production benchmarks.";
-  const category = project?.frontmatter.category || "Distributed Systems";
+  const category = project?.frontmatter.category || "Full-Stack";
   const metrics = project?.frontmatter.metrics || ["Sub-10ms Latency", "High Throughput"];
 
   return new ImageResponse(
@@ -72,7 +75,6 @@ export default async function ProjectOpenGraphImage({
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            zIndex: 10,
           }}
         >
           {/* Brand Monogram */}
@@ -98,7 +100,7 @@ export default async function ProjectOpenGraphImage({
                 letterSpacing: "1px",
               }}
             >
-              &lt;AX/&gt;
+              LS
             </div>
             <div
               style={{
@@ -144,7 +146,6 @@ export default async function ProjectOpenGraphImage({
             flexDirection: "column",
             gap: "18px",
             maxWidth: "1060px",
-            zIndex: 10,
           }}
         >
           <div
@@ -202,7 +203,6 @@ export default async function ProjectOpenGraphImage({
             paddingTop: "24px",
             borderTop: "1px solid #262B36",
             width: "100%",
-            zIndex: 10,
           }}
         >
           {/* Metrics */}
@@ -243,7 +243,7 @@ export default async function ProjectOpenGraphImage({
               letterSpacing: "1px",
             }}
           >
-            alexvance.dev/projects
+            {SITE_URL.replace(/^https?:\/\//, "")}/projects
           </span>
         </div>
       </div>

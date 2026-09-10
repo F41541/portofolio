@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
@@ -13,27 +12,27 @@ const config: Config = {
     extend: {
       colors: {
         background: {
-          ground: "var(--bg-surface-ground)",
-          card: "var(--bg-surface-card)",
-          elevated: "var(--bg-surface-elevated)",
+          ground: "rgb(var(--bg-surface-ground) / <alpha-value>)",
+          card: "rgb(var(--bg-surface-card) / <alpha-value>)",
+          elevated: "rgb(var(--bg-surface-elevated) / <alpha-value>)",
         },
         surface: {
-          ground: "var(--bg-surface-ground)",
-          card: "var(--bg-surface-card)",
-          elevated: "var(--bg-surface-elevated)",
+          ground: "rgb(var(--bg-surface-ground) / <alpha-value>)",
+          card: "rgb(var(--bg-surface-card) / <alpha-value>)",
+          elevated: "rgb(var(--bg-surface-elevated) / <alpha-value>)",
         },
         border: {
-          subtle: "var(--border-subtle)",
-          accent: "var(--border-accent)",
+          subtle: "rgb(var(--border-subtle) / <alpha-value>)",
+          accent: "rgb(var(--border-accent) / <alpha-value>)",
         },
         text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
-          muted: "var(--text-muted)",
+          primary: "rgb(var(--text-primary) / <alpha-value>)",
+          secondary: "rgb(var(--text-secondary) / <alpha-value>)",
+          muted: "rgb(var(--text-muted) / <alpha-value>)",
         },
         accent: {
-          emerald: "var(--accent-emerald)",
-          cyan: "var(--accent-cyan)",
+          emerald: "rgb(var(--accent-emerald) / <alpha-value>)",
+          cyan: "rgb(var(--accent-cyan) / <alpha-value>)",
         },
       },
       fontFamily: {
@@ -52,7 +51,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [typography],
+  plugins: [],
 };
 
 export default config;

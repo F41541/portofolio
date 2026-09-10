@@ -1,40 +1,42 @@
 import { Metadata } from "next";
-import { getAllProjects, getProjectCategories } from "@/lib/projects";
+import { getAllProjects } from "@/lib/projects";
 import { ProjectsIndexClient } from "@/components/projects/ProjectsIndexClient";
+import { ContactCta } from "@/components/sections";
 import { BreadcrumbListJsonLd } from "@/components/seo";
+import { SITE_URL } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Proyek & Sistem Aplikasi Web | M. Faisal Fahri",
+  title: "Proyek & Sistem Aplikasi Web | Laxstudio",
   description:
-    "Eksplorasi aplikasi web full-stack, sistem ERP/CRM Laravel, dashboard modern Next.js 16 / Vue 3, dan arsitektur database performa tinggi oleh M. Faisal Fahri.",
+    "Eksplorasi aplikasi web full-stack, sistem ERP/CRM Laravel, dashboard modern Next.js 16 / Vue 3, dan arsitektur database performa tinggi oleh Laxstudio (M. Faisal Fahri).",
   openGraph: {
-    title: "Proyek & Sistem Aplikasi Web | M. Faisal Fahri",
+    title: "Proyek & Sistem Aplikasi Web | Laxstudio",
     description:
-      "Aplikasi web full-stack produksi, microservices, dan implementasi frontend modern.",
-    url: "https://faisalfahri.dev/projects",
-    siteName: "Portofolio M. Faisal Fahri",
+      "Aplikasi web full-stack produksi, arsitektur data multi-tenant, dan implementasi frontend modern.",
+    url: `${SITE_URL}/projects`,
+    siteName: "Laxstudio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Proyek & Sistem Aplikasi Web | M. Faisal Fahri",
+    title: "Proyek & Sistem Aplikasi Web | Laxstudio",
     description:
-      "Aplikasi web full-stack produksi, microservices, dan implementasi frontend modern.",
+      "Aplikasi web full-stack produksi, arsitektur data multi-tenant, dan implementasi frontend modern.",
   },
 };
 
 export default function ProjectsPage() {
   const projects = getAllProjects();
-  const categories = getProjectCategories();
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="relative flex-1 flex flex-col overflow-hidden">
       <BreadcrumbListJsonLd
         items={[
-          { name: "Beranda", url: "https://faisalfahri.dev" },
-          { name: "Proyek", url: "https://faisalfahri.dev/projects" },
+          { name: "Beranda", url: SITE_URL },
+          { name: "Proyek", url: `${SITE_URL}/projects` },
         ]}
       />
-      <ProjectsIndexClient projects={projects} categories={categories} />
+      <ProjectsIndexClient projects={projects} />
+      <ContactCta />
     </div>
   );
 }

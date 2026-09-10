@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
+import { SITE_URL } from "@/lib/utils";
 
 export const runtime = "nodejs";
-export const alt = "M. Faisal Fahri | Full-Stack Web Developer";
+export const alt = "Laxstudio | Web Development & Software Architecture";
 export const size = {
   width: 1200,
   height: 630,
@@ -51,7 +52,6 @@ export default async function OpenGraphImage() {
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            zIndex: 10,
           }}
         >
           {/* Brand Monogram */}
@@ -77,7 +77,7 @@ export default async function OpenGraphImage() {
                 letterSpacing: "1px",
               }}
             >
-              &lt;MFF/&gt;
+              LS
             </div>
             <div
               style={{
@@ -93,7 +93,7 @@ export default async function OpenGraphImage() {
                   fontWeight: 600,
                 }}
               >
-                FAISAL.DEV // PORTFOLIO
+                LAXSTUDIO // PORTFOLIO
               </span>
             </div>
           </div>
@@ -138,7 +138,6 @@ export default async function OpenGraphImage() {
             flexDirection: "column",
             gap: "20px",
             maxWidth: "1050px",
-            zIndex: 10,
           }}
         >
           <div
@@ -171,7 +170,7 @@ export default async function OpenGraphImage() {
               letterSpacing: "-1px",
             }}
           >
-            M. Faisal Fahri | Full-Stack Developer
+            Laxstudio — M. Faisal Fahri
           </h1>
 
           <p
@@ -196,7 +195,6 @@ export default async function OpenGraphImage() {
             paddingTop: "24px",
             borderTop: "1px solid #262B36",
             width: "100%",
-            zIndex: 10,
           }}
         >
           {/* Tags */}
@@ -268,7 +266,7 @@ export default async function OpenGraphImage() {
               letterSpacing: "1px",
             }}
           >
-            faisalfahri.dev
+            {SITE_URL.replace(/^https?:\/\//, "")}
           </span>
         </div>
       </div>

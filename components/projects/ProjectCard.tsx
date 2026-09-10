@@ -16,11 +16,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
   // Category styling helper
   const getCategoryBadgeVariant = (cat: string) => {
     switch (cat) {
-      case "AI & ML":
-        return "emerald" as const;
-      case "Distributed Systems":
-        return "cyan" as const;
       case "Full-Stack":
+        return "emerald" as const;
+      case "Frontend & SPA":
+        return "cyan" as const;
+      case "Backend & API":
         return "neutral" as const;
       default:
         return "neutral" as const;
@@ -29,25 +29,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
 
   return (
     <div
-      className={`group relative flex flex-col justify-between rounded-2xl border border-border-subtle bg-surface-card p-6 sm:p-7 transition-all duration-300 hover:border-accent-emerald/40 hover:bg-surface-elevated/40 hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-1 ${
-        featured ? "md:col-span-2 border-accent-emerald/30 bg-emerald-950/5" : ""
+      className={`group relative flex flex-col justify-between rounded-2xl border border-border-subtle bg-surface-card p-6 sm:p-7 transition-all duration-300 hover:border-accent-emerald/40 hover:bg-surface-elevated/40 hover:shadow-2xl hover:shadow-accent-emerald/10 hover:-translate-y-1 ${
+        featured ? "md:col-span-2 border-accent-emerald/30 bg-accent-emerald/5" : ""
       }`}
     >
       <div className="space-y-4">
         {/* Top Header Row: Category Badge & Status / Metrics */}
         <div className="flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2">
-            <Badge variant={getCategoryBadgeVariant(frontmatter.category)} dot>
+            <Badge variant={getCategoryBadgeVariant(frontmatter.category)}>
               {frontmatter.category}
             </Badge>
             {frontmatter.featured && (
-              <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              <Badge variant="emerald" className="text-[11px]">
                 Studi Kasus Pilihan
-              </span>
+              </Badge>
             )}
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs font-mono text-text-muted">
+          <div className="flex items-center gap-1.5 text-xs text-text-muted">
             <Layers className="w-3.5 h-3.5 text-accent-emerald/70" />
             <span>{frontmatter.tags[0] || "System"}</span>
           </div>
@@ -74,7 +74,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
             {frontmatter.metrics.map((metric, idx) => (
               <div
                 key={idx}
-                className="p-2.5 rounded-xl bg-surface-ground/90 border border-border-subtle/80 flex items-center gap-2 text-xs font-mono"
+                className="p-2.5 rounded-xl bg-surface-ground/90 border border-border-subtle/80 flex items-center gap-2 text-xs"
               >
                 <Activity className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
                 <span className="text-text-primary font-medium truncate">{metric}</span>
@@ -88,7 +88,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
           {frontmatter.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 text-xs font-mono text-text-secondary bg-surface-elevated rounded border border-border-subtle hover:border-text-muted transition-colors"
+              className="px-2 py-0.5 text-xs text-text-secondary bg-surface-elevated rounded border border-border-subtle hover:border-text-muted transition-colors"
             >
               {tag}
             </span>
@@ -125,12 +125,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = fa
           )}
         </div>
 
-        <Link href={`/projects/${slug}`}>
-          <Button variant="secondary" size="sm" className="gap-1.5 group/btn">
-            <span>Baca Studi Kasus</span>
-            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 text-accent-emerald" />
-          </Button>
-        </Link>
+        <Button href={`/projects/${slug}`} variant="secondary" size="sm" className="gap-1.5 group/btn">
+          <span>Baca Studi Kasus</span>
+          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 text-accent-emerald" />
+        </Button>
       </div>
     </div>
   );

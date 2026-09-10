@@ -6,13 +6,28 @@ interface MarkdownContentProps {
 }
 
 export const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
-  // Simple, robust markdown line parser supporting headers, lists, code blocks, blockquotes, paragraphs
+  // Simple, robust markdown line parser supporting headers, lists, code blocks, blockquotes, paragraphs, hr, images
   const elements: React.ReactNode[] = [];
   const lines = content.split("\n");
   let i = 0;
 
   while (i < lines.length) {
     const line = lines[i];
+
+    // Blank line
+    if (line.trim() === "") {
+      i++;
+      continue;
+    }
+
+    // Horizontal Rule: ---, ___, ***
+    if (/^(---|___|\*\*\*)$/.test(line.trim())) {
+      elements.push(
+        <MDXComponents.hr key={`hr-${i}`} />
+      );
+      i++;
+      continue;
+    }
 
     // Code block
     if (line.trim().startsWith("```")) {
@@ -35,15 +50,15 @@ export const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => 
     }
 
     // Blockquote
-    if (line.startsWith("> ")) {
+    if (line.startsWith(">")) {
       const quoteLines: string[] = [];
-      while (i < lines.length && lines[i].startsWith("> ")) {
+      while (i < lines.length && lines[i].startsWith(">")) {
         quoteLines.push(lines[i].replace(/^>\s?/, ""));
         i++;
       }
       elements.push(
         <MDXComponents.blockquote key={`quote-${i}`}>
-          <p>{quoteLines.join(" ")}</p>
+          <p>{parseInlineMarkdown(quoteLines.join(" "))}</p>
         </MDXComponents.blockquote>
       );
       continue;
@@ -87,50 +102,35 @@ export const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => 
       continue;
     }
 
-    // Headings
-    if (line.startsWith("### ")) {
-      const text = line.replace("### ", "").trim();
+    // Headings: H1-H6
+    const headingMatch = line.match(/^(#{1,6})\s+(.*)$/);
+    if (headingMatch) {
+      const level = headingMatch[1].length;
+      const text = headingMatch[2].trim();
+      const HeadingTag = (`h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6");
+      const Component = (MDXComponents[HeadingTag as keyof typeof MDXComponents] || HeadingTag) as React.ComponentType<any>;
       elements.push(
-        <MDXComponents.h3 key={`h3-${i}`}>{text}</MDXComponents.h3>
+        React.createElement(
+          Component,
+          { key: `h-${i}` },
+          parseInlineMarkdown(text)
+        )
       );
       i++;
       continue;
     }
 
-    if (line.startsWith("## ")) {
-      const text = line.replace("## ", "").trim();
-      elements.push(
-        <MDXComponents.h2 key={`h2-${i}`}>{text}</MDXComponents.h2>
-      );
-      i++;
-      continue;
-    }
-
-    if (line.startsWith("# ")) {
-      const text = line.replace("# ", "").trim();
-      elements.push(
-        <MDXComponents.h1 key={`h1-${i}`}>{text}</MDXComponents.h1>
-      );
-      i++;
-      continue;
-    }
-
-    // Blank line
-    if (line.trim() === "") {
-      i++;
-      continue;
-    }
-
-    // Paragraph
+    // Paragraph (lines that are not code blocks, blockquotes, lists, headings, or hr)
     const paragraphLines: string[] = [];
     while (
       i < lines.length &&
       lines[i].trim() !== "" &&
-      !lines[i].startsWith("#") &&
-      !lines[i].startsWith("> ") &&
+      !/^(#{1,6})\s+/.test(lines[i]) &&
+      !lines[i].startsWith(">") &&
       !/^\s*[-*]\s+/.test(lines[i]) &&
       !/^\s*\d+\.\s+/.test(lines[i]) &&
-      !lines[i].trim().startsWith("```")
+      !lines[i].trim().startsWith("```") &&
+      !/^(---|___|\*\*\*)$/.test(lines[i].trim())
     ) {
       paragraphLines.push(lines[i]);
       i++;
@@ -142,29 +142,38 @@ export const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => 
           {parseInlineMarkdown(paragraphLines.join(" "))}
         </MDXComponents.p>
       );
+    } else {
+      // Defensive fallback to prevent infinite loop
+      i++;
     }
   }
 
   return <div className="article-body max-w-none">{elements}</div>;
 };
 
-// Helper for bold, code, links inline
+// Helper for bold, italic, code, links, and images inline
 function parseInlineMarkdown(text: string): React.ReactNode {
   const parts: React.ReactNode[] = [];
   let remaining = text;
   let key = 0;
 
   while (remaining) {
-    // Bold: **text**
-    const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
+    // Image: ![alt](url)
+    const imgMatch = remaining.match(/!\[(.*?)\]\((.+?)\)/);
+    // Bold: **text** (excluding leading/trailing space inside delimiters)
+    const boldMatch = remaining.match(/(?<!\*)\*\*(?!\s)([^*]+?)(?<!\s)\*\*(?!\*)/);
+    // Italic: *text* (excluding ** and leading/trailing space inside delimiters)
+    const italicMatch = remaining.match(/(?<!\*)\*(?!\s)([^*]+?)(?<!\s)\*(?!\*)/);
     // Inline code: `code`
-    const codeMatch = remaining.match(/`(.+?)`/);
+    const codeMatch = remaining.match(/`([^`]+)`/);
     // Link: [text](url)
-    const linkMatch = remaining.match(/\[(.+?)\]\((.+?)\)/);
+    const linkMatch = remaining.match(/(?<!\!)\[(.+?)\]\((.+?)\)/);
 
     // Find earliest match
     const matches = [
+      imgMatch ? { type: "image", index: imgMatch.index!, match: imgMatch } : null,
       boldMatch ? { type: "bold", index: boldMatch.index!, match: boldMatch } : null,
+      italicMatch ? { type: "italic", index: italicMatch.index!, match: italicMatch } : null,
       codeMatch ? { type: "code", index: codeMatch.index!, match: codeMatch } : null,
       linkMatch ? { type: "link", index: linkMatch.index!, match: linkMatch } : null,
     ]
@@ -181,11 +190,31 @@ function parseInlineMarkdown(text: string): React.ReactNode {
       parts.push(remaining.substring(0, first.index));
     }
 
-    if (first.type === "bold") {
+    if (first.type === "image") {
+      const rawSrc = first.match[2].trim();
+      const safeSrc = /^(https?:\/\/|\/)/i.test(rawSrc) ? rawSrc : "#";
+      parts.push(
+        <img
+          key={`img-${key++}`}
+          src={safeSrc}
+          alt={first.match[1]}
+          loading="lazy"
+          className="rounded-xl border border-border-subtle my-6 max-w-full h-auto"
+        />
+      );
+      remaining = remaining.substring(first.index + first.match[0].length);
+    } else if (first.type === "bold") {
       parts.push(
         <strong key={`b-${key++}`} className="font-semibold text-text-primary">
           {first.match[1]}
         </strong>
+      );
+      remaining = remaining.substring(first.index + first.match[0].length);
+    } else if (first.type === "italic") {
+      parts.push(
+        <em key={`em-${key++}`} className="italic text-text-primary">
+          {first.match[1]}
+        </em>
       );
       remaining = remaining.substring(first.index + first.match[0].length);
     } else if (first.type === "code") {
