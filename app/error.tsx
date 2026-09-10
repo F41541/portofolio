@@ -37,10 +37,10 @@ export default function GlobalError({ error, reset }: ErrorProps) {
             </p>
           </div>
 
-          {error?.message && (
+          {process.env.NODE_ENV !== "production" && error?.message && (
             <div className="p-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle text-left max-w-md mx-auto">
               <span className="block text-[10px] font-mono uppercase tracking-wider text-text-muted mb-1">
-                Detail Error
+                Detail Error (Development Mode)
               </span>
               <p className="text-xs font-mono text-red-400/90 break-words leading-relaxed">
                 {error.message}

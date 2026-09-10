@@ -28,16 +28,19 @@ export const PAYMENT_CHANNELS: PaymentChannel[] = [
 ];
 
 export function getDuitkuConfig(): DuitkuConfig {
+  const isProduction = process.env.DUITKU_ENV === "production";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.vercel.app";
+
   return {
     apiKey: process.env.DUITKU_API_KEY || "8350faa667034294a9be2ccf034484f7",
     merchantCode: process.env.DUITKU_MERCHANT_CODE || "DS35240",
     callbackUrl:
-      process.env.DUITKU_CALLBACK_URL ||
-      "https://laxstudio.vercel.app/store/duitku-callback",
-    returnUrl:
-      process.env.DUITKU_RETURN_URL ||
-      "https://laxstudio.vercel.app/store/success",
-    inquiryUrl: "https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry",
+      process.env.DUITKU_CALLBACK_URL || `${siteUrl}/store/duitku-callback`,
+    returnUrl: process.env.DUITKU_RETURN_URL || `${siteUrl}/store/success`,
+    inquiryUrl: isProduction
+      ? "https://passport.duitku.com/webapi/api/merchant/v2/inquiry"
+      : "https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry",
   };
 }
 
@@ -60,16 +63,32 @@ export function verifyCallbackSignature(
   apiKey: string,
   receivedSignature: string
 ): boolean {
-  // Duitku Callback: stringToSign = merchantCode + amount + merchantOrderId
-  // signature = HMAC_SHA256(stringToSign, apiKey)
-  const stringToSign = `${merchantCode}${amount}${merchantOrderId}`;
-  const calculatedSignature = crypto
+  if (!receivedSignature) return false;
+  const cleanReceived = receivedSignature.trim().toLowerCase();
+
+  // Duitku API v2 modern specification: HMAC-SHA256
+  // stringToSign = merchantcode + amount + merchantOrderId
+  const hmacStringToSign = `${merchantCode}${amount}${merchantOrderId}`;
+  const hmacCalculated = crypto
     .createHmac("sha256", apiKey)
-    .update(stringToSign)
-    .digest("hex");
-  return (
-    calculatedSignature.toLowerCase() === (receivedSignature || "").toLowerCase()
-  );
+    .update(hmacStringToSign)
+    .digest("hex")
+    .toLowerCase();
+
+  if (cleanReceived === hmacCalculated) {
+    return true;
+  }
+
+  // Backward-compatibility: Duitku legacy MD5 signature
+  // stringToSign = merchantCode + amount + merchantOrderId + apiKey
+  const md5StringToSign = `${merchantCode}${amount}${merchantOrderId}${apiKey}`;
+  const md5Calculated = crypto
+    .createHash("md5")
+    .update(md5StringToSign)
+    .digest("hex")
+    .toLowerCase();
+
+  return cleanReceived === md5Calculated;
 }
 
 export interface CreateInvoiceParams {
@@ -102,7 +121,7 @@ export async function requestDuitkuInquiry(
   const merchantOrderId = params.merchantOrderId.trim().slice(0, 50);
   const paymentMethod = (params.paymentMethod?.trim() || "BC").slice(0, 2);
   const email = params.email.trim().slice(0, 50);
-  const phoneNumber = (params.phoneNumber || "081907761002").trim().slice(0, 50);
+  const phoneNumber = (params.phoneNumber || "").trim().slice(0, 50);
   const customerVaName = (params.customerVaName || "Pelanggan").trim().slice(0, 20);
   const productDetails = (params.productDetails || "Layanan Laxstudio").trim().slice(0, 255);
 

@@ -19,4 +19,4 @@ export function calculateReadingTime(text: string): { text: string; minutes: num
   };
 }
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.dev";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.vercel.app";

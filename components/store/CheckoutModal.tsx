@@ -52,8 +52,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   product,
 }) => {
   const [customerName, setCustomerName] = React.useState("");
-  const [customerEmail, setCustomerEmail] = React.useState("mfaisalfahri02@gmail.com");
-  const [customerPhone, setCustomerPhone] = React.useState("081907761002");
+  const [customerEmail, setCustomerEmail] = React.useState("");
+  const [customerPhone, setCustomerPhone] = React.useState("");
   const [paymentMethod, setPaymentMethod] = React.useState("BC");
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
@@ -77,6 +77,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       setErrorMessage("Alamat email wajib diisi untuk bukti konfirmasi pembayaran.");
       return;
     }
+    if (!customerPhone.trim()) {
+      setErrorMessage("Nomor WhatsApp wajib diisi untuk koordinasi teknis layanan.");
+      return;
+    }
 
     setIsLoading(true);
     setErrorMessage(null);
@@ -92,7 +96,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           price: product.price,
           customerName: customerName.trim() || "Pelanggan",
           customerEmail: customerEmail.trim(),
-          customerPhone: customerPhone.trim() || "081907761002",
+          customerPhone: customerPhone.trim(),
           paymentMethod: paymentMethod || "BC",
         }),
       });
@@ -101,7 +105,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
       if (!res.ok || !data.success) {
         throw new Error(
-          data.error || "Gagal menghubungkan ke Duitku Sandbox. Pastikan konfigurasi valid."
+          data.error || "Gagal menghubungkan ke Duitku Payment Gateway. Pastikan konfigurasi valid."
         );
       }
 
@@ -225,7 +229,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               >
                 <Input
                   type="tel"
-                  placeholder="081907761002"
+                  placeholder="081234567890"
                   maxLength={20}
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
@@ -237,7 +241,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             {/* Payment Method Selector (Mandatory parameter for Duitku v2) */}
             <FormField
               id="checkout-payment-method"
-              label="Metode Pembayaran (Duitku Sandbox)"
+              label="Metode Pembayaran (Duitku Gateway)"
               icon={<Wallet className="w-3.5 h-3.5 text-accent-emerald" />}
               required
             >
@@ -258,7 +262,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
             {/* Disclaimer */}
             <div className="text-[11px] text-text-muted leading-relaxed font-sans bg-surface-ground/50 p-3 rounded-xl border border-border-subtle/60">
-              Transaksi ini diproses secara aman melalui <strong>Duitku Sandbox</strong>. Anda akan diarahkan ke halaman pembayaran instruksi resmi Duitku.
+              Transaksi ini diproses secara aman melalui <strong>Duitku Payment Gateway</strong>. Anda akan diarahkan ke halaman pembayaran instruksi resmi Duitku.
             </div>
 
             {/* Actions */}

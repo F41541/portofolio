@@ -10,6 +10,8 @@ import {
   Mail,
   ShieldCheck,
   Building,
+  Clock,
+  AlertCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -30,10 +32,33 @@ export default async function StoreSuccessPage({
   searchParams,
 }: SuccessPageProps) {
   const params = await searchParams;
-  const orderId = params.orderId || params.merchantOrderId || "LAX-TEST-ORD";
+  const orderId = params.orderId || params.merchantOrderId || "LAX-ORD";
   const amount = params.amount
     ? Number(params.amount).toLocaleString("id-ID")
     : null;
+  const resultCode = params.resultCode;
+
+  // Evaluate Duitku result code: "00" = SUCCESS, "01" = PENDING
+  const isSuccess = resultCode === "00";
+  const isPending = resultCode === "01";
+
+  const statusTitle = isSuccess
+    ? "Pembayaran Berhasil Dikonfirmasi!"
+    : isPending
+    ? "Menunggu Pembayaran"
+    : "Instruksi Pesanan Diterima";
+
+  const statusDescription = isSuccess
+    ? "Terima kasih telah melakukan transaksi di Laxstudio. Pembayaran Anda telah terverifikasi secara resmi oleh sistem Duitku Payment Gateway."
+    : isPending
+    ? "Instruksi pembayaran telah dibuat. Silakan selesaikan pembayaran melalui nomor Virtual Account / QRIS yang telah diterbitkan Duitku."
+    : "Pesanan Anda telah dicatat. Silakan lakukan konfirmasi jika Anda membutuhkan asistensi pembayaran atau konsultasi teknis.";
+
+  const statusBadge = isSuccess
+    ? { text: "Terverifikasi (Lunas)", color: "text-emerald-400 bg-accent-emerald/10 border-accent-emerald/30" }
+    : isPending
+    ? { text: "Menunggu Pembayaran (Pending)", color: "text-amber-400 bg-amber-500/10 border-amber-500/30" }
+    : { text: "Proses Transaksi", color: "text-cyan-400 bg-accent-cyan/10 border-accent-cyan/30" };
 
   return (
     <div className="relative flex-1 flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden">
@@ -43,18 +68,26 @@ export default async function StoreSuccessPage({
       <Container className="max-w-2xl">
         <Card className="p-8 sm:p-10 rounded-3xl border border-border-subtle bg-surface-card/90 shadow-2xl text-center space-y-6">
           <div className="w-16 h-16 rounded-2xl bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center mx-auto text-accent-emerald shadow-lg shadow-accent-emerald/10">
-            <CheckCircle2 className="w-8 h-8" />
+            {isSuccess ? (
+              <CheckCircle2 className="w-8 h-8 text-accent-emerald" />
+            ) : isPending ? (
+              <Clock className="w-8 h-8 text-amber-400" />
+            ) : (
+              <ShieldCheck className="w-8 h-8 text-accent-cyan" />
+            )}
           </div>
 
           <div className="space-y-2">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20">
-              Transaksi Sandbox Duitku
+            <span
+              className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${statusBadge.color}`}
+            >
+              {statusBadge.text}
             </span>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
-              Permintaan Pembayaran Diterima!
+              {statusTitle}
             </h1>
             <p className="text-sm text-text-secondary leading-relaxed max-w-md mx-auto">
-              Terima kasih telah melakukan pemesanan di Laxstudio. Pembayaran simulasi Anda telah dicatat oleh payment gateway Duitku Sandbox.
+              {statusDescription}
             </p>
           </div>
 
@@ -77,8 +110,14 @@ export default async function StoreSuccessPage({
             <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
               <span className="text-text-muted">Status Transaksi</span>
               <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Terverifikasi (Sandbox)
+                {isSuccess ? (
+                  <ShieldCheck className="w-3.5 h-3.5 text-accent-emerald" />
+                ) : isPending ? (
+                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                ) : (
+                  <AlertCircle className="w-3.5 h-3.5 text-accent-cyan" />
+                )}
+                {statusBadge.text}
               </span>
             </div>
             <div className="flex items-center justify-between">
