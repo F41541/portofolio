@@ -8,6 +8,9 @@ import {
   ArrowUpRight,
   Compass,
   Cpu,
+  MessageSquare,
+  Phone,
+  MapPin,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { BrandLogo } from "@/components/ui/BrandLogo";
@@ -29,6 +32,8 @@ export const Footer: React.FC = () => {
         return <Twitter className="w-4 h-4" />;
       case "Email":
         return <Mail className="w-4 h-4" />;
+      case "WhatsApp":
+        return <MessageSquare className="w-4 h-4" />;
       default:
         return <ArrowUpRight className="w-4 h-4" />;
     }
@@ -130,6 +135,45 @@ export const Footer: React.FC = () => {
                   </span>
                 </a>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Support & Business Contact Info (Duitku Verification Compliance) */}
+        <div className="mt-10 pt-6 border-t border-border-subtle/80 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div className="flex items-start gap-2.5">
+            <Mail className="w-4 h-4 text-accent-cyan mt-0.5 shrink-0" />
+            <div>
+              <span className="font-semibold text-text-primary block">Email Dukungan</span>
+              <a
+                href="mailto:mfaisalfahri02@gmail.com"
+                className="text-text-secondary hover:text-accent-emerald transition-colors"
+              >
+                mfaisalfahri02@gmail.com
+              </a>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Phone className="w-4 h-4 text-accent-emerald mt-0.5 shrink-0" />
+            <div>
+              <span className="font-semibold text-text-primary block">Telepon / WhatsApp</span>
+              <a
+                href="https://wa.me/6281907761002"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-secondary hover:text-accent-emerald transition-colors"
+              >
+                +62 819-0776-1002
+              </a>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <MapPin className="w-4 h-4 text-accent-emerald mt-0.5 shrink-0" />
+            <div>
+              <span className="font-semibold text-text-primary block">Alamat Usaha Resmi</span>
+              <span className="text-text-secondary">
+                Desa Sedonglor, Kec. Sedong, Kab. Cirebon, Jawa Barat 45189
+              </span>
             </div>
           </div>
         </div>
