@@ -191,12 +191,12 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
               <span className="font-semibold text-text-primary">Nomor Telepon / WA</span>
             </div>
             <a
-              href="https://wa.me/6281907761002"
+              href="https://wa.me/6282129620269"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-primary hover:text-accent-emerald transition-colors font-medium block font-mono"
             >
-              +62 819-0776-1002
+              +62 821-2962-0269
             </a>
             <div className="text-[11px] text-text-muted">
               Tersedia WhatsApp &amp; Panggilan

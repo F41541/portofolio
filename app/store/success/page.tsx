@@ -144,7 +144,7 @@ export default async function StoreSuccessPage({
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <MessageSquare className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                <span>+62 819-0776-1002 (WhatsApp)</span>
+                <span>+62 821-2962-0269 (WhatsApp)</span>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default async function StoreSuccessPage({
               <span>Kembali ke Katalog Layanan</span>
             </Button>
             <Button
-              href="https://wa.me/6281907761002"
+              href="https://wa.me/6282129620269"
               variant="primary"
               size="md"
               className="w-full sm:w-auto gap-2 text-xs"

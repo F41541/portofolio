@@ -54,8 +54,8 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: "WhatsApp",
-    href: "https://wa.me/6281907761002",
-    handle: "+62 819-0776-1002",
+    href: "https://wa.me/6282129620269",
+    handle: "+62 821-2962-0269",
     external: true,
   },
 ];
