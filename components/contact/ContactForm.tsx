@@ -9,7 +9,6 @@ import {
   Sparkles,
   RefreshCcw,
   MessageSquare,
-  DollarSign,
   Layers,
   Mail,
   User,
@@ -19,7 +18,6 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
-import { Select } from "@/components/ui/Select";
 import { FormField } from "@/components/ui/FormField";
 
 export type ProjectScope =
@@ -28,18 +26,10 @@ export type ProjectScope =
   | "ecommerce-cms-store"
   | "custom-web-application";
 
-export type BudgetRange =
-  | "1jt-3jt"
-  | "3jt-5jt"
-  | "5jt-15jt"
-  | "15jt-plus"
-  | "monthly-retainer";
-
 interface FormData {
   name: string;
   email: string;
   scope: ProjectScope;
-  budget: BudgetRange;
   message: string;
 }
 
@@ -76,20 +66,11 @@ const SCOPE_OPTIONS: { id: ProjectScope; label: string; desc: string; price: str
   },
 ];
 
-const BUDGET_OPTIONS: { id: BudgetRange; label: string }[] = [
-  { id: "1jt-3jt", label: "Rp 1 Juta - Rp 3 Juta (Landing Page / Toko Online Basic)" },
-  { id: "3jt-5jt", label: "Rp 3 Juta - Rp 5 Juta (Sistem ERP / E-Commerce Bisnis)" },
-  { id: "5jt-15jt", label: "Rp 5 Juta - Rp 15 Juta (Aplikasi Web Custom & SaaS MVP)" },
-  { id: "15jt-plus", label: "Rp 15 Juta+ (Sistem Enterprise Multi-Modul)" },
-  { id: "monthly-retainer", label: "Maintenance & Layanan Berkala (Monthly Retainer)" },
-];
-
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = React.useState<FormData>({
     name: "",
     email: "",
     scope: "erp-system-umkm",
-    budget: "3jt-5jt",
     message: "",
   });
 
@@ -104,15 +85,13 @@ export const ContactForm: React.FC = () => {
 
   const getFormattedMessage = React.useCallback((data: FormData) => {
     const scopeLabel = SCOPE_OPTIONS.find((s) => s.id === data.scope)?.label || data.scope;
-    const budgetLabel = BUDGET_OPTIONS.find((b) => b.id === data.budget)?.label || data.budget;
 
     return (
       `Halo M. Faisal Fahri (Laxstudio),\n\n` +
       `Saya ingin mendiskusikan kebutuhan proyek:\n\n` +
       `• Nama: ${data.name}\n` +
       `• Email: ${data.email}\n` +
-      `• Kebutuhan / Scope: ${scopeLabel}\n` +
-      `• Estimasi Budget: ${budgetLabel}\n\n` +
+      `• Kebutuhan / Scope: ${scopeLabel}\n\n` +
       `Rincian Kebutuhan:\n${data.message}`
     );
   }, []);
@@ -234,7 +213,6 @@ export const ContactForm: React.FC = () => {
       name: "",
       email: "",
       scope: "erp-system-umkm",
-      budget: "3jt-5jt",
       message: "",
     });
     setErrors({});
@@ -316,12 +294,6 @@ export const ContactForm: React.FC = () => {
                 <span>Scope:</span>
                 <span className="text-accent-emerald capitalize font-medium">
                   {SCOPE_OPTIONS.find((s) => s.id === formData.scope)?.label || formData.scope}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span>Estimasi Budget:</span>
-                <span className="text-accent-cyan font-medium">
-                  {BUDGET_OPTIONS.find((b) => b.id === formData.budget)?.label || formData.budget}
                 </span>
               </div>
               <div className="pt-2 border-t border-border-subtle/60">
@@ -464,27 +436,6 @@ export const ContactForm: React.FC = () => {
                 })}
               </div>
             </div>
-
-            {/* Budget Range Dropdown */}
-            <FormField
-              id="contact-budget"
-              label="Estimasi Anggaran"
-              icon={<DollarSign className="w-3.5 h-3.5 text-accent-cyan" />}
-            >
-              <Select
-                value={formData.budget}
-                onChange={(e) =>
-                  setFormData((p) => ({
-                    ...p,
-                    budget: e.target.value as BudgetRange,
-                  }))
-                }
-                options={BUDGET_OPTIONS.map((opt) => ({
-                  value: opt.id,
-                  label: opt.label,
-                }))}
-              />
-            </FormField>
 
             {/* Message Textarea */}
             <FormField
