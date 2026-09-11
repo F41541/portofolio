@@ -30,7 +30,7 @@ export const PAYMENT_CHANNELS: PaymentChannel[] = [
 export function getDuitkuConfig(): DuitkuConfig {
   const isProduction = process.env.DUITKU_ENV === "production";
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.my.id";
 
   return {
     apiKey: process.env.DUITKU_API_KEY || "8350faa667034294a9be2ccf034484f7",
