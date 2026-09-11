@@ -47,7 +47,7 @@ function BentoSubProjectCard({
               {badgeCategory}
             </Badge>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-text-muted">
+          <div className="flex items-center gap-1.5 text-xs text-text-secondary font-medium">
             <SubtitleIcon className={`w-3.5 h-3.5 ${iconColor}`} />
             <span>{subtitleText}</span>
           </div>
@@ -85,7 +85,7 @@ function BentoSubProjectCard({
               <span className="text-sm font-bold text-text-primary truncate">
                 {s.value}
               </span>
-              <span className="text-[10px] text-text-muted mt-0.5">{s.label}</span>
+              <span className="text-[10px] text-text-secondary font-medium mt-0.5">{s.label}</span>
             </div>
           ))}
         </div>
@@ -111,6 +111,7 @@ function BentoSubProjectCard({
               variant="secondary"
               size="sm"
               className="gap-1.5"
+              aria-label={`Repository GitHub proyek ${project.title}`}
             >
               <Github className="w-3.5 h-3.5" />
               <span>GitHub</span>
@@ -121,6 +122,7 @@ function BentoSubProjectCard({
             variant="secondary"
             size="sm"
             className="gap-1"
+            aria-label={`Lihat detail studi kasus ${project.title}`}
           >
             <span>Detail</span>
             <ArrowUpRight className="w-3 h-3 text-accent-emerald" />
@@ -214,7 +216,7 @@ export function BentoGrid() {
                         key={i}
                         className="p-2.5 rounded-lg border border-border-subtle bg-surface-elevated/80 text-text-secondary text-[11px]"
                       >
-                        <div className="text-[10px] text-text-muted font-medium">Tahap {i + 1}</div>
+                        <div className="text-[10px] text-text-secondary font-semibold">Tahap {i + 1}</div>
                         <div className="truncate mt-0.5 font-medium">{node}</div>
                       </div>
                     ))}
@@ -240,7 +242,7 @@ export function BentoGrid() {
                       <span className="text-base sm:text-lg font-bold text-text-primary">
                         {s.value}
                       </span>
-                      <span className="text-xs text-text-muted mt-0.5">{s.label}</span>
+                      <span className="text-xs text-text-secondary font-medium mt-0.5">{s.label}</span>
                     </div>
                   ))}
                 </div>
@@ -266,6 +268,7 @@ export function BentoGrid() {
                       variant="secondary"
                       size="sm"
                       className="gap-2"
+                      aria-label={`Lihat kode sumber GitHub untuk proyek ${erpProject.title}`}
                     >
                       <Github className="w-4 h-4" />
                       <span>Lihat di GitHub</span>
@@ -276,6 +279,7 @@ export function BentoGrid() {
                     variant="primary"
                     size="sm"
                     className="gap-1.5"
+                    aria-label={`Lihat detail studi kasus ${erpProject.title}`}
                   >
                     <span>Studi Kasus</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

@@ -6,17 +6,17 @@
 @tailwind utilities;
 
 :root {
-  /* Default: Light Mode */
+  /* Default: Light Mode - WCAG AA & AAA compliant contrast */
   --bg-surface-ground: 248 250 252;
   --bg-surface-card: 255 255 255;
   --bg-surface-elevated: 241 245 249;
   --border-subtle: 226 232 240;
-  --border-accent: 5 150 105;
+  --border-accent: 4 120 87;
   --text-primary: 15 23 42;
-  --text-secondary: 71 85 105;
-  --text-muted: 100 116 139;
-  --accent-emerald: 5 150 105;
-  --accent-cyan: 8 145 178;
+  --text-secondary: 51 65 85;
+  --text-muted: 71 85 105;
+  --accent-emerald: 4 120 87;
+  --accent-cyan: 14 116 144;
   color-scheme: light;
 }
 

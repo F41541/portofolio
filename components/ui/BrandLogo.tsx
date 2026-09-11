@@ -27,7 +27,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     >
       <div
         className={cn(
-          "font-bold tracking-wider text-accent-emerald bg-surface-elevated rounded border border-border-subtle group-hover:border-accent-emerald/50 transition-colors shadow-sm",
+          "font-bold tracking-wider text-emerald-800 dark:text-accent-emerald bg-emerald-500/10 dark:bg-surface-elevated rounded border border-border-subtle group-hover:border-accent-emerald/50 transition-colors shadow-sm",
           size === "sm" ? "text-xs px-2 py-0.5" : "text-sm px-2.5 py-1"
         )}
       >

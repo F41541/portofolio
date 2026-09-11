@@ -125,7 +125,7 @@ export function TechStackSection() {
                       <h3 className="font-bold text-base text-text-primary group-hover:text-accent-emerald transition-colors">
                         {tech.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                      <div className="flex items-center gap-2 text-[11px] text-text-secondary font-medium mt-0.5">
                         <span>{tech.years} Thn Pengalaman</span>
                         <span>•</span>
                         <span className="capitalize">{tech.category.replace("-", " / ")}</span>
@@ -149,7 +149,7 @@ export function TechStackSection() {
                 {tech.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 text-[11px] text-text-muted bg-surface-elevated rounded border border-border-subtle/60"
+                    className="px-2 py-0.5 text-[11px] text-text-secondary font-medium bg-surface-elevated rounded border border-border-subtle/60"
                   >
                     {tag}
                   </span>

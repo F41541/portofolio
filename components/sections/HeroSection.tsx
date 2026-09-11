@@ -59,35 +59,25 @@ export function HeroSection() {
           >
           </motion.div>
 
-          {/* High-Contrast Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-[1.1]"
-          >
+          {/* High-Contrast Headline - Instant SSR Render for optimal LCP */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-[1.1]">
             Membangun{" "}
             <span className="bg-gradient-to-r from-accent-emerald to-accent-cyan bg-clip-text text-transparent">
               Aplikasi Web Modern
             </span>{" "}
             yang Cepat, Bersih, &amp; Skalabel
-          </motion.h1>
+          </h1>
 
           {/* Sub-headline Value Proposition */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-3xl"
-          >
+          <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-3xl">
             Halo, saya <strong>M. Faisal Fahri</strong>. Spesialis dalam merancang full-stack web application menggunakan ekosistem <strong>Laravel</strong>, <strong>Vue.js</strong>, <strong>Inertia.js</strong>, dan <strong>Next.js / React</strong> dengan arsitektur database relasional yang efisien dan antarmuka responsif.
-          </motion.p>
+          </p>
 
           {/* Action Buttons with Visual Hierarchy */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="pt-2 flex flex-wrap items-center gap-4"
           >
             <Button
@@ -95,6 +85,7 @@ export function HeroSection() {
               variant="primary"
               size="lg"
               className="gap-2.5 shadow-xl shadow-accent-emerald/20 group"
+              aria-label="Lihat Proyek Pilihan"
             >
               <span>Lihat Proyek Pilihan</span>
               <ArrowDown className="w-4 h-4 transition-transform duration-fast ease-spring-snappy group-hover:translate-y-0.5" />
@@ -105,6 +96,7 @@ export function HeroSection() {
               variant="secondary"
               size="lg"
               className="gap-2"
+              aria-label="Buka Katalog Layanan"
             >
               <span>Katalog Layanan</span>
               <ArrowUpRight className="w-4 h-4 text-accent-emerald" />
@@ -115,6 +107,7 @@ export function HeroSection() {
               variant="ghost"
               size="lg"
               className="gap-1.5"
+              aria-label="Hubungi M. Faisal Fahri"
             >
               <span>Hubungi Saya</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -123,12 +116,7 @@ export function HeroSection() {
         </div>
 
         {/* Competency Telemetry Dock (Clean Engineering Strip - No AI-Slop Borders) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-6"
-        >
+        <div className="pt-6">
           <div className="rounded-2xl border border-border-subtle bg-surface-card/60 backdrop-blur-md shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border-subtle/80">
               {highlights.map((item, idx) => {
@@ -139,7 +127,7 @@ export function HeroSection() {
                     className="p-6 flex flex-col justify-between space-y-4 transition-all duration-fast ease-spring-natural hover:bg-surface-elevated/50 group"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-text-muted/70 uppercase">
+                      <span className="text-[10px] font-mono tracking-widest text-text-secondary font-semibold uppercase">
                         {item.category}
                       </span>
                       <div className="w-8 h-8 rounded-lg bg-surface-elevated border border-border-subtle flex items-center justify-center text-text-muted group-hover:text-accent-emerald group-hover:border-accent-emerald/40 group-hover:scale-105 transition-all duration-fast ease-spring-snappy">
@@ -160,7 +148,7 @@ export function HeroSection() {
               })}
             </div>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );
