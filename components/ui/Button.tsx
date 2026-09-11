@@ -24,7 +24,7 @@ export function getButtonStyles({
 
   const variantStyles: Record<ButtonVariant, string> = {
     primary:
-      "bg-accent-emerald text-slate-950 font-semibold shadow-md shadow-accent-emerald/20 hover:bg-emerald-400 hover:shadow-lg hover:shadow-accent-emerald/25 active:shadow-sm border border-emerald-400/30",
+      "bg-accent-emerald text-white font-semibold shadow-md shadow-accent-emerald/20 hover:bg-emerald-600 hover:shadow-lg hover:shadow-accent-emerald/25 active:shadow-sm border border-emerald-500/30",
     secondary:
       "bg-surface-card text-text-primary hover:bg-surface-elevated hover:border-accent-emerald/50 border border-border-subtle shadow-sm active:bg-surface-ground",
     outline:

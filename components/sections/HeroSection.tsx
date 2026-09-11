@@ -1,7 +1,4 @@
-"use client";
-
 import * as React from "react";
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -49,16 +46,8 @@ export function HeroSection() {
       <div className="absolute top-1/3 right-10 w-[300px] h-[250px] bg-accent-cyan/5 blur-[100px] rounded-full pointer-events-none -z-10" />
 
       <Container className="space-y-12">
-        {/* Main Hero Header with Motion Stagger */}
+        {/* Main Hero Header */}
         <div className="max-w-4xl space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-2"
-          >
-          </motion.div>
-
           {/* High-Contrast Headline - Instant SSR Render for optimal LCP */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-[1.1]">
             Membangun{" "}
@@ -74,12 +63,7 @@ export function HeroSection() {
           </p>
 
           {/* Action Buttons with Visual Hierarchy */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-2 flex flex-wrap items-center gap-4"
-          >
+          <div className="pt-2 flex flex-wrap items-center gap-4">
             <Button
               href="#featured-work"
               variant="primary"
@@ -112,7 +96,7 @@ export function HeroSection() {
               <span>Hubungi Saya</span>
               <ArrowUpRight className="w-4 h-4" />
             </Button>
-          </motion.div>
+          </div>
         </div>
 
         {/* Competency Telemetry Dock (Clean Engineering Strip - No AI-Slop Borders) */}

@@ -94,10 +94,10 @@ export function TechStackSection() {
                 {getCategoryIcon(cat.id)}
                 <span>{cat.label}</span>
                 <span
-                  className={`text-[11px] px-1.5 py-0.2 rounded-full font-medium ${
+                  className={`text-[11px] px-1.5 py-0.5 rounded-full font-medium ${
                     isActive
-                      ? "bg-accent-emerald/20 text-accent-emerald"
-                      : "bg-surface-ground text-text-muted"
+                      ? "bg-accent-emerald text-white"
+                      : "bg-surface-elevated text-text-secondary border border-border-subtle"
                   }`}
                 >
                   {count}
