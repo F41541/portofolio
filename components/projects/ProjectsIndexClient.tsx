@@ -81,7 +81,7 @@ export const ProjectsIndexClient: React.FC<ProjectsIndexClientProps> = ({
   }, [projects, searchQuery, selectedCategory]);
 
   return (
-    <section className="py-16 md:py-24 border-b border-border-subtle/60 relative">
+    <section className="pt-12 pb-16 md:pt-20 md:pb-24 border-b border-border-subtle/60 relative">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[300px] bg-accent-emerald/5 blur-[140px] pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-10 w-[400px] h-[250px] bg-accent-cyan/5 blur-[120px] pointer-events-none -z-10" />

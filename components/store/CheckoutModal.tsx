@@ -34,16 +34,20 @@ interface CheckoutModalProps {
 }
 
 const PAYMENT_OPTIONS = [
-  { value: "BC", label: "BCA Virtual Account (Otomatis)" },
+  // Virtual Account Aktif
   { value: "M2", label: "Mandiri Virtual Account" },
-  { value: "I1", label: "BNI Virtual Account" },
   { value: "BR", label: "BRI Virtual Account (BRIVA)" },
+  { value: "I1", label: "BNI Virtual Account" },
   { value: "BT", label: "Permata Bank Virtual Account" },
   { value: "VA", label: "Maybank Virtual Account" },
-  { value: "SP", label: "QRIS (ShopeePay / Semua E-Wallet & M-Banking)" },
-  { value: "DA", label: "DANA" },
-  { value: "OV", label: "OVO" },
-  { value: "VC", label: "Kartu Kredit / Debit Online" },
+  // Gerai Retail Aktif
+  { value: "FT", label: "Alfamart / Alfamidi / Dan+Dan" },
+  // QRIS (Status: Maintenance / Dalam Pengajuan Duitku 7-14 hari kerja)
+  {
+    value: "SP",
+    label: "QRIS (Semua E-Wallet) [Maintenance / Dalam Pengajuan Duitku]",
+    disabled: true,
+  },
 ];
 
 export const CheckoutModal: React.FC<CheckoutModalProps> = ({
@@ -54,9 +58,60 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [customerName, setCustomerName] = React.useState("");
   const [customerEmail, setCustomerEmail] = React.useState("");
   const [customerPhone, setCustomerPhone] = React.useState("");
-  const [paymentMethod, setPaymentMethod] = React.useState("BC");
+  const [paymentMethod, setPaymentMethod] = React.useState("M2");
+  const [paymentOptions, setPaymentOptions] = React.useState(PAYMENT_OPTIONS);
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
+  // Ambil daftar metode bayar & kalkulasi biaya real-time dari Duitku API
+  React.useEffect(() => {
+    if (!isOpen || !product) return;
+    let isMounted = true;
+
+    async function loadPaymentMethods() {
+      try {
+        const res = await fetch(`/api/duitku/payment-methods?amount=${product?.price || 10000}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (isMounted && data.paymentFee && Array.isArray(data.paymentFee) && data.paymentFee.length > 0) {
+          const liveMethods = data.paymentFee.map(
+            (item: { paymentMethod: string; paymentName: string; totalFee?: string }) => {
+              const fee = Number(item.totalFee) || 0;
+              const feeLabel = fee > 0 ? ` (+Rp ${fee.toLocaleString("id-ID")})` : " (Bebas Biaya)";
+              return {
+                value: item.paymentMethod,
+                label: `${item.paymentName}${feeLabel}`,
+                disabled: false,
+              };
+            }
+          );
+
+          // Saring metode live: hanya ambil channel yang diizinkan (exclude BC, IR, VC, DA, OV)
+          const filteredLive = liveMethods.filter(
+            (lm: { value: string }) => !["BC", "IR", "VC", "DA", "OV"].includes(lm.value)
+          );
+
+          // Gabungkan dengan QRIS yang sedang proses aktivasi
+          const maintenanceChannels = PAYMENT_OPTIONS.filter((opt) => opt.disabled);
+
+          const mergedOptions = [...filteredLive, ...maintenanceChannels];
+          setPaymentOptions(mergedOptions);
+
+          // Pastikan pilihan tidak mengarah ke opsi disabled
+          if (!filteredLive.some((opt: { value: string }) => opt.value === paymentMethod) && filteredLive.length > 0) {
+            setPaymentMethod(filteredLive[0].value);
+          }
+        }
+      } catch {
+        // Fallback tetap menggunakan PAYMENT_OPTIONS standar
+      }
+    }
+
+    loadPaymentMethods();
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen, product?.id, product?.price]);
 
   // Close on escape key
   React.useEffect(() => {
@@ -92,6 +147,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          productId: product.id,
           productTitle: product.title,
           price: product.price,
           customerName: customerName.trim() || "Pelanggan",
@@ -110,8 +166,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       }
 
       if (data.paymentUrl) {
-        // Redirect to Duitku Sandbox Payment Page
+        // Redirect to Duitku Payment Page
         window.location.href = data.paymentUrl;
+      } else if (data.merchantOrderId) {
+        // Fallback: redirect to success/status page
+        window.location.href = `/store/success?orderId=${encodeURIComponent(data.merchantOrderId)}`;
       } else {
         throw new Error("Duitku tidak mengembalikan URL pembayaran.");
       }
@@ -147,7 +206,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <div className="space-y-1">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-accent-emerald/10 text-emerald-700 dark:text-emerald-300 border border-accent-emerald/20">
                 <ShieldCheck className="w-3 h-3" />
-                Duitku Sandbox Checkout
+                Duitku Payment Gateway
               </span>
               <h3 className="text-xl font-bold text-text-primary">
                 Selesaikan Pembayaran
@@ -249,9 +308,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <Select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                options={PAYMENT_OPTIONS}
+                options={paymentOptions}
               />
             </FormField>
+
+            {/* Availability Notice */}
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-600 dark:text-amber-400 space-y-1">
+              <div className="font-semibold flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <span>Ketersediaan Metode Pembayaran:</span>
+              </div>
+              <p className="leading-relaxed opacity-90">
+                ✅ <strong>Virtual Account (Mandiri, BRI, BNI, Permata, Maybank)</strong> &amp; <strong>Alfamart</strong> aktif &amp; siap bayar otomatis.
+                <br />
+                ⏳ Channel <strong>QRIS &amp; E-Wallet</strong> sedang dalam proses verifikasi pihak penyedia Duitku (estimasi aktif 7–14 hari kerja).
+              </p>
+            </div>
 
             {/* Error message */}
             {errorMessage && (

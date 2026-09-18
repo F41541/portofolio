@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 export interface SelectOption {
   value: string;
   label: string;
+  disabled?: boolean;
 }
 
 export interface SelectProps
@@ -32,7 +33,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 <option
                   key={opt.value}
                   value={opt.value}
-                  className="bg-surface-elevated text-text-primary"
+                  disabled={opt.disabled}
+                  className={cn(
+                    "bg-surface-elevated text-text-primary",
+                    opt.disabled && "text-text-muted opacity-50 bg-surface-ground"
+                  )}
                 >
                   {opt.label}
                 </option>

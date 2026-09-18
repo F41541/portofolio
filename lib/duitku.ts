@@ -5,42 +5,56 @@ export interface DuitkuConfig {
   merchantCode: string;
   callbackUrl: string;
   returnUrl: string;
+  baseUrl: string;
   inquiryUrl: string;
+  statusUrl: string;
+  paymentMethodUrl: string;
 }
 
 export interface PaymentChannel {
   code: string;
   name: string;
-  category: "Virtual Account" | "QRIS" | "E-Wallet" | "Kartu Kredit";
+  category: "Virtual Account" | "QRIS" | "E-Wallet" | "Retail" | "Kartu Kredit";
+  isActive?: boolean;
+  statusNote?: string;
 }
 
 export const PAYMENT_CHANNELS: PaymentChannel[] = [
-  { code: "BC", name: "BCA Virtual Account", category: "Virtual Account" },
-  { code: "M2", name: "Mandiri Virtual Account", category: "Virtual Account" },
-  { code: "I1", name: "BNI Virtual Account", category: "Virtual Account" },
-  { code: "BR", name: "BRI Virtual Account (BRIVA)", category: "Virtual Account" },
-  { code: "BT", name: "Permata Bank Virtual Account", category: "Virtual Account" },
-  { code: "VA", name: "Maybank Virtual Account", category: "Virtual Account" },
-  { code: "SP", name: "QRIS (ShopeePay / All E-Wallet)", category: "QRIS" },
-  { code: "DA", name: "DANA", category: "E-Wallet" },
-  { code: "OV", name: "OVO", category: "E-Wallet" },
-  { code: "VC", name: "Kartu Kredit / Debit", category: "Kartu Kredit" },
+  // Virtual Account Aktif
+  { code: "M2", name: "Mandiri Virtual Account", category: "Virtual Account", isActive: true },
+  { code: "BR", name: "BRI Virtual Account (BRIVA)", category: "Virtual Account", isActive: true },
+  { code: "I1", name: "BNI Virtual Account", category: "Virtual Account", isActive: true },
+  { code: "BT", name: "Permata Bank Virtual Account", category: "Virtual Account", isActive: true },
+  { code: "VA", name: "Maybank Virtual Account", category: "Virtual Account", isActive: true },
+  // Gerai Retail Aktif
+  { code: "FT", name: "Alfamart / Alfamidi / Dan+Dan", category: "Retail", isActive: true },
+  // QRIS (Dalam Proses Pengajuan Duitku / Maintenance)
+  {
+    code: "SP",
+    name: "QRIS (Semua E-Wallet & Mobile Banking)",
+    category: "QRIS",
+    isActive: false,
+    statusNote: "Maintenance / Dalam Proses Pengajuan Duitku (7-14 Hari)",
+  },
 ];
 
 export function getDuitkuConfig(): DuitkuConfig {
   const isProduction = process.env.DUITKU_ENV === "production";
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.my.id";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://laxstudio.my.id";
+  const baseUrl = isProduction
+    ? "https://passport.duitku.com"
+    : "https://sandbox.duitku.com";
 
   return {
-    apiKey: process.env.DUITKU_API_KEY || "8350faa667034294a9be2ccf034484f7",
-    merchantCode: process.env.DUITKU_MERCHANT_CODE || "DS35240",
+    apiKey: process.env.DUITKU_API_KEY || "",
+    merchantCode: process.env.DUITKU_MERCHANT_CODE || "",
     callbackUrl:
-      process.env.DUITKU_CALLBACK_URL || `${siteUrl}/store/duitku-callback`,
+      process.env.DUITKU_CALLBACK_URL || `${siteUrl}/api/duitku/callback`,
     returnUrl: process.env.DUITKU_RETURN_URL || `${siteUrl}/store/success`,
-    inquiryUrl: isProduction
-      ? "https://passport.duitku.com/webapi/api/merchant/v2/inquiry"
-      : "https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry",
+    baseUrl,
+    inquiryUrl: `${baseUrl}/webapi/api/merchant/v2/inquiry`,
+    statusUrl: `${baseUrl}/webapi/api/merchant/transactionStatus`,
+    paymentMethodUrl: `${baseUrl}/webapi/api/merchant/paymentmethod/getpaymentmethod`,
   };
 }
 
@@ -56,6 +70,13 @@ export function generateInquirySignature(
   return crypto.createHmac("sha256", apiKey).update(stringToSign).digest("hex");
 }
 
+function safeTimingCompare(a: string, b: string): boolean {
+  const bufA = Buffer.from(a, "utf-8");
+  const bufB = Buffer.from(b, "utf-8");
+  if (bufA.length !== bufB.length) return false;
+  return crypto.timingSafeEqual(bufA, bufB);
+}
+
 export function verifyCallbackSignature(
   merchantCode: string,
   amount: string | number,
@@ -63,11 +84,11 @@ export function verifyCallbackSignature(
   apiKey: string,
   receivedSignature: string
 ): boolean {
-  if (!receivedSignature) return false;
+  if (!receivedSignature || !merchantCode || !apiKey) return false;
   const cleanReceived = receivedSignature.trim().toLowerCase();
 
   // Duitku API v2 modern specification: HMAC-SHA256
-  // stringToSign = merchantcode + amount + merchantOrderId
+  // stringToSign = merchantCode + amount + merchantOrderId
   const hmacStringToSign = `${merchantCode}${amount}${merchantOrderId}`;
   const hmacCalculated = crypto
     .createHmac("sha256", apiKey)
@@ -75,7 +96,7 @@ export function verifyCallbackSignature(
     .digest("hex")
     .toLowerCase();
 
-  if (cleanReceived === hmacCalculated) {
+  if (safeTimingCompare(cleanReceived, hmacCalculated)) {
     return true;
   }
 
@@ -88,7 +109,11 @@ export function verifyCallbackSignature(
     .digest("hex")
     .toLowerCase();
 
-  return cleanReceived === md5Calculated;
+  if (safeTimingCompare(cleanReceived, md5Calculated)) {
+    return true;
+  }
+
+  return false;
 }
 
 export interface CreateInvoiceParams {
@@ -115,11 +140,16 @@ export async function requestDuitkuInquiry(
   params: CreateInvoiceParams
 ): Promise<DuitkuInquiryResponse> {
   const config = getDuitkuConfig();
+  if (!config.apiKey || !config.merchantCode) {
+    throw new Error(
+      "Duitku credentials (DUITKU_API_KEY, DUITKU_MERCHANT_CODE) are not configured in environment."
+    );
+  }
 
   // Strict parameter formatting according to Duitku v2 Inquiry specification
   const paymentAmount = Math.round(Number(params.paymentAmount));
   const merchantOrderId = params.merchantOrderId.trim().slice(0, 50);
-  const paymentMethod = (params.paymentMethod?.trim() || "BC").slice(0, 2);
+  const paymentMethod = (params.paymentMethod?.trim() || "M2").slice(0, 5);
   const email = params.email.trim().slice(0, 50);
   const phoneNumber = (params.phoneNumber || "").trim().slice(0, 50);
   const customerVaName = (params.customerVaName || "Pelanggan").trim().slice(0, 20);
@@ -169,6 +199,7 @@ export async function requestDuitkuInquiry(
       Accept: "application/json",
     },
     body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(10000),
   });
 
   if (!response.ok) {
@@ -179,5 +210,169 @@ export async function requestDuitkuInquiry(
   }
 
   const result = (await response.json()) as DuitkuInquiryResponse;
+  return result;
+}
+
+// -------------------------------------------------------------
+// Tahap 2: Check Transaction Status
+// -------------------------------------------------------------
+
+export interface DuitkuTransactionStatusResponse {
+  merchantOrderId: string;
+  reference?: string;
+  amount?: string;
+  fee?: string;
+  statusCode: string; // "00" = SUCCESS, "01" = PENDING, "02" = CANCELED / EXPIRED
+  statusMessage: string;
+}
+
+export function generateStatusSignature(
+  merchantCode: string,
+  merchantOrderId: string,
+  apiKey: string
+): string {
+  // String to sign: merchantCode + merchantOrderId
+  // Formula: HMAC_SHA256(stringToSign, apiKey)
+  const stringToSign = `${merchantCode}${merchantOrderId}`;
+  return crypto.createHmac("sha256", apiKey).update(stringToSign).digest("hex");
+}
+
+export async function checkTransactionStatus(
+  merchantOrderId: string
+): Promise<DuitkuTransactionStatusResponse> {
+  const config = getDuitkuConfig();
+  if (!config.apiKey || !config.merchantCode) {
+    throw new Error(
+      "Duitku credentials (DUITKU_API_KEY, DUITKU_MERCHANT_CODE) are not configured in environment."
+    );
+  }
+
+  const cleanOrderId = merchantOrderId.trim().slice(0, 50);
+  const signature = generateStatusSignature(
+    config.merchantCode,
+    cleanOrderId,
+    config.apiKey
+  );
+
+  const payload = {
+    merchantCode: config.merchantCode,
+    merchantOrderId: cleanOrderId,
+    signature,
+  };
+
+  const response = await fetch(config.statusUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Duitku Status Check HTTP error (${response.status}): ${errorText || response.statusText}`
+    );
+  }
+
+  const result = (await response.json()) as DuitkuTransactionStatusResponse;
+  return result;
+}
+
+// -------------------------------------------------------------
+// Tahap 2: Get Payment Methods & Fee Calculation
+// -------------------------------------------------------------
+
+export interface DuitkuPaymentMethodItem {
+  paymentMethod: string;
+  paymentName: string;
+  paymentImage?: string;
+  totalFee: string;
+}
+
+export interface DuitkuPaymentMethodsResponse {
+  responseCode: string;
+  responseMessage: string;
+  paymentFee?: DuitkuPaymentMethodItem[];
+}
+
+export function formatDuitkuDatetime(date: Date = new Date()): string {
+  // Format in Asia/Jakarta (WIB) timezone as Duitku is an Indonesian payment gateway
+  const formatter = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  });
+  return formatter.format(date).replace("T", " ");
+}
+
+export function generatePaymentMethodSignature(
+  merchantCode: string,
+  amount: number,
+  datetime: string,
+  apiKey: string
+): string {
+  // String to sign: merchantcode + amount + datetime
+  // Formula: HMAC_SHA256(stringToSign, apiKey)
+  const stringToSign = `${merchantCode}${amount}${datetime}`;
+  return crypto.createHmac("sha256", apiKey).update(stringToSign).digest("hex");
+}
+
+export async function getPaymentMethods(
+  amount: number
+): Promise<DuitkuPaymentMethodsResponse> {
+  const config = getDuitkuConfig();
+  if (!config.apiKey || !config.merchantCode) {
+    throw new Error(
+      "Duitku credentials (DUITKU_API_KEY, DUITKU_MERCHANT_CODE) are not configured in environment."
+    );
+  }
+
+  const numericAmount = Math.round(Number(amount));
+  const datetime = formatDuitkuDatetime();
+  const signature = generatePaymentMethodSignature(
+    config.merchantCode,
+    numericAmount,
+    datetime,
+    config.apiKey
+  );
+
+  const payload = {
+    merchantcode: config.merchantCode,
+    amount: numericAmount,
+    datetime,
+    signature,
+  };
+
+  const response = await fetch(config.paymentMethodUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Duitku Get Payment Methods HTTP error (${response.status}): ${errorText || response.statusText}`
+    );
+  }
+
+  const result = (await response.json()) as DuitkuPaymentMethodsResponse;
+  if (result.responseCode && result.responseCode !== "00") {
+    throw new Error(
+      `Duitku Get Payment Methods error (${result.responseCode}): ${result.responseMessage || "Unknown error"}`
+    );
+  }
   return result;
 }

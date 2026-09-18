@@ -27,6 +27,7 @@ export const NAV_ROUTES: RouteItem[] = [
   { name: "Proyek", href: "/projects", description: "Sistem produksi, web app & open source" },
   { name: "Tentang", href: "/about", description: "Latar belakang, pendidikan & keahlian" },
   { name: "Layanan", href: "/store", description: "Katalog jasa pengembangan web & sistem" },
+  { name: "Cek Invoice", href: "/invoices", description: "Lacak status transaksi & tagihan Duitku" },
   { name: "Kontak", href: "/contact", description: "Hubungi untuk diskusi & kolaborasi proyek" },
 ];
 

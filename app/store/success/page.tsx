@@ -12,7 +12,11 @@ import {
   Building,
   Clock,
   AlertCircle,
+  RefreshCw,
+  Receipt,
 } from "lucide-react";
+import { createOrder, getOrderById, updateOrderStatus, Order } from "@/lib/orders";
+import { checkTransactionStatus } from "@/lib/duitku";
 
 export const metadata: Metadata = {
   title: "Konfirmasi Pembayaran | Laxstudio Store",
@@ -23,8 +27,6 @@ interface SuccessPageProps {
   searchParams: Promise<{
     orderId?: string;
     merchantOrderId?: string;
-    amount?: string;
-    resultCode?: string;
   }>;
 }
 
@@ -32,36 +34,116 @@ export default async function StoreSuccessPage({
   searchParams,
 }: SuccessPageProps) {
   const params = await searchParams;
-  const orderId = params.orderId || params.merchantOrderId || "LAX-ORD";
-  const amount = params.amount
-    ? Number(params.amount).toLocaleString("id-ID")
+  const orderId = params.orderId || params.merchantOrderId || "";
+
+  let order: Order | null = null;
+  if (orderId) {
+    order = await getOrderById(orderId);
+
+    // Fallback: Jika pesanan belum/tidak tersimpan di lokal, validasi langsung ke Duitku
+    if (!order) {
+      try {
+        const duitkuStatus = await checkTransactionStatus(orderId);
+        if (duitkuStatus && (duitkuStatus.statusCode === "00" || duitkuStatus.statusCode === "01")) {
+          const status = duitkuStatus.statusCode === "00" ? "SUCCESS" : "PENDING";
+          order = await createOrder({
+            orderId,
+            productId: "custom-order",
+            productTitle: "Layanan Laxstudio",
+            customerName: "Pelanggan",
+            customerEmail: "",
+            customerPhone: "",
+            amount: duitkuStatus.amount ? Math.round(Number(duitkuStatus.amount)) : 0,
+            paymentMethod: "DUITKU",
+            reference: duitkuStatus.reference,
+            status,
+            resultCode: duitkuStatus.statusCode,
+          });
+        }
+      } catch (checkErr) {
+        console.warn(
+          `[Success Page Status Check Warning for ${orderId}]:`,
+          checkErr instanceof Error ? checkErr.message : checkErr
+        );
+      }
+    }
+
+    // Jika pesanan masih PENDING, coba sinkronisasi status langsung ke gateway Duitku
+    if (order && order.status === "PENDING") {
+      try {
+        const duitkuStatus = await checkTransactionStatus(order.orderId);
+        if (duitkuStatus.statusCode === "00") {
+          order = await updateOrderStatus(order.orderId, "SUCCESS", {
+            reference: duitkuStatus.reference || order.reference,
+            resultCode: "00",
+          });
+        } else if (duitkuStatus.statusCode === "02") {
+          order = await updateOrderStatus(order.orderId, "EXPIRED", {
+            resultCode: "02",
+          });
+        }
+      } catch (checkErr) {
+        // Cek status gateway opsional, jangan gagalkan render jika Duitku timeout
+        console.warn(
+          `[Success Page Status Check Warning for ${orderId}]:`,
+          checkErr instanceof Error ? checkErr.message : checkErr
+        );
+      }
+    }
+  }
+
+  // Evaluasi status pesanan secara RIIL dari database & gateway
+  const isFound = !!order;
+  const isSuccess = order?.status === "SUCCESS";
+  const isPending = order?.status === "PENDING";
+  const isFailed = order?.status === "FAILED" || order?.status === "EXPIRED";
+
+  const displayOrderId = order?.orderId || orderId || "TIDAK DITEMUKAN";
+  const displayAmount = order?.amount
+    ? Number(order.amount).toLocaleString("id-ID")
     : null;
-  const resultCode = params.resultCode;
+  const displayProduct = order?.productTitle || "Layanan Laxstudio";
 
-  // Evaluate Duitku result code: "00" = SUCCESS, "01" = PENDING
-  const isSuccess = resultCode === "00";
-  const isPending = resultCode === "01";
+  let statusTitle = "Status Pesanan Tidak Ditemukan";
+  let statusDescription =
+    "Nomor pesanan yang Anda tuju tidak terdaftar di sistem kami atau belum selesai diproses. Silakan hubungi tim kami jika Anda telah menyelesaikan pembayaran.";
 
-  const statusTitle = isSuccess
-    ? "Pembayaran Berhasil Dikonfirmasi!"
-    : isPending
-    ? "Menunggu Pembayaran"
-    : "Instruksi Pesanan Diterima";
+  let statusBadge = {
+    text: "Tidak Terverifikasi",
+    color: "text-rose-400 bg-rose-500/10 border-rose-500/30",
+  };
 
-  const statusDescription = isSuccess
-    ? "Terima kasih telah melakukan transaksi di Laxstudio. Pembayaran Anda telah terverifikasi secara resmi oleh sistem Duitku Payment Gateway."
-    : isPending
-    ? "Instruksi pembayaran telah dibuat. Silakan selesaikan pembayaran melalui nomor Virtual Account / QRIS yang telah diterbitkan Duitku."
-    : "Pesanan Anda telah dicatat. Silakan lakukan konfirmasi jika Anda membutuhkan asistensi pembayaran atau konsultasi teknis.";
-
-  const statusBadge = isSuccess
-    ? { text: "Terverifikasi (Lunas)", color: "text-emerald-400 bg-accent-emerald/10 border-accent-emerald/30" }
-    : isPending
-    ? { text: "Menunggu Pembayaran (Pending)", color: "text-amber-400 bg-amber-500/10 border-amber-500/30" }
-    : { text: "Proses Transaksi", color: "text-cyan-400 bg-accent-cyan/10 border-accent-cyan/30" };
+  if (isFound) {
+    if (isSuccess) {
+      statusTitle = "Pembayaran Berhasil Dikonfirmasi!";
+      statusDescription =
+        "Terima kasih telah melakukan transaksi di Laxstudio. Pembayaran Anda telah terverifikasi secara resmi lunas oleh sistem Duitku Payment Gateway.";
+      statusBadge = {
+        text: "Terverifikasi (Lunas)",
+        color:
+          "text-emerald-400 bg-accent-emerald/10 border-accent-emerald/30",
+      };
+    } else if (isPending) {
+      statusTitle = "Menunggu Konfirmasi Pembayaran";
+      statusDescription =
+        "Tagihan pembayaran telah diterbitkan. Silakan selesaikan pembayaran sesuai instruksi Virtual Account / QRIS Duitku. Halaman ini akan otomatis terupdate setelah pembayaran Anda terdeteksi.";
+      statusBadge = {
+        text: "Menunggu Pembayaran (Pending)",
+        color: "text-amber-400 bg-amber-500/10 border-amber-500/30",
+      };
+    } else if (isFailed) {
+      statusTitle = "Pembayaran Dibatalkan / Kadaluarsa";
+      statusDescription =
+        "Batas waktu pembayaran untuk pesanan ini telah berakhir atau transaksi telah dibatalkan oleh sistem gateway Duitku.";
+      statusBadge = {
+        text: "Gagal / Kadaluarsa",
+        color: "text-rose-400 bg-rose-500/10 border-rose-500/30",
+      };
+    }
+  }
 
   return (
-    <div className="relative flex-1 flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden">
+    <div className="relative flex-1 flex flex-col items-center justify-center pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/3 w-[500px] h-[350px] bg-accent-emerald/10 blur-[150px] pointer-events-none -z-10" />
 
@@ -72,6 +154,8 @@ export default async function StoreSuccessPage({
               <CheckCircle2 className="w-8 h-8 text-accent-emerald" />
             ) : isPending ? (
               <Clock className="w-8 h-8 text-amber-400" />
+            ) : isFailed ? (
+              <AlertCircle className="w-8 h-8 text-rose-400" />
             ) : (
               <ShieldCheck className="w-8 h-8 text-accent-cyan" />
             )}
@@ -96,30 +180,68 @@ export default async function StoreSuccessPage({
             <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
               <span className="text-text-muted">Nomor Pesanan (Order ID)</span>
               <span className="font-mono font-bold text-text-primary">
-                {orderId}
+                {displayOrderId}
               </span>
             </div>
-            {amount && (
+
+            {isFound && (
               <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
-                <span className="text-text-muted">Nominal Pembayaran</span>
-                <span className="font-bold text-accent-emerald">
-                  Rp {amount}
+                <span className="text-text-muted">Layanan / Produk</span>
+                <span className="font-medium text-text-primary">
+                  {displayProduct}
                 </span>
               </div>
             )}
+
+            {displayAmount && (
+              <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
+                <span className="text-text-muted">Nominal Pembayaran</span>
+                <span className="font-bold text-accent-emerald">
+                  Rp {displayAmount}
+                </span>
+              </div>
+            )}
+
             <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
               <span className="text-text-muted">Status Transaksi</span>
-              <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400">
+              <span
+                className={`inline-flex items-center gap-1.5 font-semibold ${
+                  isSuccess
+                    ? "text-emerald-500 dark:text-emerald-400"
+                    : isPending
+                    ? "text-amber-500 dark:text-amber-400"
+                    : "text-rose-500 dark:text-rose-400"
+                }`}
+              >
                 {isSuccess ? (
-                  <ShieldCheck className="w-3.5 h-3.5 text-accent-emerald" />
+                  <ShieldCheck className="w-3.5 h-3.5" />
                 ) : isPending ? (
-                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                  <Clock className="w-3.5 h-3.5" />
                 ) : (
-                  <AlertCircle className="w-3.5 h-3.5 text-accent-cyan" />
+                  <AlertCircle className="w-3.5 h-3.5" />
                 )}
                 {statusBadge.text}
               </span>
             </div>
+
+            {order?.reference && (
+              <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
+                <span className="text-text-muted">No. Referensi Duitku</span>
+                <span className="font-mono text-text-secondary">
+                  {order.reference}
+                </span>
+              </div>
+            )}
+
+            {order?.vaNumber && (
+              <div className="flex items-center justify-between border-b border-border-subtle/60 pb-2.5">
+                <span className="text-text-muted">Nomor Virtual Account</span>
+                <span className="font-mono font-bold text-accent-emerald">
+                  {order.vaNumber}
+                </span>
+              </div>
+            )}
+
             <div className="flex items-center justify-between">
               <span className="text-text-muted">Metode Saluran</span>
               <span className="font-medium text-text-primary">
@@ -127,6 +249,21 @@ export default async function StoreSuccessPage({
               </span>
             </div>
           </div>
+
+          {/* Pending Action: Refresh Status */}
+          {isPending && (
+            <div className="pt-1">
+              <Button
+                href={`/store/success?orderId=${encodeURIComponent(displayOrderId)}`}
+                variant="secondary"
+                size="sm"
+                className="w-full gap-2 text-xs"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>Cek Ulang Status Pembayaran Terkini</span>
+              </Button>
+            </div>
+          )}
 
           {/* Contact Support info as required by Duitku verification */}
           <div className="p-4 rounded-2xl bg-surface-ground border border-border-subtle text-left text-xs space-y-2">
@@ -158,10 +295,21 @@ export default async function StoreSuccessPage({
               className="w-full sm:w-auto gap-2 text-xs"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Kembali ke Katalog Layanan</span>
+              <span>Kembali ke Katalog</span>
             </Button>
             <Button
-              href="https://wa.me/6282129620269"
+              href={`/invoices?orderId=${encodeURIComponent(displayOrderId)}`}
+              variant="outline"
+              size="md"
+              className="w-full sm:w-auto gap-2 text-xs"
+            >
+              <Receipt className="w-4 h-4 text-accent-emerald" />
+              <span>Lacak Faktur (/invoices)</span>
+            </Button>
+            <Button
+              href={`https://wa.me/6282129620269?text=${encodeURIComponent(
+                `Halo Laxstudio, saya ingin konfirmasi pesanan dengan Order ID: ${displayOrderId}`
+              )}`}
               variant="primary"
               size="md"
               className="w-full sm:w-auto gap-2 text-xs"

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { requestDuitkuInquiry } from "@/lib/duitku";
+import { requestDuitkuInquiry, PAYMENT_CHANNELS } from "@/lib/duitku";
+import { getServiceById } from "@/data/store-services";
+import { createOrder } from "@/lib/orders";
 
 // In-memory rate limiting: IP -> array of timestamps
 const rateLimitMap = new Map<string, number[]>();
@@ -53,28 +55,50 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const {
-      productTitle,
-      price,
+      productId,
+      price: clientPrice,
       customerName,
       customerEmail,
       customerPhone,
       paymentMethod,
     } = body;
 
-    if (!productTitle || !price || !customerEmail) {
+    // 1. Validasi productId & ambil harga resmi dari server
+    if (!productId || typeof productId !== "string") {
       return NextResponse.json(
-        { error: "Nama produk, harga, dan email wajib diisi." },
+        { error: "Parameter 'productId' wajib disertakan." },
         { status: 400 }
       );
     }
 
-    const numericAmount = Math.round(Number(price));
-    if (isNaN(numericAmount) || numericAmount < 10000) {
+    const service = getServiceById(productId.trim());
+    if (!service) {
+      return NextResponse.json(
+        { error: `Produk atau layanan dengan ID '${productId}' tidak ditemukan.` },
+        { status: 404 }
+      );
+    }
+
+    // 2. Tolak harga kiriman klien jika tidak cocok dengan harga server
+    if (
+      clientPrice !== undefined &&
+      Math.round(Number(clientPrice)) !== Math.round(service.price)
+    ) {
       return NextResponse.json(
         {
           error:
-            "Nominal pembayaran minimal adalah Rp 10.000 (sesuai ketentuan Duitku).",
+            "Harga pesanan tidak valid atau telah dimodifikasi oleh klien. Transaksi dibatalkan demi integritas data.",
         },
+        { status: 400 }
+      );
+    }
+
+    const price = service.price;
+    const productTitle = service.title;
+
+    if (!customerEmail) {
+      return NextResponse.json(
+        { error: "Alamat email pelanggan wajib diisi." },
         { status: 400 }
       );
     }
@@ -92,18 +116,49 @@ export async function POST(request: Request) {
     // Generate unique merchantOrderId (Duitku limit: max 50 chars)
     const merchantOrderId = `LAX-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
     const cleanPhone = (customerPhone || "").trim().slice(0, 50);
+    const cleanName = (customerName || "Pelanggan").trim().slice(0, 50);
 
+    const chosenMethod = (paymentMethod || "M2").trim();
+    const channelInfo = PAYMENT_CHANNELS.find((c) => c.code === chosenMethod);
+
+    if (channelInfo && channelInfo.isActive === false) {
+      return NextResponse.json(
+        {
+          error: `Metode pembayaran ${channelInfo.name} saat ini belum aktif (${channelInfo.statusNote || "Dalam proses aktivasi Duitku"}). Silakan pilih Virtual Account aktif (Mandiri, BRI, BNI, Permata, Maybank) atau Alfamart.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Request inquiry ke Duitku
     const duitkuResponse = await requestDuitkuInquiry({
       merchantOrderId,
-      paymentAmount: numericAmount,
-      paymentMethod: paymentMethod || "BC", // Mandatory in Duitku v2 (default: BCA VA)
+      paymentAmount: price,
+      paymentMethod: chosenMethod, // Mandatory in Duitku v2 (default: M2 - Mandiri VA)
       productDetails: productTitle.slice(0, 50),
       email: trimmedEmail,
-      customerVaName: (customerName || "Pelanggan").trim().slice(0, 20),
+      customerVaName: cleanName.slice(0, 20),
       phoneNumber: cleanPhone,
     });
 
-    if (duitkuResponse.statusCode === "00" && duitkuResponse.paymentUrl) {
+    if (duitkuResponse.statusCode === "00") {
+      // Simpan pesanan ke storage persisten lokal dengan status PENDING
+      await createOrder({
+        orderId: merchantOrderId,
+        productId: service.id,
+        productTitle: service.title,
+        customerName: cleanName,
+        customerEmail: trimmedEmail,
+        customerPhone: cleanPhone,
+        amount: price,
+        paymentMethod: chosenMethod,
+        paymentUrl: duitkuResponse.paymentUrl,
+        reference: duitkuResponse.reference,
+        vaNumber: duitkuResponse.vaNumber,
+        qrString: duitkuResponse.qrString,
+        status: "PENDING",
+      });
+
       return NextResponse.json({
         success: true,
         merchantOrderId,

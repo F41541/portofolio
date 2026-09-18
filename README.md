@@ -8,7 +8,7 @@ Repositori resmi portofolio dan layanan rekayasa perangkat lunak Laxstudio, dike
 
 - **Katalog Layanan & Etalase (`/store`)**: Pemesanan layanan software architecture, web development, dan konsultasi teknis.
 - **Duitku Payment Gateway Integration**:
-  - Mendukung Duitku API v2 Inquiry (Virtual Account BCA/Mandiri/BNI/BRI/Permata/Maybank, QRIS, E-Wallet, Kartu Kredit).
+  - Mendukung Duitku API v2 Inquiry (Virtual Account Mandiri/BRI/BNI/Permata/Maybank, Retail Alfamart, QRIS).
   - Dual-mode callback signature verification (`HMAC-SHA256` & `MD5` fallback).
   - In-memory rate limiting pada endpoint pembuatan tagihan untuk mencegah abuse/bot spam.
   - Penanganan status transaksi dinamis pada halaman konfirmasi (`/store/success`).
@@ -46,7 +46,7 @@ Saat mengajukan verifikasi merchant Duitku untuk aktivasi mode **Production**, t
    - Buka halaman `/store`.
    - Pilih salah satu paket layanan (misal: *Arsitektur Aplikasi & Code Review*).
    - Masukkan nama, alamat email, dan nomor WhatsApp valid pada modal checkout.
-   - Pilih metode pembayaran (misal: *BCA Virtual Account* atau *QRIS*).
+   - Pilih metode pembayaran (misal: *Mandiri Virtual Account* atau *BRI Virtual Account*).
    - Klik **Lanjut ke Pembayaran Duitku** -> Anda akan dialihkan ke halaman instruksi resmi Duitku Sandbox.
    - Gunakan simulator pembayaran Duitku untuk menyelesaikan transaksi uji coba.
    - Sistem Duitku akan mengirimkan callback ke `/store/duitku-callback` dan mengalihkan browser ke `/store/success`.

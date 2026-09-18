@@ -116,7 +116,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         ]}
       />
 
-      <section className="py-12 md:py-20 border-b border-border-subtle/60 relative">
+      <section className="pt-12 pb-16 md:pt-20 md:pb-24 border-b border-border-subtle/60 relative">
         <Container>
         {/* Navigation & Breadcrumbs */}
         <div className="flex items-center justify-between mb-8">
