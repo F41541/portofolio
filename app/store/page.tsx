@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Layanan & Etalase Produk | Laxstudio",
   description:
     "Katalog penawaran resmi jasa pengembangan aplikasi web full-stack, sistem bisnis UMKM, dan integrasi payment gateway terpercaya Duitku oleh Laxstudio (M. Faisal Fahri).",
+  alternates: {
+    canonical: "/store",
+  },
   openGraph: {
     title: "Layanan & Jasa Web Development | Laxstudio",
     description:

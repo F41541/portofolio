@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Kontak & Kolaborasi | Laxstudio",
   description:
     "Hubungi Laxstudio (M. Faisal Fahri) untuk pembuatan aplikasi web full-stack, pengembangan frontend modern (Vue / React / Next.js), backend Laravel, atau konsultasi teknis.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Kontak & Kolaborasi | Laxstudio",
     description:

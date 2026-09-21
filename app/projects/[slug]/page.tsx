@@ -49,6 +49,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${frontmatter.title} | Laxstudio`,
     description: frontmatter.subtitle || `Detailed architecture and production benchmarks for ${frontmatter.title}.`,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
     keywords: [...frontmatter.tags, frontmatter.category, "Web Project Case Study"],
     authors: [{ name: frontmatter.author }],
     openGraph: {

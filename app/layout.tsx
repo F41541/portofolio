@@ -20,6 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Laxstudio | Full-Stack Web Development & Solutions",
     template: "%s | Laxstudio",

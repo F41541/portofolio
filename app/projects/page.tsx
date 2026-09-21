@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Proyek & Sistem Aplikasi Web | Laxstudio",
   description:
     "Eksplorasi aplikasi web full-stack, sistem ERP/CRM Laravel, dashboard modern Next.js 16 / Vue 3, dan arsitektur database performa tinggi oleh Laxstudio (M. Faisal Fahri).",
+  alternates: {
+    canonical: "/projects",
+  },
   openGraph: {
     title: "Proyek & Sistem Aplikasi Web | Laxstudio",
     description:

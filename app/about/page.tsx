@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Tentang | Laxstudio - M. Faisal Fahri",
   description:
     "Profil profesional M. Faisal Fahri (S.Kom), pengembang di balik Laxstudio, filosofi clean architecture, dan keahlian tech stack.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "Tentang | Laxstudio - M. Faisal Fahri",
     description:

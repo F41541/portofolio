@@ -104,25 +104,23 @@ export function generatePersonSchema(props?: PersonJsonLdProps) {
  */
 export function generateProfilePageSchema(props?: ProfilePageJsonLdProps) {
   const url = props?.url || DEFAULT_SITE_URL;
-  const personSchema = generatePersonSchema(props?.person);
+  const person = generatePersonSchema(props?.person);
+  // Remove @context when embedding Person inside ProfilePage mainEntity
+  const { "@context": _ctx, ...embeddedPerson } = person;
 
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ProfilePage",
-        "@id": `${url}/#profile`,
-        url,
-        name: props?.name || `Laxstudio | ${personSchema.name}`,
-        description:
-          props?.description ||
-          "Portfolio and technical case studies of Laxstudio by M. Faisal Fahri — Full-Stack Web Developer specializing in Laravel, Vue.js, React, and Next.js modern web applications.",
-        mainEntity: {
-          "@id": `${url}/#person`,
-        },
-      },
-      personSchema,
-    ],
+    "@type": "ProfilePage",
+    "@id": `${url}/#profile`,
+    url,
+    name: props?.name || `Laxstudio | ${person.name}`,
+    description:
+      props?.description ||
+      "Portfolio and technical case studies of Laxstudio by M. Faisal Fahri — Full-Stack Web Developer specializing in Laravel, Vue.js, React, and Next.js modern web applications.",
+    mainEntity: {
+      ...embeddedPerson,
+      "@id": `${DEFAULT_SITE_URL}/#person`,
+    },
   };
 }
 
