@@ -1,7 +1,4 @@
-"use client";
-
 import * as React from "react";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Clock,
@@ -23,13 +20,7 @@ export const ContactCta: React.FC = () => {
       </div>
 
       <Container className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative rounded-2xl border border-border-subtle bg-surface-card/70 p-8 sm:p-12 lg:p-16 backdrop-blur-sm overflow-hidden"
-        >
+        <div className="relative rounded-2xl border border-border-subtle bg-surface-card/70 p-8 sm:p-12 lg:p-16 backdrop-blur-sm overflow-hidden">
           {/* Decorative Corner Accents */}
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -87,7 +78,7 @@ export const ContactCta: React.FC = () => {
               </Button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );
