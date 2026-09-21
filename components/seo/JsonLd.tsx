@@ -187,3 +187,99 @@ export function generateBreadcrumbListSchema(props: BreadcrumbListJsonLdProps) {
 export function BreadcrumbListJsonLd(props: BreadcrumbListJsonLdProps) {
   return <JsonLd schema={generateBreadcrumbListSchema(props)} />;
 }
+
+export interface LocalBusinessJsonLdProps {
+  name?: string;
+  description?: string;
+  url?: string;
+  telephone?: string;
+  priceRange?: string;
+  image?: string;
+}
+
+/**
+ * Helper to generate LocalBusiness / ProfessionalService schema
+ */
+export function generateLocalBusinessSchema(props?: LocalBusinessJsonLdProps) {
+  const url = props?.url || DEFAULT_SITE_URL;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${url}/#localbusiness`,
+    name: props?.name || "Laxstudio - Jasa Pembuatan Website & Aplikasi Cirebon",
+    description:
+      props?.description ||
+      "Layanan profesional jasa pembuatan website, sistem aplikasi web, ERP, dan kasir POS di Cirebon, Sedong, dan Ciayumajakuning oleh Laxstudio (M. Faisal Fahri).",
+    url,
+    telephone: props?.telephone || "+6282129620269",
+    priceRange: props?.priceRange || "Rp 500.000 - Rp 15.000.000+",
+    image: props?.image || `${DEFAULT_SITE_URL}/icon.png`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Desa Sedonglor, Kec. Sedong",
+      addressLocality: "Cirebon",
+      addressRegion: "Jawa Barat",
+      postalCode: "45189",
+      addressCountry: "ID",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -6.8778,
+      longitude: 108.5714,
+    },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Cirebon" },
+      { "@type": "AdministrativeArea", name: "Kabupaten Cirebon" },
+      { "@type": "AdministrativeArea", name: "Kota Cirebon" },
+      { "@type": "AdministrativeArea", name: "Kecamatan Sedong" },
+      { "@type": "AdministrativeArea", name: "Desa Sedonglor" },
+      { "@type": "AdministrativeArea", name: "Kuningan" },
+      { "@type": "AdministrativeArea", name: "Majalengka" },
+      { "@type": "AdministrativeArea", name: "Indramayu" },
+    ],
+    founder: {
+      "@type": "Person",
+      "@id": `${DEFAULT_SITE_URL}/#person`,
+      name: DEFAULT_NAME,
+    },
+    sameAs: [
+      "https://github.com/F41541",
+    ],
+  };
+}
+
+export function LocalBusinessJsonLd(props?: LocalBusinessJsonLdProps) {
+  return <JsonLd schema={generateLocalBusinessSchema(props)} />;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface FAQPageJsonLdProps {
+  mainEntity: FAQItem[];
+}
+
+/**
+ * Helper to generate FAQPage schema for rich snippet SERP features
+ */
+export function generateFAQPageSchema(props: FAQPageJsonLdProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: props.mainEntity.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+export function FAQPageJsonLd(props: FAQPageJsonLdProps) {
+  return <JsonLd schema={generateFAQPageSchema(props)} />;
+}
+

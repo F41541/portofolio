@@ -186,6 +186,14 @@ export const Footer: React.FC = () => {
             &amp;{" "}
             <span className="text-text-secondary font-semibold">Tailwind CSS</span>.
           </div>
+          <div className="flex items-center gap-4 text-xs">
+            <Link
+              href="/jasa-pembuatan-website-cirebon"
+              className="text-text-muted hover:text-accent-emerald transition-colors font-medium underline underline-offset-4"
+            >
+              Jasa Pembuatan Website Cirebon
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

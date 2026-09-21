@@ -5,13 +5,14 @@ import {
   TechStackSection,
   ContactCta,
 } from "@/components/sections";
-import { ProfilePageJsonLd } from "@/components/seo";
+import { ProfilePageJsonLd, LocalBusinessJsonLd } from "@/components/seo";
 
 export default function HomePage() {
   return (
     <div className="relative flex-1 flex flex-col overflow-hidden">
       {/* Structured Data (JSON-LD) for SEO */}
       <ProfilePageJsonLd />
+      <LocalBusinessJsonLd />
 
       {/* Hero Section with main headline, value proposition, CTAs */}
       <HeroSection />
