@@ -206,7 +206,12 @@ export function generateLocalBusinessSchema(props?: LocalBusinessJsonLdProps) {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${url}/#localbusiness`,
-    name: props?.name || "Laxstudio - Jasa Pembuatan Website & Aplikasi Cirebon",
+    name: props?.name || "Laxstudio - Jasa Pembuatan Website dan Aplikasi",
+    alternateName: [
+      "Laxstudio",
+      "Laxstudio Cirebon",
+      "Laxstudio - Jasa Pembuatan Website & Aplikasi Cirebon",
+    ],
     description:
       props?.description ||
       "Layanan profesional jasa pembuatan website, sistem aplikasi web, ERP, dan kasir POS di Cirebon, Sedong, dan Ciayumajakuning oleh Laxstudio (M. Faisal Fahri).",
@@ -216,7 +221,7 @@ export function generateLocalBusinessSchema(props?: LocalBusinessJsonLdProps) {
     image: props?.image || `${DEFAULT_SITE_URL}/icon.png`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Desa Sedonglor, Kec. Sedong",
+      streetAddress: "Desa Sedonglor, Kecamatan Sedong, Kabupaten Cirebon",
       addressLocality: "Cirebon",
       addressRegion: "Jawa Barat",
       postalCode: "45189",
