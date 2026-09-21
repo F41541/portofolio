@@ -4,8 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Send } from "lucide-react";
+import dynamic from "next/dynamic";
 import { NAV_ROUTES } from "@/lib/navigation";
-import { MobileNav } from "./MobileNav";
+
+const MobileNav = dynamic(
+  () => import("./MobileNav").then((mod) => mod.MobileNav),
+  { ssr: false }
+);
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -84,10 +89,12 @@ export const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile Drawer */}
-      <MobileNav
-        isOpen={mobileNavOpen}
-        onClose={handleCloseMobileNav}
-      />
+      {mobileNavOpen && (
+        <MobileNav
+          isOpen={mobileNavOpen}
+          onClose={handleCloseMobileNav}
+        />
+      )}
     </>
   );
 };
