@@ -1,0 +1,29 @@
+# Laxstudio
+
+> Studio rekayasa perangkat lunak dan layanan pengembangan aplikasi web full-stack modern berbasis Laravel, Vue.js, Inertia.js, React, dan Next.js oleh M. Faisal Fahri (S.Kom) di Cirebon, Indonesia.
+
+Laxstudio adalah studio software engineering independen yang didirikan oleh M. Faisal Fahri, S.Kom, berlokasi di Desa Sedonglor, Kecamatan Sedong, Kabupaten Cirebon, Jawa Barat. Laxstudio berfokus pada arsitektur web berperforma tinggi (100% Core Web Vitals), sistem database relasional yang efisien, automasi proses bisnis, dan integrasi payment gateway resmi (Duitku).
+
+## Halaman Utama & Layanan
+
+- [Beranda](https://laxstudio.my.id/): Ringkasan profil studio, portofolio unggulan, stack teknologi, dan jalur komunikasi langsung.
+- [Jasa Pembuatan Website & Aplikasi Cirebon](https://laxstudio.my.id/jasa-pembuatan-website-cirebon): Layanan profesional pembuatan website, sistem kasir, aplikasi bisnis, dan digitalisasi UMKM untuk wilayah Sedong, Cirebon, dan seluruh Indonesia.
+- [Tentang M. Faisal Fahri](https://laxstudio.my.id/about): Biografi profesional, riwayat pendidikan (S.Kom Teknik Informatika UCIC Cirebon, IPK 3.64), keahlian teknis, dan filosofi rekayasa perangkat lunak.
+- [Portofolio Proyek Nyata](https://laxstudio.my.id/projects): Dokumentasi dan studi kasus implementasi sistem nyata berskala produksi.
+- [Katalog Layanan & Pembelian](https://laxstudio.my.id/store): Paket layanan website profesional, web aplikasi bisnis, dan maintenance dengan pembayaran digital instan.
+- [Hubungi Saya](https://laxstudio.my.id/contact): Formulir kontak, penjadwalan konsultasi teknis, dan tautan sosial media resmi.
+
+## Studi Kasus & Proyek Pilihan
+
+- [ERP SaaS UMKM](https://laxstudio.my.id/projects/erp-saas-umkm): Platform Multi-tenant SaaS untuk manajemen inventaris, POS kasir, dan laporan laba-rugi UMKM multi-cabang menggunakan Laravel dan Vue.js.
+- [Sistem Manajemen Bimbel Ahe](https://laxstudio.my.id/projects/ibu-egar_bimbel-ahe): Aplikasi operasional bimbingan belajar anak untuk penjadwalan siswa, pencatatan SPP, dan absensi otomatis.
+- [Sistem Pencatatan Keuangan](https://laxstudio.my.id/projects/ibu-egar_keuangan): Sistem akuntansi kas masuk dan keluar berbasis double-entry bookkeeping sederhana untuk pelaporan keuangan usaha.
+
+## Informasi Bisnis & Wilayah Operasional
+
+- Nama Usaha: Laxstudio (Laxstudio - Jasa Pembuatan Website dan Aplikasi)
+- Pemilik / Engineer: M. Faisal Fahri, S.Kom (Full-Stack Web Developer)
+- Email: business@laxstudio.my.id / faisal.fahri.tech@gmail.com
+- Lokasi Kantor: Dusun 01 RT 003 / RW 002, Desa Sedonglor, Kec. Sedong, Kab. Cirebon, Jawa Barat 45189, Indonesia
+- Koordinat Google Maps: -6.8797, 108.5714
+- Area Layanan: Sedong, Sedonglor, Lemahabang, Sindanglaut, Kabupaten Cirebon, Kota Cirebon, dan Klien Nasional / Remote.

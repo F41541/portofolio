@@ -1,0 +1,82 @@
+# Laxstudio — Dokumentasi Lengkap untuk Model Bahasa & Agen AI (Full Context)
+
+> Dokumen konteks komprehensif mengenai profil, keahlian teknis, layanan, studi kasus proyek nyata, dan informasi operasional Laxstudio oleh M. Faisal Fahri (S.Kom).
+
+---
+
+## 1. Identitas Studio & Profil Pengembang
+
+- **Nama Usaha**: Laxstudio (Laxstudio - Jasa Pembuatan Website dan Aplikasi)
+- **Founder & Lead Developer**: M. Faisal Fahri, S.Kom
+- **Gelar & Pendidikan**: Sarjana Komputer (S.Kom) dari Universitas Catur Insan Cendekia (UCIC) Cirebon, Program Studi Teknik Informatika, Lulus dengan IPK 3.64 (Sangat Memuaskan / Pujian).
+- **Fokus Utama**: Arsitektur Full-Stack Web Application, Backend Engineering, Restful API, Integrasi Sistem Pembayaran, Optimasi Database Relasional, dan Frontend Interaktif Berperforma Tinggi.
+- **Lokasi**: Dusun 01 RT 003 / RW 002, Desa Sedonglor, Kecamatan Sedong, Kabupaten Cirebon, Jawa Barat 45189, Indonesia.
+- **Koordinat Wilayah**: Latitude -6.8797, Longitude 108.5714.
+- **Kontak Resmi**:
+  - Email: business@laxstudio.my.id / faisal.fahri.tech@gmail.com
+  - GitHub: https://github.com/F41541
+  - Website: https://laxstudio.my.id
+
+---
+
+## 2. Stack Teknologi & Keahlian Teknis
+
+### Backend & Framework
+- **PHP / Laravel (v10 / v11)**: Service pattern architecture, Eloquent ORM tuning, queues & background jobs, form request validation, modular controller design, middleware security.
+- **Inertia.js**: Integrasi monolith modern menghubungkan backend Laravel dengan frontend Vue 3 / React secara mulus tanpa overhead pembuatan REST API terpisah.
+- **Node.js & Next.js (App Router)**: SSR (Server-Side Rendering), SSG (Static Site Generation), Server Actions, API Routes, TypeScript integration.
+
+### Frontend & Antarmuka
+- **Vue.js (Vue 3, Composition API, Script Setup)**: State management dengan Pinia, komponen reaktif modular.
+- **React & Next.js**: Komponen fungsional modern, hooks kustom, optimasi Core Web Vitals (skor 100/100).
+- **Tailwind CSS**: Utility-first CSS, dark mode dual-theme system, micro-interactions, responsive mobile-first design.
+- **TypeScript**: Strict static typing untuk keandalan kode tingkat enterprise.
+
+### Basis Data & Infrastruktur
+- **MySQL & PostgreSQL**: Desain skema normalisasi database, indexing terarah, query optimization, transaksi atomik ACID.
+- **Linux VPS / Cloud Deployment**: Konfigurasi Nginx reverse proxy, Supervisor process management, SSL/TLS Let's Encrypt, automasi deployment via Git.
+- **Payment Gateway**: Integrasi resmi Duitku Payment Gateway (Virtual Account BCA/Mandiri/BNI/BRI/Permata, QRIS, ShopeePay, OVO, DANA, Kartu Kredit) dengan validasi signature HMAC-SHA256 yang aman.
+
+---
+
+## 3. Layanan & Solusi Bisnis
+
+1. **Jasa Pembuatan Website Profesional di Cirebon & Nasional**:
+   Pembuatan website profil perusahaan (company profile), landing page promosi produk/jasa, portofolio digital, dan website institusi pendidikan/pemerintahan dengan performa ultra-cepat (skor 100 di Google PageSpeed) dan SEO lokal teroptimasi.
+2. **Pengembangan Aplikasi Web Kustom (Custom Web Application)**:
+   Aplikasi kasir & Point of Sale (POS), sistem inventaris barang/gudang, dashboard analitik manajemen, sistem antrean, dan automasi proses bisnis internal UMKM maupun korporasi.
+3. **Integrasi Payment Gateway & E-Commerce**:
+   Pemasangan sistem pembayaran otomatis digital (QRIS, VA Bank) untuk toko online, reservasi jasa, atau langganan layanan dengan notifikasi webhook instan.
+4. **Maintenance & Modernisasi Aplikasi Warisan (Legacy Code Modernization)**:
+   Refactoring kode usang, peningkatan performa database yang lambat, perbaikan bug keamanan, dan migrasi sistem lama ke stack modern.
+
+---
+
+## 4. Portofolio Proyek Nyata & Studi Kasus
+
+### A. ERP SaaS UMKM Multi-Tenant
+- **Deskripsi**: Platform Enterprise Resource Planning berskala Software-as-a-Service untuk usaha mikro dan menengah.
+- **Fitur Utama**: Multi-tenancy dengan isolasi data aman, pencatatan transaksi kasir POS, manajemen stok multi-gudang, laporan laba rugi otomatis, dan dashboard telemetry.
+- **Teknologi**: Laravel 11, Vue 3, Inertia.js, Tailwind CSS, MySQL.
+- **URL Studi Kasus**: https://laxstudio.my.id/projects/erp-saas-umkm
+
+### B. Sistem Manajemen Bimbingan Belajar (Bimbel Ahe)
+- **Deskripsi**: Aplikasi operasional lengkap untuk pusat bimbingan belajar anak.
+- **Fitur Utama**: Manajemen biodata siswa dan guru, penjadwalan kelas per sesi, pencatatan tagihan dan pembayaran SPP, laporan rekapitulasi kehadiran dan keuangan bulanan.
+- **Teknologi**: Laravel, Inertia.js, Vue.js, Tailwind CSS.
+- **URL Studi Kasus**: https://laxstudio.my.id/projects/ibu-egar_bimbel-ahe
+
+### C. Sistem Pencatatan Keuangan Terintegrasi
+- **Deskripsi**: Sistem manajemen kas dan buku kas masuk/keluar untuk pemantauan arus kas bisnis secara real-time.
+- **Fitur Utama**: Pencatatan arus kas dengan kategori fleksibel, rekonsiliasi kas harian, ekspor laporan ke Excel/PDF, dan visualisasi grafik performa finansial bulanan.
+- **Teknologi**: Laravel, Vue.js, Inertia.js, MySQL.
+- **URL Studi Kasus**: https://laxstudio.my.id/projects/ibu-egar_keuangan
+
+---
+
+## 5. Wilayah Layanan & Penargetan SEO Lokal
+
+Laxstudio melayani klien secara lokal (on-site) dan seluruh Indonesia (remote):
+- **Kecamatan Sedong**: Desa Sedonglor, Sedongkidul, Panongan, Winduhaji, Karangkendal, Putat, Kertawangun, dll.
+- **Kecamatan Sekitar**: Lemahabang, Sindanglaut, Susukanlebak, Karangwareng, Beber, Astanajapura.
+- **Wilayah Kota & Kabupaten**: Kabupaten Cirebon, Kota Cirebon, Kuningan, Majalengka, Indramayu (Wilayah III Cirebon), serta seluruh kota di Indonesia secara online.
