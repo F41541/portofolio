@@ -14,7 +14,7 @@ import {
   Clock,
   FileText,
   RotateCcw,
-  Sparkles,
+  MessageSquare,
 } from "lucide-react";
 import { CheckoutModal, CheckoutProduct } from "./CheckoutModal";
 
@@ -26,6 +26,9 @@ export interface StoreServiceItem {
   description: string;
   features: string[];
   badge: string;
+  tier?: string;
+  stack?: string;
+  isStartingFrom?: boolean;
   isPopular?: boolean;
 }
 
@@ -74,13 +77,14 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
               }`}
             >
               <div className="space-y-4">
+                {/* Exactly 2 Badges: Category & Status */}
                 <div className="flex items-center justify-between gap-2">
-                  <Badge variant="neutral" className="text-[10px] truncate">
+                  <Badge variant="neutral" className="text-[10px] truncate max-w-[65%]">
                     {service.category}
                   </Badge>
                   <Badge
                     variant={service.isPopular ? "emerald" : "neutral"}
-                    className="text-[10px] shrink-0"
+                    className="text-[10px] shrink-0 font-medium"
                   >
                     {service.badge}
                   </Badge>
@@ -90,22 +94,46 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
                   <h3 className="text-lg font-bold text-text-primary group-hover:text-accent-emerald transition-colors leading-snug">
                     {service.title}
                   </h3>
-                  <p className="text-xs text-text-secondary mt-2 leading-relaxed min-h-[48px]">
+                  <p className="text-xs text-text-secondary mt-2 leading-relaxed min-h-[44px]">
                     {service.description}
                   </p>
                 </div>
 
-                {/* Price Display in Rupiah */}
+                {/* Technology Stack Marquee (Running continuously to the left without shimmer icon) */}
+                {service.stack && (
+                  <div
+                    className="overflow-hidden rounded-lg bg-surface-card/80 border border-border-subtle py-1.5 px-2.5 text-[11px] text-text-secondary font-mono relative"
+                    title={service.stack}
+                  >
+                    <div className="animate-marquee-left flex items-center gap-6">
+                      <span>{service.stack}</span>
+                      <span aria-hidden="true" className="text-text-muted/40 font-bold">
+                        •
+                      </span>
+                      <span aria-hidden="true">{service.stack}</span>
+                      <span aria-hidden="true" className="text-text-muted/40 font-bold">
+                        •
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Price Display in Rupiah (Psychological Anchor) */}
                 <div className="p-3 rounded-xl bg-surface-elevated/70 border border-border-subtle/80 flex items-baseline justify-between">
-                  <span className="text-[11px] text-text-muted font-medium">
-                    Harga Resmi:
-                  </span>
+                  <div>
+                    <span className="text-[11px] text-text-muted font-medium block">
+                      Estimasi Investasi:
+                    </span>
+                    <span className="text-[10px] text-accent-emerald font-bold uppercase tracking-wider">
+                      Mulai Dari
+                    </span>
+                  </div>
                   <div className="text-right">
                     <span className="text-lg font-extrabold text-accent-emerald font-mono tracking-tight">
                       {formattedPrice}
                     </span>
                     <span className="text-[10px] text-text-muted block">
-                      (Nett / Transaksi)
+                      (Paket Dasar / DP)
                     </span>
                   </div>
                 </div>
@@ -113,7 +141,7 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
                 {/* Features list */}
                 <div className="pt-2 space-y-2 border-t border-border-subtle/80">
                   <div className="text-[11px] font-semibold text-text-muted uppercase tracking-wider">
-                    Cakupan Layanan:
+                    Cakupan Fitur Dasar:
                   </div>
                   {service.features.map((feat, idx) => (
                     <div
@@ -125,10 +153,15 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
                     </div>
                   ))}
                 </div>
+
+                {/* Pricing Psychology Notice */}
+                <p className="text-[11px] text-text-muted italic px-1 pt-1 leading-tight">
+                  * Biaya akhir menyesuaikan kompleksitas modul &amp; kebutuhan SOP bisnis Anda.
+                </p>
               </div>
 
-              {/* Checkout CTA */}
-              <div className="pt-6 mt-6 border-t border-border-subtle">
+              {/* Dual CTA: Duitku Checkout DP & WhatsApp Custom Scope Consultation */}
+              <div className="pt-5 mt-5 border-t border-border-subtle space-y-2">
                 <Button
                   onClick={() => handleOpenCheckout(service)}
                   variant={service.isPopular ? "primary" : "secondary"}
@@ -136,8 +169,19 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
                   className="w-full gap-2 shadow-sm"
                 >
                   <ShoppingCart className="w-3.5 h-3.5" />
-                  <span>Beli / Checkout Sekarang</span>
+                  <span>Pesan Paket Dasar (DP)</span>
                 </Button>
+                <a
+                  href={`https://wa.me/6282129620269?text=${encodeURIComponent(
+                    `Halo Laxstudio, saya tertarik dengan paket ${service.title} (Mulai Rp ${service.price.toLocaleString("id-ID")}). Saya ingin konsultasi kebutuhan fitur kustom dan rincian biayanya.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full gap-2 px-3 py-2 text-xs font-semibold rounded-xl bg-surface-card hover:bg-surface-elevated hover:text-accent-emerald border border-border-subtle transition-colors text-text-secondary"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-accent-emerald" />
+                  <span>Konsultasi Fitur via WA</span>
+                </a>
               </div>
             </Card>
           );

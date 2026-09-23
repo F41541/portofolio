@@ -4,9 +4,19 @@ Repositori resmi portofolio dan layanan rekayasa perangkat lunak Laxstudio, dike
 
 ---
 
+## Laxstudio Tech Stack Playbook
+
+Arsitektur dan standarisasi rekayasa perangkat lunak Laxstudio didefinisikan secara komprehensif pada dokumen [LAXSTUDIO_STACK_PLAYBOOK.md](./LAXSTUDIO_STACK_PLAYBOOK.md):
+- **Tier 1 (WEBSITE):** Astro 4/5 + Keystatic CMS + Tailwind CSS (Landing page, Company Profile, UMKM, Local SEO).
+- **Tier 2 (WEB APPLICATION):** Next.js 16 + React 19 + Prisma ORM + shadcn/ui (SaaS MVP, Interactive Apps, Dashboards).
+- **Tier 3 (BUSINESS SYSTEM):** Laravel 11/12 + Vue 3 + Inertia.js v2 + Hybrid Tenancy (ERP, Stok Multi-Cabang, POS Kasir, Finance).
+- **Care Plan:** Managed Linux VPS (Coolify / Docker), Uptime 99.9% SLA, & Pemeliharaan Berkelanjutan.
+
+---
+
 ## Fitur Utama
 
-- **Katalog Layanan & Etalase (`/store`)**: Pemesanan layanan software architecture, web development, dan konsultasi teknis.
+- **Katalog Layanan & Etalase (`/store`)**: Pemesanan layanan 3-tier Laxstudio Stack dan paket pemeliharaan cloud terkelola.
 - **Duitku Payment Gateway Integration**:
   - Mendukung Duitku API v2 Inquiry (Virtual Account Mandiri/BRI/BNI/Permata/Maybank, Retail Alfamart, QRIS).
   - Dual-mode callback signature verification (`HMAC-SHA256` & `MD5` fallback).
@@ -29,12 +39,12 @@ Daftar variabel yang digunakan:
 
 | Variabel | Deskripsi | Default / Contoh |
 |---|---|---|
-| `DUITKU_ENV` | Mode gateway: `sandbox` atau `production` | `sandbox` |
-| `DUITKU_MERCHANT_CODE` | Kode merchant Duitku | `DS35240` (Sandbox) |
+| `DUITKU_ENV` | Mode gateway: `sandbox` atau `production` | `production` |
+| `DUITKU_MERCHANT_CODE` | Kode merchant Duitku | `DS35240` (Sandbox) / `<kode_production>` |
 | `DUITKU_API_KEY` | API Key merchant dari Duitku Dashboard | `your_api_key` |
-| `DUITKU_CALLBACK_URL` | URL callback webhook Duitku | `https://laxstudio.vercel.app/store/duitku-callback` |
-| `DUITKU_RETURN_URL` | URL pengalihan pasca-pembayaran | `https://laxstudio.vercel.app/store/success` |
-| `NEXT_PUBLIC_SITE_URL` | URL canonical website | `https://laxstudio.vercel.app` |
+| `DUITKU_CALLBACK_URL` | URL callback webhook Duitku | `https://laxstudio.my.id/api/duitku/callback` |
+| `DUITKU_RETURN_URL` | URL pengalihan pasca-pembayaran | `https://laxstudio.my.id/store/success` |
+| `NEXT_PUBLIC_SITE_URL` | URL canonical website | `https://laxstudio.my.id` |
 
 ---
 

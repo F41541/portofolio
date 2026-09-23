@@ -13,10 +13,10 @@ import {
   Database,
   CreditCard,
   ChevronRight,
+  ChevronDown,
   HelpCircle,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { ContactCta } from "@/components/sections/ContactCta";
 import {
@@ -61,43 +61,69 @@ export const metadata: Metadata = {
 
 const SERVICES = [
   {
+    id: "website-astro-seo",
     icon: <Globe className="w-6 h-6 text-accent-emerald" />,
-    title: "Website Company Profile & Bisnis Lokal",
+    title: "Website UMKM, Profil Bisnis & Local SEO",
     description:
-      "Website profil profesional untuk perusahaan, kantor instansi, klinik, lembaga pendidikan, dan bisnis lokal di Cirebon. Tampilan modern, mobile-first, dan teroptimasi SEO Google.",
+      "Website profil profesional, landing page promosi kilat, dan katalog UMKM berbasis Astro. Dioptimasi untuk kecepatan loading instan (< 1.5 detik), integrasi Google Maps, tombol WhatsApp, dan ranking Google Local SEO.",
     features: [
-      "Desain Eksklusif & Responsif HP/Tablet",
-      "SEO On-Page Terstruktur (Mudah Ditemukan di Google)",
-      "Integrasi WhatsApp Chat & Google Maps",
-      "Performa Cepat (Load < 1.5 detik)",
+      "Desain Eksklusif, Mobile-Friendly & Cepat (< 1.5 detik)",
+      "SEO On-Page Terstruktur (Google Search & Maps Lokal)",
+      "Integrasi Tombol WhatsApp Chat & Formulir Kontak",
+      "Termasuk Hosting Statis & Panduan Kelola Konten",
     ],
-    price: "Mulai Rp 600.000",
+    price: "Mulai Rp 500.000",
+    stack: "Astro + Tailwind CSS",
+    badge: "Mulai Murah",
   },
   {
-    icon: <Database className="w-6 h-6 text-accent-cyan" />,
-    title: "Sistem Informasi & Aplikasi Web Kustom",
-    description:
-      "Pengembangan sistem backend Laravel, Vue/Inertia, dan React/Next.js untuk otomasi operasional bisnis, inventory gudang, absensi, hingga ERP skala UMKM.",
-    features: [
-      "Arsitektur Data Bersih & Skalabel",
-      "Role & Permission Pengguna Terproteksi",
-      "Ekspor Laporan PDF/Excel Otomatis",
-      "Dashboard Statistik Interaktif Real-Time",
-    ],
-    price: "Mulai Rp 2.500.000",
-  },
-  {
+    id: "ecommerce-duitku-store",
     icon: <CreditCard className="w-6 h-6 text-accent-emerald" />,
-    title: "Integrasi Payment Gateway & Toko Online",
+    title: "Toko Online & Integrasi Payment Gateway Duitku",
     description:
-      "Terima pembayaran otomatis dari pelanggan secara instan melalui QRIS, Virtual Account bank nasional (BCA, Mandiri, BRI, BNI), dan E-Wallet resmi via Duitku Gateway.",
+      "Terima pembayaran otomatis dari pelanggan secara instan melalui QRIS, Virtual Account bank nasional (BCA, Mandiri, BRI, BNI), dan gerai retail via integrasi resmi gateway Duitku.",
     features: [
-      "Notifikasi Otomatis Webhook Real-time",
-      "Cek Status Tagihan & Invoice Digital",
-      "Keamanan Transaksi HMAC-SHA256",
-      "Bebas Biaya Maintenance Berulang Rumit",
+      "Katalog Produk Lengkap & Keranjang Belanja Ringkas",
+      "Integrasi Resmi Duitku (QRIS & VA Otomatis)",
+      "Notifikasi Konfirmasi Bayar Otomatis via Webhook",
+      "Dashboard Admin Pantau Pesanan & Mutasi Masuk",
     ],
     price: "Mulai Rp 1.200.000",
+    stack: "E-Commerce + Duitku API v2",
+    badge: "QRIS & VA",
+  },
+  {
+    id: "webapp-nextjs-saas",
+    icon: <Sparkles className="w-6 h-6 text-accent-cyan" />,
+    title: "Web App Interaktif, Portal Klien & SaaS MVP",
+    description:
+      "Aplikasi web interaktif, portal klien terproteksi, dan dashboard analitik bervelocity tinggi berbasis Next.js 16 (App Router), React 19, Prisma ORM, dan standar UI modern shadcn/ui.",
+    features: [
+      "Arsitektur Next.js 16 Server Components & App Router",
+      "Database Relasional Type-Safe dengan Prisma ORM",
+      "Sistem Otentikasi Lengkap (OAuth Google & Email)",
+      "Dashboard Statistik Interaktif & Visualisasi Real-Time",
+    ],
+    price: "Mulai Rp 2.500.000",
+    stack: "Next.js 16 + React 19 + Prisma",
+    badge: "SaaS & Portal",
+  },
+  {
+    id: "business-system-laravel",
+    icon: <Database className="w-6 h-6 text-accent-cyan" />,
+    title: "Sistem Informasi Bisnis, POS Kasir & ERP",
+    description:
+      "Pengembangan sistem backend Laravel, Vue 3, dan Inertia.js untuk otomatisasi operasional bisnis, inventory gudang multi-cabang, kasir POS online, dan pelaporan keuangan berkala berbasis business logic.",
+    features: [
+      "Arsitektur Monolitik Inertia.js v2 + Vue 3 Bertenaga",
+      "Manajemen Stok Gudang Multi-Cabang & POS Kasir Online",
+      "Granular Role & Permission Pengguna Terproteksi (RBAC)",
+      "Otomatisasi Ekspor Laporan Keuangan ke PDF / Excel",
+    ],
+    price: "Mulai Rp 3.500.000",
+    stack: "Laravel 11/12 + Vue 3 + Inertia.js",
+    badge: "Flagship",
+    isPopular: true,
   },
 ];
 
@@ -124,7 +150,7 @@ const FAQS = [
   {
     question: "Berapa biaya jasa pembuatan website atau aplikasi di Cirebon oleh Laxstudio?",
     answer:
-      "Biaya sangat fleksibel dan transparan menyesuaikan skala kebutuhan Anda. Untuk Landing Page / Website Profil UMKM mulai dari Rp 600.000. Untuk website dinamis bisnis atau toko online mulai dari Rp 1.500.000, dan untuk sistem aplikasi web kustom (ERP/Kasir/POS) mulai dari Rp 2.500.000. Seluruh paket sudah termasuk konsultasi, domain, hosting, dan garansi teknis.",
+      "Biaya sangat fleksibel dan transparan menyesuaikan skala kebutuhan Anda. Untuk Website Profil & UMKM mulai dari Rp 500.000. Untuk Toko Online dengan gateway pembayaran Duitku mulai dari Rp 1.200.000. Untuk Web App interaktif Next.js mulai Rp 2.500.000, dan untuk Sistem Informasi Bisnis, Kasir POS & ERP berbasis Laravel + Vue mulai dari Rp 3.500.000. Seluruh paket sudah termasuk konsultasi, domain, hosting, dan garansi teknis.",
   },
   {
     question: "Apakah bisa konsultasi langsung (tatap muka / offline) di wilayah Cirebon atau Sedong?",
@@ -179,17 +205,6 @@ export default function JasaWebsiteCirebonPage() {
         <div className="absolute top-1/3 right-10 w-[320px] h-[260px] bg-accent-cyan/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
         <Container className="space-y-8">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="outline" className="border-accent-emerald/40 text-accent-emerald bg-accent-emerald/5 gap-1.5 py-1 px-3">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>Cirebon • Sedong • Ciayumajakuning</span>
-            </Badge>
-            <Badge variant="outline" className="border-accent-cyan/40 text-accent-cyan bg-accent-cyan/5 gap-1.5 py-1 px-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Rekayasa Web &amp; Sistem Modern</span>
-            </Badge>
-          </div>
-
           <div className="max-w-4xl space-y-6">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-[1.15]">
               Jasa Pembuatan Website &amp;{" "}
@@ -270,9 +285,6 @@ export default function JasaWebsiteCirebonPage() {
       <section className="py-16 md:py-24 border-b border-border-subtle/60 bg-surface-ground/30">
         <Container className="space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <Badge variant="outline" className="border-border-default text-accent-emerald bg-accent-emerald/5">
-              Solusi Web Spesialis
-            </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight">
               Layanan Pembuatan Website &amp; Software di Cirebon
             </h2>
@@ -281,49 +293,68 @@ export default function JasaWebsiteCirebonPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {SERVICES.map((s, idx) => (
               <Card
                 key={idx}
-                className="p-6 md:p-8 flex flex-col justify-between border-border-subtle/80 hover:border-accent-emerald/40 transition-all hover:shadow-xl hover:shadow-accent-emerald/5 group"
+                className={`p-6 flex flex-col justify-between border-border-subtle/80 hover:border-accent-emerald/40 transition-all hover:shadow-xl hover:shadow-accent-emerald/5 group ${
+                  s.isPopular
+                    ? "ring-1 ring-accent-emerald/30 border-accent-emerald/50 bg-accent-emerald/[0.02]"
+                    : ""
+                }`}
               >
-                <div className="space-y-5">
-                  <div className="w-12 h-12 rounded-xl bg-surface-ground border border-border-subtle flex items-center justify-center group-hover:scale-110 transition-transform">
-                    {s.icon}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-surface-ground border border-border-subtle flex items-center justify-center group-hover:scale-110 transition-transform">
+                      {s.icon}
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20">
+                      {s.badge}
+                    </span>
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-text-primary group-hover:text-accent-emerald transition-colors">
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-text-primary group-hover:text-accent-emerald transition-colors leading-snug">
                       {s.title}
                     </h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">
+                    <p className="text-xs text-text-secondary leading-relaxed">
                       {s.description}
                     </p>
                   </div>
 
-                  <ul className="space-y-2.5 pt-2 border-t border-border-subtle/60 text-xs sm:text-sm text-text-muted">
+                  <ul className="space-y-2 pt-2 border-t border-border-subtle/60 text-xs text-text-muted">
                     {s.features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-accent-emerald shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-accent-emerald shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-border-subtle/60 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-text-tertiary">Estimasi Investasi</span>
-                    <p className="text-base font-bold text-text-primary">{s.price}</p>
+                <div className="pt-4 mt-4 border-t border-border-subtle/60 space-y-3">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-[11px] text-text-tertiary">Mulai Dari:</span>
+                    <p className="text-base font-extrabold text-accent-emerald font-mono">{s.price}</p>
                   </div>
-                  <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-emerald hover:underline"
-                  >
-                    <span>Tanya Dulu</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/store`}
+                      className="flex-1 text-center py-2 px-3 rounded-lg bg-surface-card hover:bg-surface-elevated border border-border-subtle text-xs font-semibold text-text-primary hover:text-accent-emerald transition-colors"
+                    >
+                      Pesan di Store
+                    </Link>
+                    <a
+                      href={`${WHATSAPP_URL}&text=${encodeURIComponent(
+                        `Halo Laxstudio, saya tertarik dengan paket ${s.title} (${s.price}). Saya ingin konsultasi rincian fitur dan estimasi biayanya.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center p-2 rounded-lg bg-accent-emerald/10 text-accent-emerald hover:bg-accent-emerald hover:text-background border border-accent-emerald/30 transition-all"
+                      title="Konsultasi via WhatsApp"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -335,9 +366,6 @@ export default function JasaWebsiteCirebonPage() {
       <section className="py-16 md:py-24 border-b border-border-subtle/60">
         <Container className="space-y-10">
           <div className="max-w-3xl space-y-4">
-            <Badge variant="outline" className="border-border-default text-accent-cyan bg-accent-cyan/5">
-              Cakupan Wilayah Layanan
-            </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight">
               Melayani Klien se-Cirebon, Sedong, &amp; Ciayumajakuning
             </h2>
@@ -386,9 +414,6 @@ export default function JasaWebsiteCirebonPage() {
       <section className="py-16 md:py-24 border-b border-border-subtle/60 bg-surface-ground/30">
         <Container className="space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <Badge variant="outline" className="border-border-default text-accent-emerald bg-accent-emerald/5">
-              Tanya Jawab (FAQ)
-            </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight">
               Pertanyaan yang Sering Diajukan
             </h2>
@@ -397,17 +422,23 @@ export default function JasaWebsiteCirebonPage() {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto space-y-3">
             {FAQS.map((faq, idx) => (
-              <Card key={idx} className="p-6 border-border-subtle/80 space-y-3 bg-surface-elevated/40">
-                <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-start gap-2.5">
-                  <HelpCircle className="w-5 h-5 text-accent-emerald shrink-0 mt-0.5" />
-                  <span>{faq.question}</span>
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed pl-7">
+              <details
+                key={idx}
+                className="group rounded-2xl border border-border-subtle bg-surface-elevated/40 transition-colors open:border-accent-emerald/40 open:bg-surface-elevated/70"
+              >
+                <summary className="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none font-bold text-text-primary text-base sm:text-lg select-none hover:text-accent-emerald transition-colors">
+                  <span className="flex items-center gap-3 text-left">
+                    <HelpCircle className="w-5 h-5 text-accent-emerald shrink-0" />
+                    <span>{faq.question}</span>
+                  </span>
+                  <ChevronDown className="w-5 h-5 text-text-tertiary transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4 group-hover:text-accent-emerald" />
+                </summary>
+                <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0 text-sm text-text-secondary leading-relaxed border-t border-border-subtle/50 pl-6 sm:pl-14 pt-3">
                   {faq.answer}
-                </p>
-              </Card>
+                </div>
+              </details>
             ))}
           </div>
         </Container>

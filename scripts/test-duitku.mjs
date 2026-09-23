@@ -205,14 +205,19 @@ test("Duitku Callback Verification: timingSafeEqual safely rejects invalid signa
 });
 
 test("Server-Side Price Lookup: getServiceById strictly validates prices", () => {
-  const service = getServiceById("modern-landing-page");
+  const service = getServiceById("website-astro-seo");
   assert.ok(service);
-  assert.strictEqual(service.price, 1250000);
-  assert.strictEqual(service.title, "Modern Landing Page & Profil Bisnis");
+  assert.strictEqual(service.price, 500000);
+  assert.strictEqual(service.title, "Website UMKM, Profil Bisnis & Local SEO");
 
-  const erpService = getServiceById("erp-system-umkm");
+  const erpService = getServiceById("business-system-laravel");
   assert.ok(erpService);
-  assert.strictEqual(erpService.price, 3850000);
+  assert.strictEqual(erpService.price, 3500000);
+  assert.strictEqual(erpService.title, "Sistem Informasi Bisnis, POS Kasir & ERP");
+
+  const legacyLanding = getServiceById("modern-landing-page");
+  assert.ok(legacyLanding);
+  assert.strictEqual(legacyLanding.id, "website-astro-seo");
 
   const unknown = getServiceById("non-existent-product");
   assert.strictEqual(unknown, undefined);

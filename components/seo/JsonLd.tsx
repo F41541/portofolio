@@ -288,3 +288,47 @@ export function FAQPageJsonLd(props: FAQPageJsonLdProps) {
   return <JsonLd schema={generateFAQPageSchema(props)} />;
 }
 
+export interface ServiceCatalogJsonLdProps {
+  services: {
+    name: string;
+    description: string;
+    price: number;
+    url: string;
+    category?: string;
+  }[];
+}
+
+export function generateServiceCatalogSchema(props: ServiceCatalogJsonLdProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Laxstudio Tech Stack & Service Catalog",
+    itemListElement: props.services.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Service",
+        name: service.name,
+        description: service.description,
+        category: service.category,
+        provider: {
+          "@type": "ProfessionalService",
+          name: "Laxstudio",
+          url: DEFAULT_SITE_URL,
+        },
+        offers: {
+          "@type": "Offer",
+          price: service.price,
+          priceCurrency: "IDR",
+          availability: "https://schema.org/InStock",
+          url: service.url,
+        },
+      },
+    })),
+  };
+}
+
+export function ServiceCatalogJsonLd(props: ServiceCatalogJsonLdProps) {
+  return <JsonLd schema={generateServiceCatalogSchema(props)} />;
+}
+
