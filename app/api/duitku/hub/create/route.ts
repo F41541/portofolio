@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requestDuitkuInquiry } from "@/lib/duitku";
+import { requestDuitkuInquiry, PAYMENT_CHANNELS } from "@/lib/duitku";
 import { createOrder } from "@/lib/orders";
 import {
   verifyHubSignature,
@@ -77,6 +77,16 @@ export async function POST(request: Request) {
     if (!merchantOrderId || !amount || amount <= 0 || !customerEmail) {
       return NextResponse.json(
         { error: "Parameter 'merchantOrderId', 'amount' (>0), dan 'customerEmail' wajib diisi." },
+        { status: 400 }
+      );
+    }
+
+    const channelInfo = PAYMENT_CHANNELS.find((c) => c.code === paymentMethod);
+    if (channelInfo && channelInfo.isActive === false) {
+      return NextResponse.json(
+        {
+          error: `Metode pembayaran ${channelInfo.name} saat ini belum aktif di Duitku (${channelInfo.statusNote || "Dalam proses aktivasi"}). Silakan pilih Virtual Account (Mandiri, BRI, BNI, Permata, Maybank).`,
+        },
         { status: 400 }
       );
     }

@@ -26,8 +26,14 @@ export const PAYMENT_CHANNELS: PaymentChannel[] = [
   { code: "I1", name: "BNI Virtual Account", category: "Virtual Account", isActive: true },
   { code: "BT", name: "Permata Bank Virtual Account", category: "Virtual Account", isActive: true },
   { code: "VA", name: "Maybank Virtual Account", category: "Virtual Account", isActive: true },
-  // Gerai Retail Aktif
-  { code: "FT", name: "Alfamart / Alfamidi / Dan+Dan", category: "Retail", isActive: true },
+  // Gerai Retail (Dalam Proses Pengajuan Duitku)
+  {
+    code: "FT",
+    name: "Alfamart / Alfamidi / Dan+Dan",
+    category: "Retail",
+    isActive: false,
+    statusNote: "Dalam Proses Pengajuan Duitku (Segera Hadir)",
+  },
   // QRIS (Dalam Proses Pengajuan Duitku / Maintenance)
   {
     code: "SP",
