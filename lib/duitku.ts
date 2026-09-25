@@ -15,6 +15,7 @@ export interface PaymentChannel {
   code: string;
   name: string;
   category: "Virtual Account" | "QRIS" | "E-Wallet" | "Retail" | "Kartu Kredit";
+  image?: string;
   isActive?: boolean;
   statusNote?: string;
 }
