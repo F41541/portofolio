@@ -292,7 +292,7 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
               Kebijakan Pembatalan &amp; Pengembalian Dana (Refund)
             </div>
             <p className="text-[11px] leading-relaxed">
-              Pembatalan pesanan dapat diajukan dalam waktu 24 jam sebelum pengerjaan dimulai dengan menghubungi kontak support resmi. Untuk transaksi simulasi Duitku Sandbox, tidak ada pemotongan saldo riil pada rekening pelanggan.
+              Pembatalan pesanan dapat diajukan dalam waktu 24 jam sebelum pengerjaan dimulai dengan menghubungi kontak support resmi. Pengembalian dana akan diproses sesuai ketentuan gateway perbankan resmi.
             </p>
           </div>
         </div>
