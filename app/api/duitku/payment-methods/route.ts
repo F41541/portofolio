@@ -28,7 +28,7 @@ export async function GET(request: Request) {
       const fallbackFees = PAYMENT_CHANNELS.map((ch) => ({
         paymentMethod: ch.code,
         paymentName: ch.name,
-        paymentImage: "",
+        paymentImage: ch.image || "",
         totalFee: "0",
       }));
 
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       const fallbackFees = PAYMENT_CHANNELS.map((ch) => ({
         paymentMethod: ch.code,
         paymentName: ch.name,
-        paymentImage: "",
+        paymentImage: ch.image || "",
         totalFee: "0",
       }));
 

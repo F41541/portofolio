@@ -21,16 +21,17 @@ export interface PaymentChannel {
 
 export const PAYMENT_CHANNELS: PaymentChannel[] = [
   // Virtual Account Aktif
-  { code: "M2", name: "Mandiri Virtual Account", category: "Virtual Account", isActive: true },
-  { code: "BR", name: "BRI Virtual Account (BRIVA)", category: "Virtual Account", isActive: true },
-  { code: "I1", name: "BNI Virtual Account", category: "Virtual Account", isActive: true },
-  { code: "BT", name: "Permata Bank Virtual Account", category: "Virtual Account", isActive: true },
-  { code: "VA", name: "Maybank Virtual Account", category: "Virtual Account", isActive: true },
+  { code: "M2", name: "Mandiri Virtual Account", category: "Virtual Account", image: "https://images.duitku.com/hotlink-ok/MV.PNG", isActive: true },
+  { code: "BR", name: "BRI Virtual Account (BRIVA)", category: "Virtual Account", image: "https://images.duitku.com/hotlink-ok/BR.PNG", isActive: true },
+  { code: "I1", name: "BNI Virtual Account", category: "Virtual Account", image: "https://images.duitku.com/hotlink-ok/I1.PNG", isActive: true },
+  { code: "BT", name: "Permata Bank Virtual Account", category: "Virtual Account", image: "https://images.duitku.com/hotlink-ok/BT.PNG", isActive: true },
+  { code: "VA", name: "Maybank Virtual Account", category: "Virtual Account", image: "https://images.duitku.com/hotlink-ok/VA.PNG", isActive: true },
   // Gerai Retail (Dalam Proses Pengajuan Duitku)
   {
     code: "FT",
     name: "Alfamart / Alfamidi / Dan+Dan",
     category: "Retail",
+    image: "https://images.duitku.com/hotlink-ok/FT.PNG",
     isActive: false,
     statusNote: "Dalam Proses Pengajuan Duitku (Segera Hadir)",
   },
@@ -39,6 +40,7 @@ export const PAYMENT_CHANNELS: PaymentChannel[] = [
     code: "SP",
     name: "QRIS (Semua E-Wallet & Mobile Banking)",
     category: "QRIS",
+    image: "https://images.duitku.com/hotlink-ok/SP.PNG",
     isActive: false,
     statusNote: "Maintenance / Dalam Proses Pengajuan Duitku (7-14 Hari)",
   },
