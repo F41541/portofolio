@@ -216,7 +216,7 @@ export function generateLocalBusinessSchema(props?: LocalBusinessJsonLdProps) {
       props?.description ||
       "Layanan profesional jasa pembuatan website, sistem aplikasi web, ERP, dan kasir POS di Cirebon, Sedong, dan Ciayumajakuning oleh Laxstudio (M. Faisal Fahri).",
     url,
-    telephone: props?.telephone || "+6282129620269",
+    telephone: props?.telephone || "+6287894380774",
     priceRange: props?.priceRange || "Rp 500.000 - Rp 15.000.000+",
     image: props?.image || `${DEFAULT_SITE_URL}/icon.png`,
     address: {

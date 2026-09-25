@@ -172,7 +172,7 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
                   <span>Pesan Paket Dasar (DP)</span>
                 </Button>
                 <a
-                  href={`https://wa.me/6282129620269?text=${encodeURIComponent(
+                  href={`https://wa.me/6287894380774?text=${encodeURIComponent(
                     `Halo Laxstudio, saya tertarik dengan paket ${service.title} (Mulai Rp ${service.price.toLocaleString("id-ID")}). Saya ingin konsultasi kebutuhan fitur kustom dan rincian biayanya.`
                   )}`}
                   target="_blank"
@@ -219,10 +219,10 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
               <span className="font-semibold text-text-primary">Email Support</span>
             </div>
             <a
-              href="mailto:mfaisalfahri02@gmail.com"
+              href="mailto:laxstudiodev@gmail.com"
               className="text-text-primary hover:text-accent-emerald transition-colors font-medium block break-all"
             >
-              mfaisalfahri02@gmail.com
+              laxstudiodev@gmail.com
             </a>
             <div className="text-[11px] text-text-muted">
               Respon tiket &lt; 24 jam kerja
@@ -235,12 +235,12 @@ export const StoreCatalogClient: React.FC<StoreCatalogClientProps> = ({
               <span className="font-semibold text-text-primary">Nomor Telepon / WA</span>
             </div>
             <a
-              href="https://wa.me/6282129620269"
+              href="https://wa.me/6287894380774"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-primary hover:text-accent-emerald transition-colors font-medium block font-mono"
             >
-              +62 821-2962-0269
+              +62 878-9438-0774
             </a>
             <div className="text-[11px] text-text-muted">
               Tersedia WhatsApp &amp; Panggilan

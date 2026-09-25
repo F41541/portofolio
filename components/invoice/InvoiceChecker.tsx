@@ -490,7 +490,7 @@ export const InvoiceChecker: React.FC = () => {
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-1 font-sans">
               <a
-                href={`https://wa.me/6282129620269?text=Halo%20Laxstudio,%20saya%20ingin%20konfirmasi%20pembayaran%20dengan%20Order%20ID:%20${encodeURIComponent(currentOrder.orderId)}`}
+                href={`https://wa.me/6287894380774?text=Halo%20Laxstudio,%20saya%20ingin%20konfirmasi%20pembayaran%20dengan%20Order%20ID:%20${encodeURIComponent(currentOrder.orderId)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-accent-emerald hover:underline font-medium"
@@ -499,11 +499,11 @@ export const InvoiceChecker: React.FC = () => {
                 <span>Konfirmasi via WhatsApp</span>
               </a>
               <a
-                href="mailto:mfaisalfahri02@gmail.com"
+                href="mailto:laxstudiodev@gmail.com"
                 className="inline-flex items-center gap-2 text-accent-cyan hover:underline font-medium"
               >
                 <Mail className="w-3.5 h-3.5 shrink-0" />
-                <span>mfaisalfahri02@gmail.com</span>
+                <span>laxstudiodev@gmail.com</span>
               </a>
             </div>
           </div>

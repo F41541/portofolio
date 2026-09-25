@@ -73,10 +73,10 @@ export default function ContactPage() {
                       Email Langsung
                     </div>
                     <a
-                      href="mailto:mfaisalfahri02@gmail.com"
+                      href="mailto:laxstudiodev@gmail.com"
                       className="text-sm font-semibold text-text-primary hover:text-accent-emerald transition-colors"
                     >
-                      mfaisalfahri02@gmail.com
+                      laxstudiodev@gmail.com
                     </a>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="mailto:mfaisalfahri02@gmail.com?subject=Undangan%20Diskusi%20Proyek%20Web"
+                href="mailto:laxstudiodev@gmail.com?subject=Undangan%20Diskusi%20Proyek%20Web"
                 className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-accent-emerald/10 hover:bg-accent-emerald/20 border border-accent-emerald/30 text-accent-emerald text-xs font-semibold transition-colors"
               >
                 <span>Kirim Email Diskusi</span>

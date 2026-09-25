@@ -277,11 +277,11 @@ export default async function StoreSuccessPage({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-sans">
               <div className="flex items-center gap-2 text-text-secondary">
                 <Mail className="w-3.5 h-3.5 text-accent-cyan shrink-0" />
-                <span>mfaisalfahri02@gmail.com</span>
+                <span>laxstudiodev@gmail.com</span>
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <MessageSquare className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                <span>+62 821-2962-0269 (WhatsApp)</span>
+                <span>+62 878-9438-0774 (WhatsApp)</span>
               </div>
             </div>
           </div>
@@ -307,7 +307,7 @@ export default async function StoreSuccessPage({
               <span>Lacak Faktur (/invoices)</span>
             </Button>
             <Button
-              href={`https://wa.me/6282129620269?text=${encodeURIComponent(
+              href={`https://wa.me/6287894380774?text=${encodeURIComponent(
                 `Halo Laxstudio, saya ingin konfirmasi pesanan dengan Order ID: ${displayOrderId}`
               )}`}
               variant="primary"

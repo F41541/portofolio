@@ -49,14 +49,14 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: "Email",
-    href: "mailto:mfaisalfahri02@gmail.com",
-    handle: "mfaisalfahri02@gmail.com",
+    href: "mailto:laxstudiodev@gmail.com",
+    handle: "laxstudiodev@gmail.com",
     external: true,
   },
   {
     name: "WhatsApp",
-    href: "https://wa.me/6282129620269",
-    handle: "+62 821-2962-0269",
+    href: "https://wa.me/6287894380774",
+    handle: "+62 878-9438-0774",
     external: true,
   },
 ];

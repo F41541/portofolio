@@ -190,7 +190,7 @@ export const ContactForm: React.FC = () => {
 
     try {
       const text = getFormattedMessage(formData);
-      const waUrl = `https://wa.me/6282129620269?text=${encodeURIComponent(text)}`;
+      const waUrl = `https://wa.me/6287894380774?text=${encodeURIComponent(text)}`;
       if (typeof window !== "undefined") {
         try {
           window.open(waUrl, "_blank", "noopener,noreferrer");
@@ -201,7 +201,7 @@ export const ContactForm: React.FC = () => {
       setIsSuccess(true);
     } catch {
       setSubmissionError(
-        "Gagal menyiapkan pesan. Silakan coba lagi atau hubungi via WhatsApp langsung di +62 821-2962-0269"
+        "Gagal menyiapkan pesan. Silakan coba lagi atau hubungi via WhatsApp langsung di +62 878-9438-0774"
       );
     } finally {
       setIsSubmitting(false);
@@ -265,16 +265,16 @@ export const ContactForm: React.FC = () => {
             {/* Direct Channel Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto pt-2">
               <Button
-                href={`https://wa.me/6282129620269?text=${encodeURIComponent(getFormattedMessage(formData))}`}
+                href={`https://wa.me/6287894380774?text=${encodeURIComponent(getFormattedMessage(formData))}`}
                 variant="primary"
                 size="md"
                 className="w-full sm:w-auto gap-2 text-xs"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>Buka WhatsApp (+62 821-2962-0269)</span>
+                <span>Buka WhatsApp (+62 878-9438-0774)</span>
               </Button>
               <Button
-                href={`mailto:mfaisalfahri02@gmail.com?subject=${encodeURIComponent(`Diskusi Proyek: ${formData.name} - ${formData.scope}`)}&body=${encodeURIComponent(getFormattedMessage(formData))}`}
+                href={`mailto:laxstudiodev@gmail.com?subject=${encodeURIComponent(`Diskusi Proyek: ${formData.name} - ${formData.scope}`)}&body=${encodeURIComponent(getFormattedMessage(formData))}`}
                 variant="secondary"
                 size="md"
                 className="w-full sm:w-auto gap-2 text-xs"

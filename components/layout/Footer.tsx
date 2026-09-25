@@ -146,10 +146,10 @@ export const Footer: React.FC = () => {
             <div>
               <span className="font-semibold text-text-primary block">Email Dukungan</span>
               <a
-                href="mailto:mfaisalfahri02@gmail.com"
+                href="mailto:laxstudiodev@gmail.com"
                 className="text-text-secondary hover:text-accent-emerald transition-colors"
               >
-                mfaisalfahri02@gmail.com
+                laxstudiodev@gmail.com
               </a>
             </div>
           </div>
@@ -158,12 +158,12 @@ export const Footer: React.FC = () => {
             <div>
               <span className="font-semibold text-text-primary block">Telepon / WhatsApp</span>
               <a
-                href="https://wa.me/6282129620269"
+                href="https://wa.me/6287894380774"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-secondary hover:text-accent-emerald transition-colors"
               >
-                +62 821-2962-0269
+                +62 878-9438-0774
               </a>
             </div>
           </div>

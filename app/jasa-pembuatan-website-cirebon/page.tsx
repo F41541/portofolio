@@ -177,7 +177,7 @@ const FAQS = [
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Halo Laxstudio, saya tertarik konsultasi jasa pembuatan website / aplikasi di Cirebon. Bisa minta informasi estimasi dan paket layanannya?"
 );
-const WHATSAPP_URL = `https://wa.me/6282129620269?text=${WHATSAPP_MESSAGE}`;
+const WHATSAPP_URL = `https://wa.me/6287894380774?text=${WHATSAPP_MESSAGE}`;
 
 export default function JasaWebsiteCirebonPage() {
   return (
