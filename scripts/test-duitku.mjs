@@ -16,6 +16,12 @@ import {
   updateOrderStatus,
 } from "../lib/orders.ts";
 import { processDuitkuCallback } from "../lib/duitku-callback.ts";
+import {
+  generateHubSignature,
+  verifyHubSignature,
+  getClientWebhookUrl,
+  CLIENT_WHITELIST,
+} from "../lib/hub-security.ts";
 import { closeDbPool } from "../lib/db.ts";
 
 test("Duitku Config: URL switches dynamically based on DUITKU_ENV", () => {
@@ -483,6 +489,77 @@ test("Duitku Datetime Formatter: aligns with Asia/Jakarta (WIB) timezone", () =>
 
   // Output must match YYYY-MM-DD HH:mm:ss format
   assert.match(formatted, /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/);
+});
+
+test("Payment Hub Security: generates and verifies valid HMAC-SHA256 signature", () => {
+  const secretKey = "a_very_secret_64_character_hex_key_for_testing_purposes_only_1234567";
+  const clientId = "tkpertiwi";
+  const timestamp = Math.floor(Date.now() / 1000);
+  const rawBody = JSON.stringify({
+    merchantOrderId: "TKP-SUB-101",
+    amount: 200000,
+    customerEmail: "admin@pertiwi.local",
+  });
+
+  const signature = generateHubSignature(clientId, timestamp, rawBody, secretKey);
+  assert.ok(signature && signature.length === 64, "Signature harus berupa hex 64 karakter");
+
+  const verification = verifyHubSignature(clientId, timestamp, rawBody, secretKey, signature);
+  assert.strictEqual(verification.valid, true);
+  assert.strictEqual(verification.reason, undefined);
+});
+
+test("Payment Hub Security: rejects tampering of body or amount", () => {
+  const secretKey = "a_very_secret_64_character_hex_key_for_testing_purposes_only_1234567";
+  const clientId = "tkpertiwi";
+  const timestamp = Math.floor(Date.now() / 1000);
+  const rawBody = JSON.stringify({
+    merchantOrderId: "TKP-SUB-101",
+    amount: 200000,
+  });
+
+  const signature = generateHubSignature(clientId, timestamp, rawBody, secretKey);
+
+  // Penyerang mengubah nominal menjadi 1000
+  const tamperedBody = JSON.stringify({
+    merchantOrderId: "TKP-SUB-101",
+    amount: 1000,
+  });
+
+  const verification = verifyHubSignature(clientId, timestamp, tamperedBody, secretKey, signature);
+  assert.strictEqual(verification.valid, false);
+  assert.ok(verification.reason?.includes("tidak valid"));
+});
+
+test("Payment Hub Security: rejects replay attack with expired timestamp (>300s)", () => {
+  const secretKey = "a_very_secret_64_character_hex_key_for_testing_purposes_only_1234567";
+  const clientId = "tkpertiwi";
+  // Timestamp 10 menit yang lalu (600 detik)
+  const expiredTimestamp = Math.floor(Date.now() / 1000) - 600;
+  const rawBody = JSON.stringify({
+    merchantOrderId: "TKP-SUB-101",
+    amount: 200000,
+  });
+
+  const signature = generateHubSignature(clientId, expiredTimestamp, rawBody, secretKey);
+  const verification = verifyHubSignature(clientId, expiredTimestamp, rawBody, secretKey, signature);
+
+  assert.strictEqual(verification.valid, false);
+  assert.ok(verification.reason?.includes("kadaluarsa"));
+});
+
+test("Payment Hub Security: safely whitelists clients and prevents SSRF", () => {
+  const originalEnv = process.env.TKPERTIWI_WEBHOOK_URL;
+  try {
+    process.env.TKPERTIWI_WEBHOOK_URL = "https://custom.tkpertiwi.test/webhook";
+    assert.strictEqual(getClientWebhookUrl("tkpertiwi"), "https://custom.tkpertiwi.test/webhook");
+    assert.strictEqual(getClientWebhookUrl("TKPERTIWI"), "https://custom.tkpertiwi.test/webhook");
+
+    // Non-whitelisted client returns null
+    assert.strictEqual(getClientWebhookUrl("malicious_attacker"), null);
+  } finally {
+    process.env.TKPERTIWI_WEBHOOK_URL = originalEnv;
+  }
 });
 
 test.after(async () => {

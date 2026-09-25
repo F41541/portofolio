@@ -1,5 +1,6 @@
 import { getDuitkuConfig, verifyCallbackSignature } from "./duitku.ts";
 import { getOrderById, updateOrderStatus, type OrderStatus } from "./orders.ts";
+import { getClientWebhookUrl, generateHubSignature } from "./hub-security.ts";
 
 export async function processDuitkuCallback(request: Request): Promise<Response> {
   try {
@@ -142,6 +143,16 @@ export async function processDuitkuCallback(request: Request): Promise<Response>
       console.log(
         `[Duitku Webhook] Order ${merchantOrderId} is already SUCCESS. Returning idempotent OK.`
       );
+      if (isTkPertiwiOrder(merchantOrderId, order.productId)) {
+        await forwardWebhookToClient("tkpertiwi", {
+          merchantCode,
+          amount: String(receivedAmount),
+          merchantOrderId,
+          signature,
+          reference: reference || order.reference,
+          resultCode,
+        });
+      }
       return new Response("OK", {
         status: 200,
         headers: { "Content-Type": "text/plain" },
@@ -159,6 +170,18 @@ export async function processDuitkuCallback(request: Request): Promise<Response>
       `[Duitku Webhook ${newStatus}] Order: ${merchantOrderId}, Amount: ${receivedAmount}, Ref: ${reference}`
     );
 
+    // Meneruskan notifikasi webhook ke klien TK Pertiwi jika order milik TK Pertiwi
+    if (newStatus === "SUCCESS" && isTkPertiwiOrder(merchantOrderId, order.productId)) {
+      await forwardWebhookToClient("tkpertiwi", {
+        merchantCode,
+        amount: String(receivedAmount),
+        merchantOrderId,
+        signature,
+        reference: reference || order.reference,
+        resultCode,
+      });
+    }
+
     // 8. Respon resmi Duitku: Wajib HTTP 200 dengan teks polos "OK"
     return new Response("OK", {
       status: 200,
@@ -171,6 +194,71 @@ export async function processDuitkuCallback(request: Request): Promise<Response>
       status: 500,
       headers: { "Content-Type": "text/plain" },
     });
+  }
+}
+
+/**
+ * Deteksi apakah pesanan berasal dari integrasi TK Pertiwi
+ */
+function isTkPertiwiOrder(orderId: string, productId?: string): boolean {
+  return (
+    orderId.startsWith("TKP-") ||
+    orderId.startsWith("SEWA-") ||
+    (productId ? productId.startsWith("tkpertiwi") : false)
+  );
+}
+
+/**
+ * Meneruskan notifikasi webhook secara aman ke aplikasi klien (TK Pertiwi)
+ * Menggunakan HMAC-SHA256 signature, anti-replay timestamp, dan URL statis anti-SSRF.
+ */
+export async function forwardWebhookToClient(
+  clientId: string,
+  payload: Record<string, unknown>
+): Promise<boolean> {
+  const webhookUrl = getClientWebhookUrl(clientId);
+  const secretKey = process.env.PAYMENT_HUB_SECRET_KEY;
+
+  if (!webhookUrl || !secretKey) {
+    console.warn(
+      `[Payment Hub Forward] Diabaikan untuk client '${clientId}': webhookUrl (${webhookUrl ? "ADA" : "KOSONG"}) atau PAYMENT_HUB_SECRET_KEY belum disetel.`
+    );
+    return false;
+  }
+
+  const timestamp = Math.floor(Date.now() / 1000);
+  const rawBody = JSON.stringify(payload);
+  const signature = generateHubSignature(clientId, timestamp, rawBody, secretKey);
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-Hub-Client-Id": clientId,
+        "X-Hub-Timestamp": String(timestamp),
+        "X-Hub-Signature": signature,
+      },
+      body: rawBody,
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error(
+        `[Payment Hub Forward Gagal] HTTP ${response.status} dari ${webhookUrl}: ${errText}`
+      );
+      return false;
+    }
+
+    console.log(
+      `[Payment Hub Forward Berhasil] Dikirim ke ${webhookUrl} untuk order: ${payload.merchantOrderId}`
+    );
+    return true;
+  } catch (error) {
+    console.error(`[Payment Hub Forward Network Error] Target ${webhookUrl}:`, error);
+    return false;
   }
 }
 
